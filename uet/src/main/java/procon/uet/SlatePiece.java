@@ -14,9 +14,22 @@ public class SlatePiece {
 	private SlatePiece nextRotation;
 	//Return a slate pice is the next rotation
 	private SlatePiece flipOver;
-	
+	//Intialize a instance slate piece with known core
 	public SlatePiece(ArrayList<Point> _core){
 		core = _core;
+		int minHeight = core.get(0).y, maxHeight = core.get(0).y, minWidth = core.get(0).x,  maxWidth = core.get(0).x;
+		for (int i = 1; i < core.size(); i++){
+			if (minHeight > core.get(i).y)
+				minHeight = core.get(i).y;
+			if (maxHeight < core.get(i).y)
+				maxHeight = core.get(i).y;
+			if (minWidth > core.get(i).x)
+				minWidth = core.get(i).x;
+			if (maxWidth < core.get(i).x)
+				maxWidth = core.get(i).x;
+		}
+		heightCore = maxHeight - minHeight + 1;
+		widthCore = maxWidth - minWidth + 1;
 	}
 	
 	public void setLocation(int x, int y){
@@ -69,8 +82,6 @@ public class SlatePiece {
 	
 	private static SlatePiece makeFastRotations(SlatePiece root) {
 		SlatePiece pieceIsRotated = root;
-		//lap cho den khi nao manh sau khi duoc quay trung voi manh dang duyet
-		//gan manh do voi manh ban dau la root
 	    while(!root.equals(pieceIsRotated.computeNextRotation())){
 	    	pieceIsRotated.nextRotation = pieceIsRotated.computeNextRotation();
 	    	pieceIsRotated = pieceIsRotated.nextRotation;
