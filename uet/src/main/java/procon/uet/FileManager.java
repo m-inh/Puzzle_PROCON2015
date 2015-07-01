@@ -7,10 +7,12 @@ import java.io.RandomAccessFile;
 
 import javax.swing.JOptionPane;
 
+import procon.uet.TargetArea;
+
 import procon.uet.SlatePiece;
 
 
-public class FileManager {
+public class FileManager{
 	private File questInputFile;
 	private File answerOutputFile;
 	private RandomAccessFile rdf;
@@ -82,25 +84,26 @@ public class FileManager {
 	}
 	
 //-----------------------RandomAccessFile------------------------------
-	public void readFile(SlatePiece[] pieceArr){
+	public void readFile(TargetArea area, SlatePiece[] pieceArr){
 		if(openFileInput() == true){
 			try {
-				long len = rdf.length();
+				long len = questInputFile.length();
 				
 				String line = "";
 				line = rdf.readLine();
-				int sizeBoard = line.length();
-				String [] boardString = new String[sizeBoard];
-				System.out.println(sizeBoard);
+				int sizeArea = line.length();
+				String [] areaString = new String[sizeArea];
 				
-				int count = 0;
-				//read Board
-				while(line.length() == sizeBoard){
-					boardString[count] = line;
-					System.out.println(boardString[count]);
-					count++;
+				System.out.println("Size target area: "+sizeArea);
+				
+				int rowAreaNo = 0;
+				//read TargetArea
+				while(line.length() == sizeArea){
+					areaString[rowAreaNo] = line;
+					rowAreaNo++;
 					line = rdf.readLine();
 				}
+				area = new TargetArea(areaString);
 				
 				//read Piece
 				int numberOfPiece = 0;
@@ -109,15 +112,15 @@ public class FileManager {
 					numberOfPiece = rdf.read() - 48;
 				}
 				pieceArr = new SlatePiece[numberOfPiece];
-				System.out.println("number of piece: " + numberOfPiece);
+//				System.out.println("number of piece: " + numberOfPiece);
 				String pieceString[] = new String[numberOfPiece];
 				
 				while(line != null){
-					pieceString = new String[SlatePiece.edge];
-					for (int i = 0; i < SlatePiece.edge; i++) {
+					pieceString = new String[CommonVL.SLATE_PIECE_SIZE];
+					for (int i = 0; i < CommonVL.SLATE_PIECE_SIZE; i++) {
 						if (line != null){
 							pieceString[i] = line;
-							System.out.println(pieceString[i]);
+//							System.out.println(pieceString[i]);
 							line = rdf.readLine();
 						}
 					}
@@ -140,7 +143,7 @@ public class FileManager {
 			try {
 //				rdf.writeUTF(content);
 				rdf.writeBytes(content);
-				System.out.println(content);
+//				System.out.println(content);
 				close();
 			} catch (IOException e) {
 				e.printStackTrace();

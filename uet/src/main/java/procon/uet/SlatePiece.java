@@ -4,9 +4,7 @@ import java.awt.Point;
 //import java.awt.Point;
 import java.util.ArrayList;
 
-public class SlatePiece {
-	public static final int edge = 8;
-	
+public class SlatePiece {	
 	private ArrayList<Point> core;
 	private int heightCore, widthCore;
 	//Each point in the slate pice hava a absolute location to the reference cell
@@ -25,8 +23,8 @@ public class SlatePiece {
 		int number = 0;
 		ArrayList<Point> _core = new ArrayList<Point>();
 		
-		for (int i = 0; i < edge; i++) {
-			for (int j = 0; j < edge; j++) {
+		for (int i = 0; i < CommonVL.SLATE_PIECE_SIZE; i++) {
+			for (int j = 0; j < CommonVL.SLATE_PIECE_SIZE; j++) {
 				number = pointStrArr[i].charAt(j) - 48;
 				if (number == 1){
 					Point p = new Point(i,j);
@@ -86,7 +84,7 @@ public class SlatePiece {
 		ArrayList<Point> _core = new ArrayList<Point>();
 		
 		for (int i = 0; i < core.size(); i++){
-			_core.add(new Point(edge - 1 - core.get(i).y, core.get(i).x));
+			_core.add(new Point(CommonVL.SLATE_PIECE_SIZE - 1 - core.get(i).y, core.get(i).x));
 		}
 		
 		return new SlatePiece(_core);
@@ -96,7 +94,7 @@ public class SlatePiece {
 		ArrayList<Point> _core = new ArrayList<Point>();
 		
 		for (int i = 0; i < core.size(); i++){
-			_core.add(new Point(core.get(i).x, edge - 1 - core.get(i).y));
+			_core.add(new Point(core.get(i).x, CommonVL.SLATE_PIECE_SIZE - 1 - core.get(i).y));
 		}
 		
 		return new SlatePiece(_core);
