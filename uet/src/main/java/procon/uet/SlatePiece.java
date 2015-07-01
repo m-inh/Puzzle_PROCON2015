@@ -1,10 +1,11 @@
 package procon.uet;
 
+import java.awt.Point;
 //import java.awt.Point;
 import java.util.ArrayList;
 
 public class SlatePiece {
-	private static int edge = 8;
+	public static final int edge = 8;
 	
 	private ArrayList<Point> core;
 	private int heightCore, widthCore;
@@ -16,6 +17,27 @@ public class SlatePiece {
 	private SlatePiece flipOver;
 	//Intialize a instance slate piece with known core
 	public SlatePiece(ArrayList<Point> _core){
+		setCore(_core);
+	}
+	
+	//Intialize a instance slate piece with String[]
+	public SlatePiece(String[] pointStrArr) {
+		int number = 0;
+		ArrayList<Point> _core = new ArrayList<Point>();
+		
+		for (int i = 0; i < edge; i++) {
+			for (int j = 0; j < edge; j++) {
+				number = pointStrArr[i].charAt(j) - 48;
+				if (number == 1){
+					Point p = new Point(i,j);
+					_core.add(p);
+				}
+			}
+		}
+		setCore(_core);
+	}
+	
+	public void setCore(ArrayList<Point> _core){
 		core = _core;
 		int minHeight = core.get(0).y, maxHeight = core.get(0).y, minWidth = core.get(0).x,  maxWidth = core.get(0).x;
 		for (int i = 1; i < core.size(); i++){
@@ -30,23 +52,6 @@ public class SlatePiece {
 		}
 		heightCore = maxHeight - minHeight + 1;
 		widthCore = maxWidth - minWidth + 1;
-	}
-	
-	//Intialize a instance slate piece with String[]
-	public SlatePiece(String[] pointStrArr) {
-		int number = 0;
-		ArrayList<Point> _core = new ArrayList()<Point>;
-		
-		for (int i = 0; i < CommonVL.SLATE_PIECE_SIZE; i++) {
-			for (int j = 0; j < CommonVL.SLATE_PIECE_SIZE; j++) {
-				number = pointStrArr[i].charAt(j) - 48;
-				if (number == 1){
-					Point p = new Point(i,j);
-					_core.add(p);
-				}
-			}
-		}
-		SlatePiece(_core);
 	}
 	
 	public void setLocation(int x, int y){
@@ -144,9 +149,12 @@ public class SlatePiece {
 	}
 	
 	// print the real Points of SlatePiece
-	public void print(){
+	public String toString(){
+		String s = "";
 		for (int i = 0; i < core.size(); i++) {
-			core.get(i).print();
+			s += core.get(i).x + " " + core.get(i).y + " ";
 		}
+		s = s.substring(0, s.length() - 2);
+		return s;
 	}
 }
