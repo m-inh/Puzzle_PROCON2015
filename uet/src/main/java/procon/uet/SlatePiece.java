@@ -1,6 +1,6 @@
 package procon.uet;
 
-import java.awt.Point;
+//import java.awt.Point;
 import java.util.ArrayList;
 
 public class SlatePiece {
@@ -30,6 +30,23 @@ public class SlatePiece {
 		}
 		heightCore = maxHeight - minHeight + 1;
 		widthCore = maxWidth - minWidth + 1;
+	}
+	
+	//Intialize a instance slate piece with String[]
+	public SlatePiece(String[] pointStrArr) {
+		int number = 0;
+		ArrayList<Point> _core = new ArrayList()<Point>;
+		
+		for (int i = 0; i < CommonVL.SLATE_PIECE_SIZE; i++) {
+			for (int j = 0; j < CommonVL.SLATE_PIECE_SIZE; j++) {
+				number = pointStrArr[i].charAt(j) - 48;
+				if (number == 1){
+					Point p = new Point(i,j);
+					_core.add(p);
+				}
+			}
+		}
+		SlatePiece(_core);
 	}
 	
 	public void setLocation(int x, int y){
@@ -124,5 +141,12 @@ public class SlatePiece {
 			return true;
 
 		return false;
-	}	
+	}
+	
+	// print the real Points of SlatePiece
+	public void print(){
+		for (int i = 0; i < core.size(); i++) {
+			core.get(i).print();
+		}
+	}
 }
