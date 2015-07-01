@@ -66,6 +66,17 @@ public class TargetArea {
 			return PLACE_NONADJACENT;
 		}
 	}
+	//Remove specified slate piece
+	public void remove(SlatePiece slatepiece){
+		int x = slatepiece.getLocation().x;
+		int y = slatepiece.getLocation().y;
+		for (int i = 0; i < slatepiece.getCore().size(); i++){
+			int newX = x + slatepiece.getCore().get(i).x;
+            int newY = y + slatepiece.getCore().get(i).y;
+            
+			grid[newX][newY] = CommonVL.SPACE;
+		}
+	}
 	//Update gridbackup
 	public void backup(){
 		for (int i=0; i < CommonVL.SIZE_TARGET_AREA; i++)

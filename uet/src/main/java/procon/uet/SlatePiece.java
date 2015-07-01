@@ -60,6 +60,10 @@ public class SlatePiece {
 		referenceCell = p;
 	}
 	
+	public Point getLocation(){
+		return referenceCell;
+	}
+	
 	public ArrayList<Point> getCore(){
 		return core;
 	}
