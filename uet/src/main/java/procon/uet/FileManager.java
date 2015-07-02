@@ -7,12 +7,8 @@ import java.io.RandomAccessFile;
 
 import javax.swing.JOptionPane;
 
-import procon.uet.TargetArea;
 
-import procon.uet.SlatePiece;
-
-
-public class FileManager{
+public class FileManager {
 	private File questInputFile;
 	private File answerOutputFile;
 	private RandomAccessFile rdf;
@@ -20,12 +16,15 @@ public class FileManager{
 	private String inputPath;
 	private String outputPath;
 	
+	private SlatePiece[] pieceArr;
+	private TargetArea area;
+	
 	public FileManager() {
 		inputPath = getClass().getResource("/file/quest.txt").toString();
 		outputPath = getClass().getResource("/file/answer.txt").toString();
 		
-		System.out.println(inputPath);
-		System.out.println(outputPath);
+//		System.out.println(inputPath);
+//		System.out.println(outputPath);
 		answerOutputFile = new File(outputPath.substring(6));
 		try {
 			answerOutputFile.createNewFile();
@@ -43,7 +42,7 @@ public class FileManager{
 				return true;
 			} catch (FileNotFoundException e) {
 				e.printStackTrace();
-				JOptionPane.showConfirmDialog(null, "Cannot open file quest!" + e.toString());
+				JOptionPane.showConfirmDialog(null, "Khong the mo file quest!" + e.toString());
 			}
 		}
 		return false;
@@ -54,7 +53,7 @@ public class FileManager{
 //			System.out.println("file quest ton tai");
 			return true;
 		} else {
-			System.out.println("File quest does not exist");
+			System.out.println("file quest ko ton tai");
 			return false;
 		}
 	}
@@ -67,7 +66,7 @@ public class FileManager{
 				return true;
 			} catch (FileNotFoundException e) {
 				e.printStackTrace();
-				JOptionPane.showConfirmDialog(null, "Cannot open file answer!" + e.toString());
+				JOptionPane.showConfirmDialog(null, "Khong the mo file answer!" + e.toString());
 			}
 		}
 		return false;
@@ -75,16 +74,16 @@ public class FileManager{
 	
 	public boolean checkExistFileOutput(){
 		if(answerOutputFile.exists() == true){
-			System.out.println("File answer exists");
+			System.out.println("file answer ton tai");
 			return true;
 		} else {
-			System.out.println("file answer doesnt exist");
+			System.out.println("file answer ko ton tai");
 			return false;
 		}
 	}
 	
 //-----------------------RandomAccessFile------------------------------
-	public void readFile(TargetArea area, SlatePiece[] pieceArr){
+	public void readFile(){
 		if(openFileInput() == true){
 			try {
 				long len = questInputFile.length();
@@ -97,7 +96,7 @@ public class FileManager{
 				System.out.println("Size target area: "+sizeArea);
 				
 				int rowAreaNo = 0;
-				//read TargetArea
+				// doc area
 				while(line.length() == sizeArea){
 					areaString[rowAreaNo] = line;
 					rowAreaNo++;
@@ -105,51 +104,55 @@ public class FileManager{
 				}
 				area = new TargetArea(areaString);
 				
-				//read Piece
+				//doc Piece
 				int numberOfPiece = 0;
 				int pieceNo = 0;
 				while(numberOfPiece <= 0){
 					numberOfPiece = rdf.read() - 48;
 				}
 				pieceArr = new SlatePiece[numberOfPiece];
-//				System.out.println("number of piece: " + numberOfPiece);
+				System.out.println("Number of piece: " + numberOfPiece);
 				String pieceString[] = new String[numberOfPiece];
-				
-				while(line != null){
-					pieceString = new String[CommonVL.SLATE_PIECE_SIZE];
-					for (int i = 0; i < CommonVL.SLATE_PIECE_SIZE; i++) {
-						if (line != null){
+//				System.out.println("ok");
+//				System.out.println(len);
+				while(rdf.getFilePointer() < len){
+					pieceString = new String[8];
+					
+//					System.out.println("ok");
+					if (line.length() != 0){
+						for (int i = 0; i < 8; i++) {
 							pieceString[i] = line;
 //							System.out.println(pieceString[i]);
 							line = rdf.readLine();
 						}
+						pieceArr[pieceNo] = new SlatePiece(pieceString);
+						pieceNo++;
 					}
-					pieceArr[pieceNo] = new SlatePiece(pieceString);
-					pieceNo++;
+					line = rdf.readLine();
 				}
-				
 				close();
+				
+//				return pieceArr;
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		} else {
-			System.out.println("Cannot read file! (readFile)");
-			return;
+			System.out.println("Khong the doc file! (readFile)");
 		}
+//		return null;
 	}
 	
 	public void writeLine(String content){
 		if (openFileOutput() == true){
 			try {
-//				rdf.writeUTF(content);
 				rdf.writeBytes(content);
-//				System.out.println(content);
+				System.out.println(content);
 				close();
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
 		} else {
-			System.out.println("Cannot writeLine!");
+			System.out.println("Khong the writeLine!");
 		}
 	}
 	
@@ -158,9 +161,16 @@ public class FileManager{
 			rdf.close();
 		} catch (IOException e) {
 			e.printStackTrace();
-			JOptionPane.showConfirmDialog(null, "Cannot close file!" + e.toString());
+			JOptionPane.showConfirmDialog(null, "Khong the dong file!" + e.toString());
 		}
 	}
 
-}
+	public SlatePiece[] getPieceArr() {
+		return pieceArr;
+	}
 
+	public TargetArea getArea() {
+		return area;
+	}
+	
+}

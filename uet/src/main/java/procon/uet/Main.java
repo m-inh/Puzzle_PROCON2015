@@ -11,9 +11,11 @@ public class Main
     {
     	FileManager fileMgr = new FileManager();
     	
-		fileMgr.readFile(area, pieceArr);
+		fileMgr.readFile();
+		area = fileMgr.getArea();
+		pieceArr = fileMgr.getPieceArr();
 		for (int i = 0; i < pieceArr.length; i++) {
-			System.out.println(pieceArr[i].toString());
+			pieceArr[i].print();
 			System.out.println("-------------");
 		}
 //		fileMgr.writeLine("Ok ghi duoc roi");

@@ -1,7 +1,5 @@
 package procon.uet;
 
-import java.awt.Point;
-//import java.awt.Point;
 import java.util.ArrayList;
 
 public class SlatePiece {	
@@ -158,5 +156,12 @@ public class SlatePiece {
 		}
 		s = s.substring(0, s.length() - 2);
 		return s;
+	}
+	
+	// print the real Points of SlatePiece
+	public void print(){
+		for (int i = 0; i < core.size(); i++) {
+			core.get(i).print();
+		}
 	}
 }
