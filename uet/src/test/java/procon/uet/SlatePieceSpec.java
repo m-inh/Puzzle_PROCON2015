@@ -1,18 +1,12 @@
 package procon.uet;
 
 import static org.junit.Assert.*;
-
 import java.util.ArrayList;
-
 import org.junit.*;
 
 public class SlatePieceSpec {
 	private static SlatePiece s1;
 	private static SlatePiece s2;
-	private SlatePiece s3;
-	private SlatePiece s4;
-	private SlatePiece s5;
-	private SlatePiece s6;
 	
 	@Before
 	public void setUp(){
@@ -56,5 +50,39 @@ public class SlatePieceSpec {
 		}});
 		
 		assertTrue(s1.equals(s1e));
+	}
+	
+	@Test
+	public void testRotateSlatePiece(){
+		String[] s1string = new String[]{				
+				"00000000",
+				"01111111",
+				"01010000",
+				"01000000",
+				"00000000",
+				"00000000",
+				"00000000",
+				"00000000"
+		};
+		
+		SlatePiece next = new SlatePiece(s1string);
+		assertTrue(s1.computeNextRotation().equals(next));
+	}
+	
+	@Test
+	public void testFlipOverSlatePiece(){
+		String[] s1string = new String[]{
+				"00000010",
+				"00000010",
+				"00000010",
+				"00000010",
+				"00000110",
+				"00000010",
+				"00001110",
+				"00000000"
+		};
+		
+		SlatePiece flip = new SlatePiece(s1string);
+		assertTrue(s1.computeFlippingOver().equals(flip));
 	}
 }

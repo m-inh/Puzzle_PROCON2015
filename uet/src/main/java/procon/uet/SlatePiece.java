@@ -96,7 +96,7 @@ public class SlatePiece {
 		ArrayList<Point> _core = new ArrayList<Point>();
 		
 		for (int i = 0; i < core.size(); i++){
-			_core.add(new Point(core.get(i).x, CommonVL.SLATE_PIECE_SIZE - 1 - core.get(i).y));
+			_core.add(new Point(CommonVL.SLATE_PIECE_SIZE - 1 - core.get(i).x, core.get(i).y));
 		}
 		
 		return new SlatePiece(_core);
