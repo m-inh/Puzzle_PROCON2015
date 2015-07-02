@@ -21,11 +21,11 @@ public class FileManager{
 	private String outputPath;
 	
 	public FileManager() {
-		inputPath = getClass().getResource("/uet/file/quest.txt").toString();
-		outputPath = getClass().getResource("/uet/file/answer.txt").toString();
+		inputPath = getClass().getResource("/file/quest.txt").toString();
+		outputPath = getClass().getResource("/file/answer.txt").toString();
 		
-//		System.out.println(inputPath);
-//		System.out.println(outputPath);
+		System.out.println(inputPath);
+		System.out.println(outputPath);
 		answerOutputFile = new File(outputPath.substring(6));
 		try {
 			answerOutputFile.createNewFile();

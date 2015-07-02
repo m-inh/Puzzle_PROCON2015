@@ -1,14 +1,12 @@
 package procon.uet;
 
-import javax.management.RuntimeErrorException;
-
 public class TargetArea {
 	//Content inside targetarea
 	private int[][] grid;
 	//Backup of content
 	private int[][] gridBackup;
 	private boolean committed;
-	private int emptyCells;
+	private int emptyCells = 0;
 	//If no problem happens, it will have status PLACE_OK
 	public static final int PLACE_OK = 0;
 	public static final int PLACE_OUT_BOUNDS = 1;
@@ -66,6 +64,11 @@ public class TargetArea {
 			return PLACE_NONADJACENT;
 		}
 	}
+	
+	public int getEmptyCells(){
+		return emptyCells;
+	}
+	
 	//Remove specified slate piece
 	public void remove(SlatePiece slatepiece){
 		int x = slatepiece.getLocation().x;
