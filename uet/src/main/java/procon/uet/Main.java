@@ -18,6 +18,10 @@ public class Main
 			pieceArr[i].print();
 			System.out.println("-------------");
 		}
-//		fileMgr.writeLine("Ok ghi duoc roi");
+		
+		area.print();
+		fileMgr.writeLine("Ok ghi duoc roi");
+		fileMgr.writeLine("Ok ghi duoc roi");
+		fileMgr.writeLine("Ok ghi duoc roi");
     }
 }

@@ -20,11 +20,11 @@ public class FileManager {
 	private TargetArea area;
 	
 	public FileManager() {
-		inputPath = getClass().getResource("/file/quest.txt").toString();
+		inputPath = getClass().getResource("/file/questTest2.txt").toString();
 		outputPath = getClass().getResource("/file/answer.txt").toString();
 		
 //		System.out.println(inputPath);
-//		System.out.println(outputPath);
+		System.out.println(outputPath);
 		answerOutputFile = new File(outputPath.substring(6));
 		try {
 			answerOutputFile.createNewFile();
@@ -74,7 +74,7 @@ public class FileManager {
 	
 	public boolean checkExistFileOutput(){
 		if(answerOutputFile.exists() == true){
-			System.out.println("file answer ton tai");
+//			System.out.println("file answer ton tai");
 			return true;
 		} else {
 			System.out.println("file answer ko ton tai");
@@ -91,6 +91,7 @@ public class FileManager {
 				String line = "";
 				line = rdf.readLine();
 				int sizeArea = line.length();
+				CommonVL.SIZE_TARGET_AREA = sizeArea;
 				String [] areaString = new String[sizeArea];
 				
 				System.out.println("Size target area: "+sizeArea);
@@ -145,6 +146,8 @@ public class FileManager {
 	public void writeLine(String content){
 		if (openFileOutput() == true){
 			try {
+				rdf.seek(rdf.length());
+//				rdf.writeChars("\n");
 				rdf.writeBytes(content);
 				System.out.println(content);
 				close();
