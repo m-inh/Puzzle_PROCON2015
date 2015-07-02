@@ -25,7 +25,7 @@ public class SlatePiece {
 			for (int j = 0; j < CommonVL.SLATE_PIECE_SIZE; j++) {
 				number = pointStrArr[i].charAt(j) - 48;
 				if (number == 1){
-					Point p = new Point(i,j);
+					Point p = new Point(j,i);
 					_core.add(p);
 				}
 			}
@@ -134,18 +134,15 @@ public class SlatePiece {
 			return false;
 		
 		int count = 0;
-		for(int i = 0; i< other.core.size(); i++){
+		for(int i = 0; i< core.size(); i++){
 			for(int j = 0; j< core.size(); j++){
-				if(core.get(i).equals((Point)other.core.get(i))){
+				if(core.get(i).equals((Point)other.core.get(j))){
 					count++;
 				}
 			}
 		}
 		
-		if (count == core.size())
-			return true;
-
-		return false;
+		return (count == core.size());
 	}
 	
 	// print the real Points of SlatePiece

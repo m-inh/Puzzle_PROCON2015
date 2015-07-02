@@ -23,6 +23,17 @@ public class Point {
 	public void setY(int y) {
 		this.y = y;
 	}
+	
+	public boolean equals(Object obj){
+		if (obj == this)
+			return true;
+		if (!(obj instanceof Point))
+			return false;
+		Point other = (Point)obj;
+		
+		return (x == other.x && y == other.y);
+	}
+	
 	public void print(){
 		System.out.println(x+" "+y);
 	}
