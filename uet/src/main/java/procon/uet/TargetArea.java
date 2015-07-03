@@ -2,11 +2,13 @@ package procon.uet;
 
 public class TargetArea {
 	//Content inside targetarea
-	private int[][] grid;
+	private int[][] grid = new int[CommonVL.SIZE_TARGET_AREA][CommonVL.SIZE_TARGET_AREA];
 	//Backup of content
-	private int[][] gridBackup;
+	private int[][] gridBackup = new int[CommonVL.SIZE_TARGET_AREA][CommonVL.SIZE_TARGET_AREA];
 	private boolean committed;
 	private int emptyCells = 0;
+	//Number of pieces have placed on the target area
+	public static int pieces = 0;
 	//If no problem happens, it will have status PLACE_OK
 	public static final int PLACE_OK = 0;
 	public static final int PLACE_OUT_BOUNDS = 1;
@@ -14,7 +16,6 @@ public class TargetArea {
 	public static final int PLACE_NONADJACENT = 3;
 	
 	public TargetArea(String[] areaString) {
-		grid = new int[CommonVL.SIZE_TARGET_AREA][CommonVL.SIZE_TARGET_AREA];
 		for (int i = 0; i < CommonVL.SIZE_TARGET_AREA; i++) {
 			for (int j = 0; j < CommonVL.SIZE_TARGET_AREA; j++) {
 				int numb = areaString[j].charAt(i) - 48;
@@ -44,9 +45,30 @@ public class TargetArea {
             if(grid[newX][newY] > 0){                        
                 return PLACE_BAD;
             }
+            
             //Check if around area of each block in slate piece has no element of other slate pieces
-            if (grid[newX-1][newY] <= 1 && grid[newX][newY-1] <= 1 && grid[newX+1][newY] <= 1 && grid[newX][newY+1] <= 1)
-            	count ++;
+            if (pieces > 0){
+	            if (newX > 0 && newY > 0){
+		            if (grid[newX-1][newY] <= 1 && grid[newX][newY-1] <= 1 && grid[newX+1][newY] <= 1 && grid[newX][newY+1] <= 1)
+		            	count ++;
+	            }
+		        else{
+		        	if (newX == 0 && newY == 0){
+		        		if (grid[newX+1][newY] <= 1 && grid[newX][newY+1] <= 1)
+		        			count++;
+		        	}
+		        	else{
+		        		if (newX == 0){
+		        			if (grid[newX][newY-1] <= 1 && grid[newX][newY+1] <= 1)
+		        				count++;
+		        		}
+		        		else{
+		        			if (grid[newX-1][newY] <= 1 && grid[newX+1][newY] <= 1)
+		        				count++;
+		        		}
+		        	}
+		        }
+			}
 		}
 		if (count < slatepiece.getCore().size()){
 			for (int i = 0; i < slatepiece.getCore().size(); i++){
@@ -58,6 +80,7 @@ public class TargetArea {
 			
 			slatepiece.setLocation(x, y);
 			emptyCells -= slatepiece.getCore().size();
+			pieces ++;
 			return PLACE_OK;
 		}
 		else{
@@ -79,6 +102,8 @@ public class TargetArea {
             
 			grid[newX][newY] = CommonVL.SPACE;
 		}
+		
+		pieces --;
 	}
 	//Update gridbackup
 	public void backup(){
