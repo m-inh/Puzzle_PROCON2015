@@ -46,6 +46,11 @@ public class TargetArea {
             if(grid[newX][newY] > 0){
                 return PLACE_BAD;
             }
+		}
+		
+		for (int i = 0; i < slatepiece.getCore().size(); i++){
+			int newX = x + slatepiece.getCore().get(i).x;
+            int newY = y + slatepiece.getCore().get(i).y;
             
             //Check if around area of each block in slate piece has no element of other slate pieces
             if (pieces > 0){

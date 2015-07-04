@@ -9,13 +9,14 @@ import org.junit.*;
 import static org.junit.Assert.*;
 
 public class TargetAreaSpec {
-	private static TargetArea targetArea;
+	private static TargetArea targetArea1;
+	private static TargetArea targetArea2;
 	private static SlatePiece s1;
 	private static SlatePiece s2;
 	
 	@Before
 	public void setup(){
-		String[] str = new String[]{
+		String[] str1 = new String[]{
 						"00000000000000001111111111111111",
 						"00000000000000001111111111111111",
 						"01000000000000001111111111111111",
@@ -49,10 +50,44 @@ public class TargetAreaSpec {
 						"11111111111111111111111111111111",
 						"11111111111111111111111111111111"
 		};
-		
-		targetArea = new TargetArea(str);
-		targetArea.commit();
-		
+		String[] str2 = new String[]{
+				"00000000000000000000000000000000",
+				"00000000000000000000000000000000",
+				"00000000000000000000000000000000",
+				"00000000000000000000000000000000",
+				"00000000000000000000000000000000",
+				"00000000000000000000000000000000",
+				"00000000000000000000000000000000",
+				"00000000000000000000000000000000",
+				"00000000000000000000000000000000",
+				"00000000000000000000000000000000",
+				"00000000000000000000000000000000",
+				"00000000000000000000000000000000",
+				"00000000000000000000000000000000",
+				"00000000000000000000000000000000",
+				"00000000000000000000000000000000",
+				"00000000000000000000000000000000",
+				"00000000000000000000000000000000",
+				"00000000000000000000000000000000",
+				"00000000000000000000000000000000",
+				"00000000000000000000000000000000",
+				"00000000000000000000000000000000",
+				"00000000000000000000000000000000",
+				"00000000000000000000000000000000",
+				"00000000000000000000000000000000",
+				"00000000000000000000000000000000",
+				"00000000000000000000000000000000",
+				"00000000000000000000000000000000",
+				"00000000000000000000000000000000",
+				"00000000000000000000000000000000",
+				"00000000000000000000000000000000",
+				"00000000000000000000000000000000",
+				"00000000000000000000000000000000"
+		};
+		targetArea1 = new TargetArea(str1);
+		targetArea1.commit();
+		targetArea2 = new TargetArea(str2);
+		targetArea2.commit();
 		String[] s1string = new String[]{
 				"01000000",
 				"01000000",
@@ -79,51 +114,42 @@ public class TargetAreaSpec {
 	
 	@Test
 	public void testEmptyCells(){
-		assertEquals(targetArea.getEmptyCells(), 189);
+		assertEquals(targetArea1.getEmptyCells(), 189);
 	}
 	
 	@Test
 	public void testPlaceOverlappingObstacles(){
-		assertEquals(targetArea.place(s1, 0, 0), TargetArea.PLACE_BAD);
+		assertEquals(targetArea1.place(s1, 0, 0), TargetArea.PLACE_BAD);
 	}
 	
 	@Test
 	public void testOverlappingExistingPiece(){
-		targetArea.place(s1, 2, 0);
-		targetArea.commit();
-		assertEquals(TargetArea.PLACE_BAD, targetArea.place(s2, 2, 2));
+		targetArea1.place(s1, 2, 0);
+		targetArea1.commit();
+		targetArea2.place(s2, 3, 24);
+		targetArea2.commit();
+
+		assertEquals(TargetArea.PLACE_BAD, targetArea2.place(s2, 2, 24));
+		assertEquals(TargetArea.PLACE_BAD, targetArea1.place(s2, 2, 2));
 	}
 	
 	@Test
 	public void testPlaceOutBounds(){
-		assertEquals(targetArea.place(s1, -2, 0), TargetArea.PLACE_OUT_BOUNDS);
+		assertEquals(TargetArea.PLACE_OUT_BOUNDS, targetArea1.place(s1, -2, 0));
+		assertEquals(TargetArea.PLACE_OUT_BOUNDS, targetArea2.place(s1, 2, 28));
 	}
 	
 	@Test
 	public void testPlaceOK(){
-		assertEquals(targetArea.place(s1, 1, 0), TargetArea.PLACE_OK);
-		targetArea.commit();
-		assertEquals(targetArea.place(s2, 3, 1), TargetArea.PLACE_OK);
+		assertEquals(targetArea1.place(s1, 1, 0), TargetArea.PLACE_OK);
+		targetArea1.commit();
+		assertEquals(targetArea1.place(s2, 3, 1), TargetArea.PLACE_OK);
 	}
 	
 	@Test
 	public void testPlaceNonadjacent(){
-		targetArea.place(s1, 2, 0);
-		targetArea.commit();
-		assertEquals(targetArea.place(s2, 5, 1), TargetArea.PLACE_NONADJACENT);
+		targetArea1.place(s1, 2, 0);
+		targetArea1.commit();
+		assertEquals(targetArea1.place(s2, 5, 1), TargetArea.PLACE_NONADJACENT);
 	}
-	
-	@Test
-	public void testRemoval(){
-		
-	}
-	
-//	public static void main(String[] args){
-//		TargetAreaSpec tA = new TargetAreaSpec();
-//		tA.setup();
-//		targetArea.place(s1, 2, 0);
-//		targetArea.commit();
-//		targetArea.print();
-//		System.out.println(targetArea.place(s2, 2, 2) + " " + TargetArea.PLACE_BAD);
-//	}
 }
