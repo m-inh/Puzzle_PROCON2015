@@ -59,11 +59,11 @@ public class TargetArea {
 		        	}
 		        	else{
 		        		if (newX == 0){
-		        			if (grid[newX][newY-1] <= 1 && grid[newX][newY+1] <= 1)
+		        			if (grid[newX][newY-1] <= 1 && grid[newX][newY+1] <= 1 && grid[newX+1][newY] <= 1)
 		        				count++;
 		        		}
 		        		else{
-		        			if (grid[newX-1][newY] <= 1 && grid[newX+1][newY] <= 1)
+		        			if (grid[newX-1][newY] <= 1 && grid[newX+1][newY] <= 1 && grid[newX][newY+1] <= 1)
 		        				count++;
 		        		}
 		        	}
