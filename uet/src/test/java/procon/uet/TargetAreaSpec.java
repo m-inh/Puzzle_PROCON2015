@@ -1,5 +1,9 @@
 package procon.uet;
 
+import java.lang.annotation.Target;
+
+import javax.swing.text.html.parser.TagElement;
+
 import org.junit.*;
 
 import static org.junit.Assert.*;
@@ -84,13 +88,22 @@ public class TargetAreaSpec {
 	}
 	
 	@Test
+	public void testOverlappingExistingPiece(){
+		targetArea.place(s1, 2, 0);
+		targetArea.commit();
+		assertEquals(TargetArea.PLACE_BAD, targetArea.place(s2, 2, 2));
+	}
+	
+	@Test
 	public void testPlaceOutBounds(){
 		assertEquals(targetArea.place(s1, -2, 0), TargetArea.PLACE_OUT_BOUNDS);
 	}
 	
 	@Test
 	public void testPlaceOK(){
-		assertEquals(targetArea.place(s1, 2, 0), TargetArea.PLACE_OK);
+		assertEquals(targetArea.place(s1, 1, 0), TargetArea.PLACE_OK);
+		targetArea.commit();
+		assertEquals(targetArea.place(s2, 3, 1), TargetArea.PLACE_OK);
 	}
 	
 	@Test
@@ -101,14 +114,20 @@ public class TargetAreaSpec {
 	}
 	
 	@Test
-	public void testOverlappingExistingPiece(){
-		targetArea.place(s1, 2, 0);
-		targetArea.commit();
-		assertEquals(targetArea.place(s2, 2, 2), TargetArea.PLACE_BAD);
-	}
-	
-	@Test
 	public void testRemoval(){
 		
 	}
+	
+//	public static void main(String[] args){
+//		TargetAreaSpec tA = new TargetAreaSpec();
+//		tA.setup();
+//		targetArea.place(s2, 2, 2);
+//		targetArea.commit();
+//		targetArea.print();
+//		targetArea.remove(s2);
+//		targetArea.place(s1, 2, 0);
+//		targetArea.commit();
+//		targetArea.print();
+//		System.out.println(targetArea.place(s2, 2, 2) + " " + TargetArea.PLACE_BAD);
+//	}
 }

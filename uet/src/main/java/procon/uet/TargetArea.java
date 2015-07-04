@@ -42,32 +42,65 @@ public class TargetArea {
             if(newX < 0 || newY < 0 || newX >= CommonVL.SIZE_TARGET_AREA || newY >= CommonVL.SIZE_TARGET_AREA){
                 return  PLACE_OUT_BOUNDS;
             }
-            if(grid[newX][newY] > 0){                        
+            
+            if(grid[newX][newY] > 0){
                 return PLACE_BAD;
             }
             
             //Check if around area of each block in slate piece has no element of other slate pieces
             if (pieces > 0){
-	            if (newX > 0 && newY > 0){
-		            if (grid[newX-1][newY] <= 1 && grid[newX][newY-1] <= 1 && grid[newX+1][newY] <= 1 && grid[newX][newY+1] <= 1)
-		            	count ++;
-	            }
-		        else{
-		        	if (newX == 0 && newY == 0){
-		        		if (grid[newX+1][newY] <= 1 && grid[newX][newY+1] <= 1)
-		        			count++;
-		        	}
-		        	else{
-		        		if (newX == 0){
-		        			if (grid[newX][newY-1] <= 1 && grid[newX][newY+1] <= 1)
-		        				count++;
-		        		}
-		        		else{
-		        			if (grid[newX-1][newY] <= 1 && grid[newX+1][newY] <= 1)
-		        				count++;
-		        		}
-		        	}
-		        }
+            	boolean a = newX > 0, b = newY > 0;
+            	boolean c = newX < CommonVL.SIZE_TARGET_AREA - 1, d = newY < CommonVL.SIZE_TARGET_AREA - 1;
+            	if (a && c){
+            		if (b && d){
+            			if (grid[newX-1][newY] <= 1 && grid[newX+1][newY] <= 1 && grid[newX][newY-1] <= 1 && grid[newX][newY+1] <= 1)
+            				count++;
+            		}
+            		else {
+            			if (!b){
+            				if (grid[newX-1][newY] <= 1 && grid[newX+1][newY] <= 1 && grid[newX][newY+1] <= 1)
+            					count++;
+            			}
+            			else{
+            				if (grid[newX-1][newY] <= 1 && grid[newX+1][newY] <= 1 && grid[newX][newY-1] <= 1)
+            					count++;
+            			}
+            		}
+            	}
+            	else{
+            		if (!a){
+            			if (b && d){
+                			if (grid[newX+1][newY] <= 1 && grid[newX][newY-1] <= 1 && grid[newX][newY+1] <= 1)
+                				count++;
+                		}
+                		else {
+                			if (!b){
+                				if (grid[newX+1][newY] <= 1 && grid[newX][newY+1] <= 1)
+                					count++;
+                			}
+                			else{
+                				if (grid[newX+1][newY] <= 1 && grid[newX][newY-1] <= 1)
+                					count++;
+                			}
+                		}
+            		}
+            		else{
+            			if (b && d){
+                			if (grid[newX-1][newY] <= 1 && grid[newX][newY-1] <= 1 && grid[newX][newY+1] <= 1)
+                				count++;
+                		}
+                		else {
+                			if (!b){
+                				if (grid[newX-1][newY] <= 1 && grid[newX][newY+1] <= 1)
+                					count++;
+                			}
+                			else{
+                				if (grid[newX-1][newY] <= 1 && grid[newX][newY-1] <= 1)
+                					count++;
+                			}
+                		}
+            		}
+            	}
 			}
 		}
 		if (count < slatepiece.getCore().size()){
