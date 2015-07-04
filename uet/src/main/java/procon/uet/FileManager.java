@@ -148,7 +148,8 @@ public class FileManager {
 			try {
 				rdf.seek(rdf.length());
 //				rdf.writeChars("\n");
-				rdf.writeBytes(content);
+//				rdf.writeChar('\n');
+				rdf.writeBytes(content + "\n");
 				System.out.println(content);
 				close();
 			} catch (IOException e) {

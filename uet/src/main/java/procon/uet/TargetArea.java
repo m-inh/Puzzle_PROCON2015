@@ -99,6 +99,7 @@ public class TargetArea {
 		committed = true;
 	}
 	
+	//print area in the console
 	public void print(){
 		for (int i = 0; i < CommonVL.SIZE_TARGET_AREA; i++) {
 			for (int j = 0; j < CommonVL.SIZE_TARGET_AREA; j++) {
