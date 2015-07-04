@@ -121,10 +121,13 @@ public class TargetAreaSpec {
 //	public static void main(String[] args){
 //		TargetAreaSpec tA = new TargetAreaSpec();
 //		tA.setup();
+<<<<<<< HEAD
 //		targetArea.place(s2, 2, 2);
 //		targetArea.commit();
 //		targetArea.print();
 //		targetArea.remove(s2);
+=======
+>>>>>>> 7c90870d96174251a524843afd2588622eef54d4
 //		targetArea.place(s1, 2, 0);
 //		targetArea.commit();
 //		targetArea.print();
