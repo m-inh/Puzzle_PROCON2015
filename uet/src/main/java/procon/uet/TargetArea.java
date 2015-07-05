@@ -29,6 +29,7 @@ public class TargetArea {
 		}
 	}
 	
+	//x, y is coordinate of reference cell
 	public int place(SlatePiece slatepiece, int x, int y){
 		if (!committed)
 			throw new RuntimeException("Place commit problem!");

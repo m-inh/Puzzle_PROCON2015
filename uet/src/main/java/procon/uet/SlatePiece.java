@@ -183,4 +183,18 @@ public class SlatePiece {
 			core.get(i).print();
 		}
 	}
+	
+	public boolean isFrontSide() {
+		return frontSide;
+	}
+
+	public int getAngle() {
+		return angle;
+	}
+
+	public Point getReferenceCell() {
+		return referenceCell;
+	}
+	
+	
 }
