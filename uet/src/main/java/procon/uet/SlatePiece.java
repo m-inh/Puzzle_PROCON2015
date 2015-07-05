@@ -5,6 +5,10 @@ import java.util.ArrayList;
 public class SlatePiece {	
 	private ArrayList<Point> core;
 	private int heightCore, widthCore;
+	//side of each slate piece (Back or Front)
+	private int side;
+	//angle of the slate piece (0, 90, 180, 270)
+	private int angle;
 	//Each point in the slate pice hava a absolute location to the reference cell
 	private Point referenceCell;
 	//Location of the reference cell in the targer area
@@ -35,6 +39,8 @@ public class SlatePiece {
 	
 	public void setCore(ArrayList<Point> _core){
 		core = _core;
+//		side = CommonVL.FRONT_SIZE_SLATE_PIECE;
+//		angle = 0;
 		int minHeight = core.get(0).y, maxHeight = core.get(0).y, minWidth = core.get(0).x,  maxWidth = core.get(0).x;
 		for (int i = 1; i < core.size(); i++){
 			if (minHeight > core.get(i).y)
@@ -143,6 +149,11 @@ public class SlatePiece {
 		}
 		
 		return (count == core.size());
+	}
+	
+	//return number of core's block
+	public int getSize(){
+		return core.size();
 	}
 	
 	// print the real Points of SlatePiece

@@ -152,4 +152,14 @@ public class TargetAreaSpec {
 		targetArea1.commit();
 		assertEquals(targetArea1.place(s2, 5, 1), TargetArea.PLACE_NONADJACENT);
 	}
+	
+	public static void main(String[] args) {
+		TargetAreaSpec temp = new TargetAreaSpec();
+		temp.setup();
+//		targetArea1.place(s1, 2, 0);
+//		targetArea1.commit();
+		targetArea2.place(s2, 3, 24);
+		targetArea2.commit();
+		System.out.println(targetArea2.place(s2, 2, 24));
+	}
 }
