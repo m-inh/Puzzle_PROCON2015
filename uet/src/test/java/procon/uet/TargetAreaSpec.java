@@ -137,6 +137,14 @@ public class TargetAreaSpec {
 	public void testPlaceOutBounds(){
 		assertEquals(TargetArea.PLACE_OUT_BOUNDS, targetArea1.place(s1, -2, 0));
 		assertEquals(TargetArea.PLACE_OUT_BOUNDS, targetArea2.place(s1, 2, 28));
+		targetArea2.commit();
+		assertEquals(TargetArea.PLACE_OUT_BOUNDS, targetArea2.place(s2, 30, 28));
+		targetArea2.commit();
+		assertEquals(TargetArea.PLACE_OUT_BOUNDS, targetArea2.place(s2, 30, 0));
+		targetArea2.commit();
+		assertEquals(TargetArea.PLACE_OUT_BOUNDS, targetArea2.place(s2, 15, 28));
+		targetArea2.commit();
+		assertEquals(TargetArea.PLACE_OUT_BOUNDS, targetArea2.place(s2, 30, 20));
 	}
 	
 	@Test
