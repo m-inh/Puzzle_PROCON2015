@@ -6,7 +6,7 @@ public class SlatePiece {
 	private ArrayList<Point> core;
 	private int heightCore, widthCore;
 	//side of each slate piece (Back or Front)
-	private int side;
+	private boolean frontSide = true;
 	//angle of the slate piece (0, 90, 180, 270)
 	private int angle;
 	//Each point in the slate pice hava a absolute location to the reference cell
@@ -95,7 +95,11 @@ public class SlatePiece {
 			_core.add(new Point(CommonVL.SLATE_PIECE_SIZE - 1 - core.get(i).y, core.get(i).x));
 		}
 		
-		return new SlatePiece(_core);
+		SlatePiece res = new SlatePiece(_core);
+		res.angle += 90;
+		res.angle = res.angle % 360;
+		
+		return res;
 	}
 	
 	public SlatePiece computeFlippingOver(){
@@ -105,7 +109,10 @@ public class SlatePiece {
 			_core.add(new Point(CommonVL.SLATE_PIECE_SIZE - 1 - core.get(i).x, core.get(i).y));
 		}
 		
-		return new SlatePiece(_core);
+		SlatePiece res = new SlatePiece(_core);
+		res.frontSide = !frontSide;
+		
+		return res;
 	}
 	
 	private static SlatePiece makeFastRotations(SlatePiece root) {

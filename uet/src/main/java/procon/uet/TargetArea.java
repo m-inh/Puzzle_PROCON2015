@@ -35,7 +35,7 @@ public class TargetArea {
 		committed = false;
 		backup();
 		int count = 0;
-		for (int i = 0; i < slatepiece.getCore().size(); i++){
+		for (int i = 0; i < slatepiece.getSize(); i++){
 			int newX = x + slatepiece.getCore().get(i).x;
             int newY = y + slatepiece.getCore().get(i).y;
 
@@ -46,13 +46,8 @@ public class TargetArea {
             if(grid[newX][newY] > 0){
                 return PLACE_BAD;
             }
-		}
-		
-		for (int i = 0; i < slatepiece.getCore().size(); i++){
-			int newX = x + slatepiece.getCore().get(i).x;
-            int newY = y + slatepiece.getCore().get(i).y;
             
-            //Check if around area of each block in slate piece has no element of other slate pieces
+          //Check if around area of each block in slate piece has no element of other slate pieces
             if (noPieces > 0){
             	boolean a = newX > 0, b = newY > 0;
             	boolean c = newX < CommonVL.SIZE_TARGET_AREA - 1, d = newY < CommonVL.SIZE_TARGET_AREA - 1;
@@ -108,8 +103,9 @@ public class TargetArea {
             	}
 			}
 		}
-		if (count < slatepiece.getCore().size()){
-			for (int i = 0; i < slatepiece.getCore().size(); i++){
+
+		if (count < slatepiece.getSize()){
+			for (int i = 0; i < slatepiece.getSize(); i++){
 				int newX = x + slatepiece.getCore().get(i).x;
 	            int newY = y + slatepiece.getCore().get(i).y;
 	            
@@ -134,7 +130,7 @@ public class TargetArea {
 	public void remove(SlatePiece slatepiece){
 		int x = slatepiece.getLocation().x;
 		int y = slatepiece.getLocation().y;
-		for (int i = 0; i < slatepiece.getCore().size(); i++){
+		for (int i = 0; i < slatepiece.getSize(); i++){
 			int newX = x + slatepiece.getCore().get(i).x;
             int newY = y + slatepiece.getCore().get(i).y;
             
