@@ -117,4 +117,10 @@ public class SlatePieceSpec {
 		SlatePiece flip = new SlatePiece(s1string);
 		assertTrue(s1.computeFlippingOver().equals(flip));
 	}
+	
+	@Test 
+	public void testIsObject(){
+//		assertTrue(s1.equals(s1.computeFlippingOver().computeFlippingOver()));
+//		assertTrue(s1.equals(s1.fastRotation().fastRotation().fastRotation().fastRotation()));
+	}
 }
