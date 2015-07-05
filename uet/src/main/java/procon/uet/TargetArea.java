@@ -161,6 +161,7 @@ public class TargetArea {
 	//print area in the console
 	public void print(){
 		for (int i = 0; i < CommonVL.SIZE_TARGET_AREA; i++) {
+			System.out.print(i%10+". ");
 			for (int j = 0; j < CommonVL.SIZE_TARGET_AREA; j++) {
 				System.out.print(grid[j][i] + " ");
 			}

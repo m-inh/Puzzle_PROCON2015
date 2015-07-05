@@ -108,18 +108,21 @@ public class FileManager {
 				//doc Piece
 				int numberOfPiece = 0;
 				int pieceNo = 0;
-				while(numberOfPiece <= 0){
-					numberOfPiece = rdf.read() - 48;
+				line = rdf.readLine();
+//				System.out.println("line length: "+line.length());
+				while(line.length() != CommonVL.SLATE_PIECE_SIZE){
+					if (line.length() != 0){
+						numberOfPiece = (int)Integer.parseInt(line);
+					}
+					line = rdf.readLine();
 				}
+				
+				CommonVL.NUMBER_OF_SLATE_PIECE = numberOfPiece;
 				pieceArr = new SlatePiece[numberOfPiece];
 				System.out.println("Number of piece: " + numberOfPiece);
 				String pieceString[] = new String[numberOfPiece];
-//				System.out.println("ok");
-//				System.out.println(len);
 				while(rdf.getFilePointer() < len){
 					pieceString = new String[8];
-					
-//					System.out.println("ok");
 					if (line.length() != 0){
 						for (int i = 0; i < 8; i++) {
 							pieceString[i] = line;

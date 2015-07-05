@@ -26,12 +26,16 @@ public class SlatePiece {
 		ArrayList<Point> _core = new ArrayList<Point>();
 		
 		for (int i = 0; i < CommonVL.SLATE_PIECE_SIZE; i++) {
-			for (int j = 0; j < CommonVL.SLATE_PIECE_SIZE; j++) {
-				number = pointStrArr[i].charAt(j) - 48;
-				if (number == 1){
-					Point p = new Point(j,i);
-					_core.add(p);
+			if (pointStrArr[i].length() == CommonVL.SLATE_PIECE_SIZE){
+				for (int j = 0; j < CommonVL.SLATE_PIECE_SIZE; j++) {
+					number = pointStrArr[i].charAt(j) - 48;
+					if (number == 1){
+						Point p = new Point(j,i);
+						_core.add(p);
+					}
 				}
+			} else {
+				System.out.println("String's piece is invalid!");
 			}
 		}
 		setCore(_core);

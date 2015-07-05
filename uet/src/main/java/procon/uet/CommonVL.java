@@ -4,6 +4,8 @@ package procon.uet;
 public class CommonVL {
 	public static final int SLATE_PIECE_SIZE = 8;
 	
+	public static int NUMBER_OF_SLATE_PIECE = 0;
+	
 	public static int SIZE_TARGET_AREA = 32;
 	
 	public static final int BACK_SIZE_SLATE_PIECE = 1;

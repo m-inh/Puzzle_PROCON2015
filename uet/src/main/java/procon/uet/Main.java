@@ -20,8 +20,8 @@ public class Main
 		}
 		
 		area.print();
-		fileMgr.writeLine("Ok ghi duoc roi");
-		fileMgr.writeLine("Ok ghi duoc roi");
-		fileMgr.writeLine("Ok ghi duoc roi");
+//		fileMgr.writeLine("Ok ghi duoc roi");
+//		fileMgr.writeLine("Ok ghi duoc roi");
+//		fileMgr.writeLine("Ok ghi duoc roi");
     }
 }
