@@ -85,10 +85,16 @@ public class SlatePiece {
 	}
 	
 	public SlatePiece fastRotation(){
+//		nextRotation = makeFastRotations(this);
+		if (nextRotation == null)
+			makeFastRotations(this);
 		return nextRotation;
 	}
 	
 	public SlatePiece fastFlipOver(){
+//		flipOver = makeFastFlipingOver(this);
+		if (flipOver == null)
+			makeFastFlipingOver(this);
 		return flipOver;
 	}
 	
@@ -119,20 +125,21 @@ public class SlatePiece {
 		return res;
 	}
 	
-	private static SlatePiece makeFastRotations(SlatePiece root) {
+	private static void makeFastRotations(SlatePiece root) {
 		SlatePiece pieceIsRotated = root;
 	    while(!root.equals(pieceIsRotated.computeNextRotation())){
 	    	pieceIsRotated.nextRotation = pieceIsRotated.computeNextRotation();
 	    	pieceIsRotated = pieceIsRotated.nextRotation;
 		}
 		pieceIsRotated.nextRotation = root;
-		return root;
+//		return root;
 	}
 	
-	private static SlatePiece makeFastFlipingOver(SlatePiece root){
+	private static void makeFastFlipingOver(SlatePiece root){
 		SlatePiece pieceIsFlipped = root.computeFlippingOver();
+		root.flipOver = pieceIsFlipped;
 		pieceIsFlipped.flipOver = root;
-		return root;
+//		return root;
 	}
 	
 	public boolean equals(Object obj){
