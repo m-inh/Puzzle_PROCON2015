@@ -4,12 +4,11 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class FirstBrain implements Brain {
-	@Override
 	public Brain.Place bestPlace(TargetArea area, SlatePiece piece) {
 		int maxMark = 0;
 //		int currentMark = rateTargetArea(area, piece);
 		int currentMark = 0;
-		ArrayList<SlatePiece> pieceArr = new ArrayList<>();
+		ArrayList<SlatePiece> pieceArr = new ArrayList<SlatePiece>();
 		SlatePiece tempPiece = piece;
 		// Xoay 90 (tat ca trang thai xoay cua 1 manh)
 		for (int k = 0; k < 4; k++) {
@@ -20,7 +19,7 @@ public class FirstBrain implements Brain {
 					{
 						currentMark = rateTargetArea(area, piece, j, i);
 						if (maxMark < currentMark) {
-							pieceArr = new ArrayList<>();
+							pieceArr = new ArrayList<SlatePiece>();
 							pieceArr.add(tempPiece);
 							maxMark = currentMark;
 						}
@@ -42,7 +41,7 @@ public class FirstBrain implements Brain {
 					{
 						currentMark = rateTargetArea(area, piece, j, i);
 						if (maxMark < currentMark) {
-							pieceArr = new ArrayList<>();
+							pieceArr = new ArrayList<SlatePiece>();
 							pieceArr.add(tempPiece);
 							maxMark = currentMark;
 						}
