@@ -27,7 +27,7 @@ public class FirstBrain implements Brain {
 						if (maxMark == currentMark) {
 							pieceArr.add(tempPiece);
 						}
-						tempPiece.fastRotation();
+						tempPiece = tempPiece.fastRotation();
 					}
 				}
 			}
@@ -49,7 +49,7 @@ public class FirstBrain implements Brain {
 						if (maxMark == currentMark) {
 							pieceArr.add(tempPiece);
 						}
-						tempPiece.fastRotation();
+						tempPiece = tempPiece.fastRotation();
 					}
 				}
 			}
@@ -67,8 +67,8 @@ public class FirstBrain implements Brain {
 		int pY = 0;
 		ArrayList<Point> _core = tempPiece.getCore();
 		for (int i = 0; i < _core.size(); i++) {
-			pX = _core.get(i).getX() - tempPiece.getMinX() + rX;
-			pY = _core.get(i).getY() - tempPiece.getMinY() + rY;
+			pX = _core.get(i).getX() + rX;
+			pY = _core.get(i).getY() + rY;
 			for (int j = 0; j < 4; j++) {
 				if (area.getValue(pX-1, pY) != CommonVL.SPACE){
 					count++;
