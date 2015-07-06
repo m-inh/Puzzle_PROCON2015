@@ -18,21 +18,21 @@ public class FirstBrain implements Brain {
 							&& i - tempPiece.getMinY() >= 0 && i - tempPiece.getMaxY() <= CommonVL.SIZE_TARGET_AREA) 
 					{
 						currentMark = rateTargetArea(area, piece, j, i);
+						if (maxMark == currentMark) {
+							pieceArr.add(tempPiece);
+						}
 						if (maxMark < currentMark) {
 							pieceArr = new ArrayList<SlatePiece>();
 							pieceArr.add(tempPiece);
 							maxMark = currentMark;
 						}
-						if (maxMark == currentMark) {
-							pieceArr.add(tempPiece);
-						}
-						tempPiece.fastRotation();
+						tempPiece = tempPiece.fastRotation();
 					}
 				}
 			}
 		}
 		// Flip the piece
-		tempPiece.fastFlipOver();
+		tempPiece = tempPiece.fastFlipOver();
 		for (int k = 0; k < 4; k++) {
 			for (int i = 0; i < CommonVL.SIZE_TARGET_AREA; i++) {
 				for (int j = 0; j < CommonVL.SIZE_TARGET_AREA; j++) {
@@ -48,7 +48,7 @@ public class FirstBrain implements Brain {
 						if (maxMark == currentMark) {
 							pieceArr.add(tempPiece);
 						}
-						tempPiece.fastRotation();
+						tempPiece = tempPiece.fastRotation();
 					}
 				}
 			}
@@ -66,8 +66,8 @@ public class FirstBrain implements Brain {
 		int pY = 0;
 		ArrayList<Point> _core = tempPiece.getCore();
 		for (int i = 0; i < _core.size(); i++) {
-			pX = _core.get(i).getX() - tempPiece.getMinX() + rX;
-			pY = _core.get(i).getY() - tempPiece.getMinY() + rY;
+			pX = _core.get(i).getX() + rX;
+			pY = _core.get(i).getY() + rY;
 			for (int j = 0; j < 4; j++) {
 				if (area.getValue(pX-1, pY) != CommonVL.SPACE){
 					count++;
