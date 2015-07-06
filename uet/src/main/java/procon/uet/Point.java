@@ -34,6 +34,10 @@ public class Point {
 		return (x == other.x && y == other.y);
 	}
 	
+	public String toString(){
+		return Integer.toString(x) + " " + Integer.toString(y);
+	}
+	
 	public void print(){
 		System.out.println(x+" "+y);
 	}

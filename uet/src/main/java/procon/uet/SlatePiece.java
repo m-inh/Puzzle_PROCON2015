@@ -154,16 +154,6 @@ public class SlatePiece {
 	}
 	
 	// print the real Points of SlatePiece
-	public String toString(){
-		String s = "";
-		for (int i = 0; i < core.size(); i++) {
-			s += core.get(i).x + " " + core.get(i).y + " ";
-		}
-		s = s.substring(0, s.length() - 2);
-		return s;
-	}
-	
-	// print the real Points of SlatePiece
 	public void print(){
 		for (int i = 0; i < core.size(); i++) {
 			core.get(i).print();
@@ -212,5 +202,8 @@ public class SlatePiece {
 	public int getMaxY() {
 		return maxY;
 	}
-	
+	public String toString(){
+		return referenceCell != null ? referenceCell.toString() + " " 
+						+ (frontSide ? "T" : "H") + Integer.toString(angle) : "";
+	}
 }

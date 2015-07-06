@@ -10,20 +10,26 @@ public class Main
     public static void main( String[] args )
     {
     	FileManager fileMgr = new FileManager();
+    	FirstBrain brain = new FirstBrain();
     	
 		fileMgr.readFile();
 		area = fileMgr.getArea();
 		pieceArr = fileMgr.getPieceArr();
-		for (int i = 0; i < pieceArr.length; i++) {
-			pieceArr[i].print();
-			System.out.println("minX: " + pieceArr[i].getMinX());
-			System.out.println("minY: " + pieceArr[i].getMinY());
-			System.out.println("-------------");
+		
+		area.commit();
+		for (int i = 0; i < pieceArr.length; i++){
+			Brain.Place best = brain.bestPlace(area, pieceArr[i]);
+			while (best.rX == CommonVL.BELOW_LIMIT_OF_LOCATION 
+					&& best.rY == CommonVL.BELOW_LIMIT_OF_LOCATION){
+				i++;
+				System.out.println(best.piece.toString());
+			}
+			i--;
+			area.place(best.piece, best.rX, best.rY);
+			area.commit();
+			System.out.println(best.piece.toString());
 		}
 		
 		area.print();
-//		fileMgr.writeLine("Ok ghi duoc roi");
-//		fileMgr.writeLine("Ok ghi duoc roi");
-//		fileMgr.writeLine("Ok ghi duoc roi");
     }
 }

@@ -7,6 +7,7 @@ public class CommonVL {
 	public static int NUMBER_OF_SLATE_PIECE = 0;
 	
 	public static int SIZE_TARGET_AREA = 32;
+	public static int BELOW_LIMIT_OF_LOCATION = -100;
 	
 	public static final int BACK_SIZE_SLATE_PIECE = 1;
 	public static final int FRONT_SIZE_SLATE_PIECE = 0;
