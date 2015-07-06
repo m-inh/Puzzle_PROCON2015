@@ -5,6 +5,10 @@ import java.util.ArrayList;
 public class SlatePiece {	
 	private ArrayList<Point> core;
 	private int heightCore, widthCore;
+	//the location of the block nearest reference cell
+	private int minX, minY;
+	//the location of the block farest reference cell
+	private int maxX, maxY;
 	//side of each slate piece (Back or Front)
 	private boolean frontSide = true;
 	//angle of the slate piece (0, 90, 180, 270)
@@ -58,30 +62,10 @@ public class SlatePiece {
 		}
 		heightCore = maxHeight - minHeight + 1;
 		widthCore = maxWidth - minWidth + 1;
-	}
-	
-	public void setLocation(int x, int y){
-		referenceCell = new Point(x, y);
-	}
-	
-	public void setLocation(Point p){
-		referenceCell = p;
-	}
-	
-	public Point getLocation(){
-		return referenceCell;
-	}
-	
-	public ArrayList<Point> getCore(){
-		return core;
-	}
-	
-	public int getHeightCore(){
-		return heightCore;
-	}
-	
-	public int getWidthCore(){
-		return widthCore;
+		minX = minWidth;
+		minY = minHeight;
+		maxX = maxWidth;
+		maxY = maxHeight;
 	}
 	
 	public SlatePiece fastRotation(){
@@ -169,11 +153,6 @@ public class SlatePiece {
 		return (count == core.size());
 	}
 	
-	//return number of core's block
-	public int getSize(){
-		return core.size();
-	}
-	
 	// print the real Points of SlatePiece
 	public String toString(){
 		String s = "";
@@ -190,18 +169,48 @@ public class SlatePiece {
 			core.get(i).print();
 		}
 	}
-	
+	//return number of core's block
+	public int getSize() {
+		return core.size();
+	}
 	public boolean isFrontSide() {
 		return frontSide;
 	}
-
 	public int getAngle() {
 		return angle;
 	}
-
 	public Point getReferenceCell() {
 		return referenceCell;
 	}
-	
+	public int getMinX() {
+		return minX;
+	}
+	public int getMinY() {
+		return minY;
+	}
+	public void setLocation(int x, int y){
+		referenceCell = new Point(x, y);
+	}
+	public void setLocation(Point p){
+		referenceCell = p;
+	}
+	public Point getLocation(){
+		return referenceCell;
+	}
+	public ArrayList<Point> getCore(){
+		return core;
+	}
+	public int getHeightCore(){
+		return heightCore;
+	}
+	public int getWidthCore(){
+		return widthCore;
+	}
+	public int getMaxX() {
+		return maxX;
+	}
+	public int getMaxY() {
+		return maxY;
+	}
 	
 }

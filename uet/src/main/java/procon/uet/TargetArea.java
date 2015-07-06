@@ -169,7 +169,13 @@ public class TargetArea {
 			System.out.println();
 		}
 	}
-	
+	// Return the value of grid
+	public int getValue(int x, int y){
+		return grid[x][y];
+	}
+	public int getValue(Point p){
+		return grid[p.getX()][p.getY()];
+	}
 	//return the number of pieces
 	public int getNoPieces() {
 		return noPieces;

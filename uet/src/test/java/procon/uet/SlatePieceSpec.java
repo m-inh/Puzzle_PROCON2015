@@ -119,8 +119,8 @@ public class SlatePieceSpec {
 	}
 	
 	@Test 
-	public void testIsObject(){
-//		assertTrue(s1.equals(s1.computeFlippingOver().computeFlippingOver()));
-//		assertTrue(s1.equals(s1.fastRotation().fastRotation().fastRotation().fastRotation()));
+	public void testRotatedFourTime(){
+		assertFalse(s1.equals(s1.fastRotation()));
+		assertTrue(s1.equals(s1.fastRotation().fastRotation().fastRotation().fastRotation()));
 	}
 }

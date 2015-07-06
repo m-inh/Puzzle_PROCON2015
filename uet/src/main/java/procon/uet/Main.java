@@ -16,6 +16,8 @@ public class Main
 		pieceArr = fileMgr.getPieceArr();
 		for (int i = 0; i < pieceArr.length; i++) {
 			pieceArr[i].print();
+			System.out.println("minX: " + pieceArr[i].getMinX());
+			System.out.println("minY: " + pieceArr[i].getMinY());
 			System.out.println("-------------");
 		}
 		
