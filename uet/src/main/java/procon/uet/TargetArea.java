@@ -6,8 +6,8 @@ public class TargetArea {
 	//Backup of content
 	private int[][] gridBackup = new int[CommonVL.SIZE_TARGET_AREA][CommonVL.SIZE_TARGET_AREA];
 	private boolean committed;
-	private int emptyCells;
-	private int emptyCellsBackup;
+//	private int emptyCells;
+//	private int emptyCellsBackup;
 	//Number of pieces have placed on the target area
 	private int noPieces;
 	private int noPiecesBackup;
@@ -29,7 +29,7 @@ public class TargetArea {
 					grid[i][j] = CommonVL.OBSTACLE;
 				} else{
 					grid[i][j] = CommonVL.SPACE;
-					emptyCells++;
+//					emptyCells++;
 				}
 			}
 		}
@@ -120,8 +120,8 @@ public class TargetArea {
 			}
 			
 			slatepiece.setLocation(x, y);
-			emptyCells -= slatepiece.getCore().size();
-			emptyCellsBackup = emptyCells;
+//			emptyCells -= slatepiece.getCore().size();
+//			emptyCellsBackup = emptyCells;
 			noPieces ++;
 			return PLACE_OK;
 		}
@@ -130,8 +130,17 @@ public class TargetArea {
 		}
 	}
 	
-	public int getEmptyCells(){
-		return emptyCells;
+	public int countEmptyCells(){
+//		return emptyCells;
+		int count = 0;
+		for (int i = 0; i < grid.length; i++) {
+			for (int j = 0; j < grid[1].length; j++) {
+				if (grid[i][j] == 0){
+					count++;
+				}
+			}
+		}
+		return count;
 	}
 	
 	//Remove specified slate piece
@@ -152,7 +161,7 @@ public class TargetArea {
 		for (int i=0; i < CommonVL.SIZE_TARGET_AREA; i++)
 			System.arraycopy(grid[i], 0, gridBackup[i], 0, grid[i].length);
 		noPiecesBackup = noPieces;
-		emptyCellsBackup = emptyCells;
+//		emptyCellsBackup = emptyCells;
 		
 //		minXBackup = minX;
 //		maxXBackup = maxX;
@@ -168,7 +177,8 @@ public class TargetArea {
 			gridBackup = tmpGrid;
 			noPieces = noPiecesBackup;
 			
-			emptyCells = emptyCellsBackup;
+//			emptyCells = emptyCellsBackup;
+			
 //			minX = minXBackup;
 //			maxX = maxXBackup;
 //			minY = minYBackup;
