@@ -36,5 +36,6 @@ public class Main
 		}
 		
 		area.print();
+		System.out.println("Mark: "+area.getEmptyCells());
     }
 }
