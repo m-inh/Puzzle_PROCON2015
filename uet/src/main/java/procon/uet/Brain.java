@@ -13,6 +13,8 @@ public interface Brain {
 			this.rY = rY;
 			this.piece = piece;
 		}
+		public Place() {
+		}
 	}
 	public Brain.Place bestPlace(TargetArea area, SlatePiece piece);
 }
