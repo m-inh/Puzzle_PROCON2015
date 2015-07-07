@@ -2,11 +2,13 @@ package procon.uet;
 import static org.junit.Assert.*;
 
 import org.junit.*;
+
 public class FirstBrainSpec {
 	private static TargetArea targetArea1;
 	private static TargetArea targetArea2;
 	private static SlatePiece s1;
 	private static SlatePiece s2;
+	private static SlatePiece s3;
 	
 	private static FirstBrain firstBrain = new FirstBrain();
 	@Before
@@ -103,8 +105,19 @@ public class FirstBrainSpec {
 				"00000000",
 				"00000000"
 		};
+		String[] s3string = new String[]{
+				"01000000",
+				"01000000",
+				"01000000",
+				"01000000",
+				"01000000",
+				"01000000",
+				"01110000",
+				"00000000"
+		};
 		s1 = new SlatePiece(s1string);
 		s2 = new SlatePiece(s2string);
+		s3 = new SlatePiece(s3string);
 	}
 	
 	@Test
@@ -117,15 +130,19 @@ public class FirstBrainSpec {
 	public void testRateBoardWhenRotated(){
 		SlatePiece s1Rotated = s1.fastRotation();
 		assertEquals(1,firstBrain.ratePiece(targetArea1, s1Rotated, 0, 0));
+		assertEquals(2,firstBrain.ratePiece(targetArea1, s3.fastRotation(), 8, 7));
 	}
 	
 	public static void main(String[] args) {
 		FirstBrainSpec firstBrainSpec = new FirstBrainSpec();
 		firstBrainSpec.setup();
 		
-		targetArea1.place(s1.fastRotation(),-1,0);
-		targetArea1.commit();
-		targetArea1.place(s1.fastRotation(),-1,-1);
+//		targetArea1.place(s1.fastRotation(),-1,0);
+//		targetArea1.commit();
+//		targetArea1.place(s1.fastRotation(),-1,-1);
+//		targetArea1.commit();
+//		targetArea1.place(s3.fastRotation(),8,7);
+		System.out.println("ratePoint of s3: "+ firstBrain.ratePiece(targetArea1, s3.fastRotation(), 8, 7));
 		targetArea1.commit();
 		targetArea1.print();
 	}
