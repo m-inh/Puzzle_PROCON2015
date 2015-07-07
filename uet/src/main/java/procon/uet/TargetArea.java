@@ -152,6 +152,7 @@ public class TargetArea {
 		for (int i=0; i < CommonVL.SIZE_TARGET_AREA; i++)
 			System.arraycopy(grid[i], 0, gridBackup[i], 0, grid[i].length);
 		noPiecesBackup = noPieces;
+		emptyCellsBackup = emptyCells;
 		
 //		minXBackup = minX;
 //		maxXBackup = maxX;
