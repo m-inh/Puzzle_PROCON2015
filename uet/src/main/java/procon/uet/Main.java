@@ -25,8 +25,7 @@ public class Main
 			area.commit();
 			for (int i = 0; i < pieceArr.length; i++){
 				Brain.Place best = brain.bestPlace(area, pieceArr[i]);
-				if (best.rX != CommonVL.BELOW_LIMIT_OF_LOCATION 
-						&& best.rY != CommonVL.BELOW_LIMIT_OF_LOCATION) 
+				if (best.piece != null) 
 				{
 					area.place(best.piece, best.rX, best.rY);
 					area.commit();
