@@ -26,8 +26,6 @@ public class Main
 			} else{
 				System.out.println("Skip this slate piece");
 			}
-			else
-				System.out.println();
 		}
 		
 		area.print();
