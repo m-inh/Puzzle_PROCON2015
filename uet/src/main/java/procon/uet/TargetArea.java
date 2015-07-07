@@ -7,6 +7,7 @@ public class TargetArea {
 	private int[][] gridBackup = new int[CommonVL.SIZE_TARGET_AREA][CommonVL.SIZE_TARGET_AREA];
 	private boolean committed;
 	private int emptyCells;
+	private int emptyCellsBackup;
 	//Number of pieces have placed on the target area
 	private int noPieces;
 	private int noPiecesBackup;
@@ -120,6 +121,7 @@ public class TargetArea {
 			
 			slatepiece.setLocation(x, y);
 			emptyCells -= slatepiece.getCore().size();
+			emptyCellsBackup = emptyCells;
 			noPieces ++;
 			return PLACE_OK;
 		}
@@ -165,6 +167,7 @@ public class TargetArea {
 			gridBackup = tmpGrid;
 			noPieces = noPiecesBackup;
 			
+			emptyCells = emptyCellsBackup;
 //			minX = minXBackup;
 //			maxX = maxXBackup;
 //			minY = minYBackup;
