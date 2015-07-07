@@ -21,7 +21,8 @@ public class Main
 		for (int k = 0; k < 10000; k++) {
 			area = new TargetArea(fileMgr.getAreaString());
 			pieceArr = fileMgr.getPieceArr();
-			
+			System.out.println("width area: "+CommonVL.WIDTH_TARGET_AREA);
+			System.out.println("height area: "+CommonVL.HEIGHT_TARGET_AREA);
 			area.commit();
 			for (int i = 0; i < pieceArr.length; i++){
 				Brain.Place best = brain.bestPlace(area, pieceArr[i]);
@@ -30,6 +31,7 @@ public class Main
 					area.place(best.piece, best.rX, best.rY);
 					area.commit();
 //					System.out.println(best.piece.toString());
+//					area.print();
 				} else{
 //					System.out.println("Skip this slate piece");
 				}

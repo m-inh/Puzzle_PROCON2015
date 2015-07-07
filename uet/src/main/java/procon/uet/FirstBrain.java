@@ -5,20 +5,22 @@ import java.util.Random;
 
 public class FirstBrain implements Brain {
 	public Brain.Place bestPlace(TargetArea area, SlatePiece piece) {
-		int maxMark = 0;
+		int maxMark = -1;
 		int currentMark = 0;
 		ArrayList<SlatePiece> pieceArr = new ArrayList<SlatePiece>();
 		SlatePiece tempPiece = piece;
 
 		// Xoay 90 (tat ca trang thai xoay cua 1 manh)
 		for (int k = 0; k < 4; k++) {
-			for (int i = -tempPiece.getMinX(); i < CommonVL.SIZE_TARGET_AREA - tempPiece.getMaxX(); i++) {
-				for (int j = -tempPiece.getMinY(); j < CommonVL.SIZE_TARGET_AREA - tempPiece.getMaxY(); j++) {
+			for (int i =0-tempPiece.getMinX(); i < CommonVL.WIDTH_TARGET_AREA - tempPiece.getMaxX(); i++) {
+				for (int j =0-tempPiece.getMinY(); j < CommonVL.HEIGHT_TARGET_AREA - tempPiece.getMaxY(); j++) {
 					if (area.place(tempPiece, i, j) == TargetArea.PLACE_OK) {
 						area.undo();
-
+//						System.out.println("i: "+i);
+//						System.out.println("j: "+j);
 						currentMark = ratePiece(area, piece, i, j);
-
+//						System.out.println("current mark: "+currentMark);
+//						System.out.println("max mark: "+maxMark);
 						if (maxMark == currentMark) {
 							pieceArr.add(tempPiece);
 						}
@@ -38,8 +40,8 @@ public class FirstBrain implements Brain {
 		tempPiece = piece.fastFlipOver();
 
 		for (int k = 0; k < 4; k++) {
-			for (int i = -tempPiece.getMinX(); i < CommonVL.SIZE_TARGET_AREA - tempPiece.getMaxX(); i++) {
-				for (int j = -tempPiece.getMinY(); j < CommonVL.SIZE_TARGET_AREA - tempPiece.getMaxY(); j++) {
+			for (int i =0-tempPiece.getMinX(); i < CommonVL.WIDTH_TARGET_AREA - tempPiece.getMaxX(); i++) {
+				for (int j =0-tempPiece.getMinY(); j < CommonVL.HEIGHT_TARGET_AREA - tempPiece.getMaxY(); j++) {
 					if (area.place(tempPiece, i, j) == TargetArea.PLACE_OK) {
 						area.undo();
 
@@ -80,9 +82,9 @@ public class FirstBrain implements Brain {
 			pX = _core.get(i).getX() + rX;
 			pY = _core.get(i).getY() + rY;
 
-			if (pX == 0 || pX == CommonVL.SIZE_TARGET_AREA - 1)
+			if (pX == 0 || pX == CommonVL.WIDTH_TARGET_AREA - 1)
 				count++;
-			if (pY == 0 || pY == CommonVL.SIZE_TARGET_AREA - 1)
+			if (pY == 0 || pY == CommonVL.HEIGHT_TARGET_AREA - 1)
 				count++;
 			if (pY >= 0 && pX > 0 && area.getValue(pX - 1, pY) != CommonVL.SPACE)
 				count++;
@@ -90,10 +92,10 @@ public class FirstBrain implements Brain {
 			if (pX >= 0 && pY > 0 && area.getValue(pX, pY - 1) != CommonVL.SPACE)
 				count++;
 
-			if (pY >= 0 && pX >= 0 && pX < CommonVL.SIZE_TARGET_AREA - 1 && area.getValue(pX + 1, pY) != CommonVL.SPACE)
+			if (pY >= 0 && pX >= 0 && pX < CommonVL.WIDTH_TARGET_AREA - 1 && area.getValue(pX + 1, pY) != CommonVL.SPACE)
 				count++;
 
-			if (pX >= 0 && pY >= 0 && pY < CommonVL.SIZE_TARGET_AREA - 1 && area.getValue(pX, pY + 1) != CommonVL.SPACE)
+			if (pX >= 0 && pY >= 0 && pY < CommonVL.HEIGHT_TARGET_AREA - 1 && area.getValue(pX, pY + 1) != CommonVL.SPACE)
 				count++;
 		}
 		return count;

@@ -22,6 +22,8 @@ public class TargetArea {
 	public static final int PLACE_NONADJACENT = 3;
 	
 	public TargetArea(String[] areaString) {
+		CommonVL.WIDTH_TARGET_AREA = 0;
+		CommonVL.HEIGHT_TARGET_AREA = 0;
 		for (int i = 0; i < CommonVL.SIZE_TARGET_AREA; i++) {
 			for (int j = 0; j < CommonVL.SIZE_TARGET_AREA; j++) {
 				int numb = areaString[j].charAt(i) - 48;
@@ -29,10 +31,19 @@ public class TargetArea {
 					grid[i][j] = CommonVL.OBSTACLE;
 				} else{
 					grid[i][j] = CommonVL.SPACE;
+					if (i > CommonVL.WIDTH_TARGET_AREA){
+						CommonVL.WIDTH_TARGET_AREA = i;
+					}
+					if (j > CommonVL.HEIGHT_TARGET_AREA){
+						CommonVL.HEIGHT_TARGET_AREA = j;
+					}
 //					emptyCells++;
 				}
 			}
 		}
+		CommonVL.WIDTH_TARGET_AREA++;
+		CommonVL.HEIGHT_TARGET_AREA++;
+		
 	}
 	
 	//x, y is coordinate of reference cell
@@ -46,7 +57,7 @@ public class TargetArea {
 			int newX = x + slatepiece.getCore().get(i).x;
             int newY = y + slatepiece.getCore().get(i).y;
 
-            if(newX < 0 || newY < 0 || newX >= CommonVL.SIZE_TARGET_AREA || newY >= CommonVL.SIZE_TARGET_AREA){
+            if(newX < 0 || newY < 0 || newX >= CommonVL.WIDTH_TARGET_AREA || newY >= CommonVL.HEIGHT_TARGET_AREA){
                 return  PLACE_OUT_BOUNDS;
             }
             
@@ -57,7 +68,7 @@ public class TargetArea {
           //Check if around area of each block in slate piece has no element of other slate pieces
             if (noPieces > 0){
             	boolean a = newX > 0, b = newY > 0;
-            	boolean c = newX < CommonVL.SIZE_TARGET_AREA - 1, d = newY < CommonVL.SIZE_TARGET_AREA - 1;
+            	boolean c = newX < CommonVL.WIDTH_TARGET_AREA - 1, d = newY < CommonVL.HEIGHT_TARGET_AREA - 1;
             	if (a && c){
             		if (b && d){
             			if (grid[newX-1][newY] <= 1 && grid[newX+1][newY] <= 1 && grid[newX][newY-1] <= 1 && grid[newX][newY+1] <= 1)
@@ -192,9 +203,9 @@ public class TargetArea {
 	
 	//print area in the console
 	public void print(){
-		for (int i = 0; i < CommonVL.SIZE_TARGET_AREA; i++) {
+		for (int i = 0; i < CommonVL.HEIGHT_TARGET_AREA; i++) {
 			System.out.print(i%10+". ");
-			for (int j = 0; j < CommonVL.SIZE_TARGET_AREA; j++) {
+			for (int j = 0; j < CommonVL.WIDTH_TARGET_AREA; j++) {
 				System.out.print(grid[j][i] + " ");
 			}
 			System.out.println();

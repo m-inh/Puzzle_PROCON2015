@@ -3,9 +3,12 @@ import static org.junit.Assert.*;
 
 import org.junit.*;
 
+import procon.uet.Brain.Place;
+
 public class FirstBrainSpec {
 	private static TargetArea targetArea1;
 	private static TargetArea targetArea2;
+	private static TargetArea targetArea3;
 	private static SlatePiece s1;
 	private static SlatePiece s2;
 	private static SlatePiece s3;
@@ -81,10 +84,46 @@ public class FirstBrainSpec {
 				"00000000000000000000000000000000",
 				"00000000000000000000000000000000"
 		};
+		String[] str3 = new String[]{
+				"00000000000000001111111111111111",
+				"00000000000000001111111111111111",
+				"00000000000000001111111111111111",
+				"00000000000000001111111111111111",
+				"00000000000000001111111111111111",
+				"00000000000000001111111111111111",
+				"00000000000000001111111111111111",
+				"00000000000000001111111111111111",
+				"00000000000000001111111111111111",
+				"00000000000000001111111111111111",
+				"00000000000000001111111111111111",
+				"00000000000000001111111111111111",
+				"11111111111111111111111111111111",
+				"11111111111111111111111111111111",
+				"11111111111111111111111111111111",
+				"11111111111111111111111111111111",
+				"11111111111111111111111111111111",
+				"11111111111111111111111111111111",
+				"11111111111111111111111111111111",
+				"11111111111111111111111111111111",
+				"11111111111111111111111111111111",
+				"11111111111111111111111111111111",
+				"11111111111111111111111111111111",
+				"11111111111111111111111111111111",
+				"11111111111111111111111111111111",
+				"11111111111111111111111111111111",
+				"11111111111111111111111111111111",
+				"11111111111111111111111111111111",
+				"11111111111111111111111111111111",
+				"11111111111111111111111111111111",
+				"11111111111111111111111111111111",
+				"11111111111111111111111111111111"
+		};
 		targetArea1 = new TargetArea(str1);
 		targetArea1.commit();
 		targetArea2 = new TargetArea(str2);
 		targetArea2.commit();
+		targetArea3 = new TargetArea(str3);
+		targetArea3.commit();
 		String[] s1string = new String[]{
 				"01000000",
 				"01000000",
@@ -120,18 +159,18 @@ public class FirstBrainSpec {
 		s3 = new SlatePiece(s3string);
 	}
 	
-	@Test
-	public void testRateBoard(){
-		assertEquals(9,firstBrain.ratePiece(targetArea1, s1, -1, 0));
-		assertEquals(0,firstBrain.ratePiece(targetArea2, s2, 0, 0));
-	}
-	
-	@Test
-	public void testRateBoardWhenRotated(){
-		SlatePiece s1Rotated = s1.fastRotation();
-		assertEquals(1,firstBrain.ratePiece(targetArea1, s1Rotated, 0, 0));
-		assertEquals(2,firstBrain.ratePiece(targetArea1, s3.fastRotation(), 8, 7));
-	}
+//	@Test
+//	public void testRateBoard(){
+//		assertEquals(9,firstBrain.ratePiece(targetArea1, s1, -1, 0));
+//		assertEquals(0,firstBrain.ratePiece(targetArea2, s2, 0, 0));
+//	}
+//	
+//	@Test
+//	public void testRateBoardWhenRotated(){
+//		SlatePiece s1Rotated = s1.fastRotation();
+//		assertEquals(1,firstBrain.ratePiece(targetArea1, s1Rotated, 0, 0));
+//		assertEquals(2,firstBrain.ratePiece(targetArea1, s3.fastRotation(), 8, 7));
+//	}
 	
 	public static void main(String[] args) {
 		FirstBrainSpec firstBrainSpec = new FirstBrainSpec();
@@ -142,9 +181,17 @@ public class FirstBrainSpec {
 //		targetArea1.place(s1.fastRotation(),-1,-1);
 //		targetArea1.commit();
 //		targetArea1.place(s3.fastRotation(),8,7);
-		System.out.println("ratePoint of s3: "+ firstBrain.ratePiece(targetArea1, s3.fastRotation(), 8, 7));
-		targetArea1.commit();
-		targetArea1.print();
+//		System.out.println("ratePoint of s3: "+ firstBrain.ratePiece(targetArea1, s3.fastRotation(), 8, 7));
+//		targetArea1.commit();
+//		targetArea1.print();
+		
+		Brain.Place bestPlace = new Place();
+		bestPlace = firstBrain.bestPlace(targetArea3, s3);
+		System.out.println("rX: "+ bestPlace.rX);
+		System.out.println("rY: "+ bestPlace.rY);
+		targetArea3.place(bestPlace.piece, bestPlace.rX, bestPlace.rY);
+		targetArea3.commit();
+		targetArea3.print();
 	}
 }
 
