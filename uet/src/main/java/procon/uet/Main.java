@@ -24,6 +24,7 @@ public class Main
 				i++;
 				System.out.println(best.piece.toString());
 			}
+			
 			i--;
 			area.place(best.piece, best.rX, best.rY);
 			area.commit();

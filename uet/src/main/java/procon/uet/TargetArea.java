@@ -9,6 +9,11 @@ public class TargetArea {
 	private int emptyCells;
 	//Number of pieces have placed on the target area
 	private int noPieces;
+	private int noPiecesBackup;
+	
+//	private int minX, maxX, minY, maxY;
+//	private int minXBackup, maxXBackup, minYBackup, maxYBackup;
+	
 	//If no problem happens, it will have status PLACE_OK
 	public static final int PLACE_OK = 0;
 	public static final int PLACE_OUT_BOUNDS = 1;
@@ -144,14 +149,26 @@ public class TargetArea {
 	public void backup(){
 		for (int i=0; i < CommonVL.SIZE_TARGET_AREA; i++)
 			System.arraycopy(grid[i], 0, gridBackup[i], 0, grid[i].length);
+		noPiecesBackup = noPieces;
+		
+//		minXBackup = minX;
+//		maxXBackup = maxX;
+//		minYBackup = minY;
+//		maxXBackup = maxY;
 	}
 	//Turn back the previous state
 	public void undo(){
 		if (!committed){
-			commit();
+			committed = true;
 			int[][] tmpGrid = grid;
 			grid = gridBackup;
 			gridBackup = tmpGrid;
+			noPieces = noPiecesBackup;
+			
+//			minX = minXBackup;
+//			maxX = maxXBackup;
+//			minY = minYBackup;
+//			maxY = maxYBackup;
 		}
 	}
 	
@@ -180,4 +197,13 @@ public class TargetArea {
 	public int getNoPieces() {
 		return noPieces;
 	}
+	
+//	private void calculateMinMaxXY(){
+//		for (int i = 0; i < CommonVL.SIZE_TARGET_AREA; i++){
+//			for (int j = 0; j < CommonVL.SIZE_TARGET_AREA; j++){
+//				if (grid[i][j] > 0)
+//					
+//			}
+//		}
+//	}
 }

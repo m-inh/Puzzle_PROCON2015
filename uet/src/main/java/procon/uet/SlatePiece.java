@@ -204,6 +204,6 @@ public class SlatePiece {
 	}
 	public String toString(){
 		return referenceCell != null ? referenceCell.toString() + " " 
-						+ (frontSide ? "T" : "H") + Integer.toString(angle) : "";
+						+ (frontSide ? "T" : "H") + " " + Integer.toString(angle) : "";
 	}
 }
