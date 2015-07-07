@@ -90,8 +90,9 @@ public class SlatePiece {
 		}
 		
 		SlatePiece res = new SlatePiece(_core);
-		res.angle += 90;
+		res.angle = angle + 90;
 		res.angle = res.angle % 360;
+		res.frontSide = frontSide;
 		
 		return res;
 	}
@@ -105,6 +106,7 @@ public class SlatePiece {
 		
 		SlatePiece res = new SlatePiece(_core);
 		res.frontSide = !frontSide;
+		res.angle = angle;
 		
 		return res;
 	}
