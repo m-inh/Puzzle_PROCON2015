@@ -8,7 +8,6 @@ public class FirstBrain implements Brain {
 		int maxMark = 0;
 		int currentMark = 0;
 		ArrayList<SlatePiece> pieceArr = new ArrayList<SlatePiece>();
-		SlatePiece currPiece = piece;
 		SlatePiece tempPiece = piece;
 		
 		// Xoay 90 (tat ca trang thai xoay cua 1 manh)
@@ -21,13 +20,13 @@ public class FirstBrain implements Brain {
 						j < CommonVL.SIZE_TARGET_AREA - tempPiece.getMaxY();
 						j++)
 				{
-//					System.out.println(i + " " + j);
 					if (area.place(tempPiece, i, j) == TargetArea.PLACE_OK)
 					{
+						System.out.println(tempPiece.toString());
 						area.undo();
 						
 						currentMark = ratePiece(area, piece, i, j);
-
+						
 						if (maxMark == currentMark) {
 							pieceArr.add(tempPiece);
 						}
@@ -45,8 +44,7 @@ public class FirstBrain implements Brain {
 		}
 		
 		// Flip the piece
-		currPiece = piece.fastFlipOver();
-		tempPiece = currPiece;
+		tempPiece = piece.fastFlipOver();
 		
 		for (int k = 0; k < 4; k++) {
 			for (int i = - tempPiece.getMinX();
@@ -57,7 +55,6 @@ public class FirstBrain implements Brain {
 						j < CommonVL.SIZE_TARGET_AREA - tempPiece.getMaxY();
 						j++)
 				{
-//					System.out.println(i + " " + j);
 					if (area.place(tempPiece, i, j) == TargetArea.PLACE_OK)
 					{
 						area.undo();
@@ -92,28 +89,28 @@ public class FirstBrain implements Brain {
 		int pY = 0;
 		ArrayList<Point> _core = tempPiece.getCore();
 		
-//		System.out.println(tempPiece.toString());
-		
 		for (int i = 0; i < _core.size(); i++) {
 			pX = _core.get(i).getX() + rX;
 			pY = _core.get(i).getY() + rY;
-			
-			System.out.println("px: " + pX + " py: " + pY);
 			
 			if (pX == 0 || pX == CommonVL.SIZE_TARGET_AREA - 1)
 				count ++;
 			if (pY == 0 || pY == CommonVL.SIZE_TARGET_AREA - 1)
 				count ++;
-			if(pX > 0 && area.getValue(pX-1, pY) != CommonVL.SPACE)
+			if (pY >= 0 && pX > 0 && area.getValue(pX-1, pY) != CommonVL.SPACE)
 				count++;
 
-			if (pY > 0 && area.getValue(pX, pY-1) != CommonVL.SPACE)
+			if (pX >= 0 && pY > 0 && area.getValue(pX, pY-1) != CommonVL.SPACE)
 				count++;
 
-			if (pX < CommonVL.SIZE_TARGET_AREA - 1 && area.getValue(pX+1, pY) != CommonVL.SPACE)
+			if (pY >= 0 && pX >=0
+					&& pX < CommonVL.SIZE_TARGET_AREA - 1 
+					&& area.getValue(pX+1, pY) != CommonVL.SPACE)
 				count++;
 
-			if (pY < CommonVL.SIZE_TARGET_AREA - 1 && area.getValue(pX, pY+1) != CommonVL.SPACE)
+			if (pX >= 0 && pY >= 0
+					&& pY < CommonVL.SIZE_TARGET_AREA - 1 
+					&& area.getValue(pX, pY+1) != CommonVL.SPACE)
 				count++;
 		}
 		return count;
@@ -121,6 +118,6 @@ public class FirstBrain implements Brain {
 
 	private SlatePiece randomChoosePiece(ArrayList<SlatePiece> pieceArr) {
 		Random rand = new Random();
-		return pieceArr.get(pieceArr.size() > 0 ? rand.nextInt(pieceArr.size() - 1) : 0);
+		return pieceArr.get(rand.nextInt(pieceArr.size() - 1));
 	}
 }

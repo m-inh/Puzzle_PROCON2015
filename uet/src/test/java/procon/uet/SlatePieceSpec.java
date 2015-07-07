@@ -69,6 +69,7 @@ public class SlatePieceSpec {
 		
 		SlatePiece next = new SlatePiece(s1string);
 		assertTrue(s1.computeNextRotation().equals(next));
+		assertEquals(s1.fastRotation().getAngle(), 90);
 		assertTrue(s1.fastRotation().fastFlipOver().equals(new SlatePiece(new String[]{
 				"00000000",
 				"11111110",
@@ -89,16 +90,6 @@ public class SlatePieceSpec {
 				"00000010",
 				"00000010"
 		})));
-		assertTrue(s1.fastRotation().fastRotation().fastFlipOver().equals(new SlatePiece(new String[]{
-				"00000000",
-				"01110000",
-				"01000000",
-				"01100000",
-				"01000000",
-				"01000000",
-				"01000000",
-				"01000000"
-		})));
 	}
 	
 	@Test
@@ -116,6 +107,17 @@ public class SlatePieceSpec {
 		
 		SlatePiece flip = new SlatePiece(s1string);
 		assertTrue(s1.computeFlippingOver().equals(flip));
+		assertTrue(s1.fastRotation().fastRotation().fastFlipOver().equals(new SlatePiece(new String[]{
+				"00000000",
+				"01110000",
+				"01000000",
+				"01100000",
+				"01000000",
+				"01000000",
+				"01000000",
+				"01000000"
+		})));
+		assertFalse(s1.fastFlipOver().isFrontSide());
 	}
 	
 	@Test 
