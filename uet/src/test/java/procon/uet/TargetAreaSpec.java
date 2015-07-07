@@ -114,7 +114,7 @@ public class TargetAreaSpec {
 	
 	@Test
 	public void testEmptyCells(){
-		assertEquals(targetArea1.getEmptyCells(), 189);
+		assertEquals(targetArea1.countEmptyCells(), 189);
 	}
 	
 	@Test
