@@ -22,6 +22,7 @@ public class FirstBrain implements Brain {
 				{
 					if (area.place(tempPiece, i, j) == TargetArea.PLACE_OK)
 					{
+						System.out.println(tempPiece.toString());
 						area.undo();
 						
 						currentMark = ratePiece(area, piece, i, j);
