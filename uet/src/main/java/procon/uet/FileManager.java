@@ -17,7 +17,9 @@ public class FileManager {
 	private String outputPath;
 	
 	private SlatePiece[] pieceArr;
-	private TargetArea area;
+//	private TargetArea area;
+	
+	String [] areaString;
 	
 	public FileManager() {
 		inputPath = getClass().getResource("/file/quest.txt").toString();
@@ -92,7 +94,7 @@ public class FileManager {
 				line = rdf.readLine();
 				int sizeArea = line.length();
 				CommonVL.SIZE_TARGET_AREA = sizeArea;
-				String [] areaString = new String[sizeArea];
+				areaString = new String[sizeArea];
 				
 				System.out.println("Size target area: "+sizeArea);
 				
@@ -103,7 +105,7 @@ public class FileManager {
 					rowAreaNo++;
 					line = rdf.readLine();
 				}
-				area = new TargetArea(areaString);
+//				area = new TargetArea(areaString);
 				
 				//doc Piece
 				int numberOfPiece = 0;
@@ -176,8 +178,12 @@ public class FileManager {
 		return pieceArr;
 	}
 
-	public TargetArea getArea() {
-		return area;
+	public String[] getAreaString() {
+		return areaString;
 	}
+
+//	public TargetArea getArea() {
+//		return area;
+//	}
 	
 }

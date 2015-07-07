@@ -7,37 +7,42 @@ public class Main
 {
 	private static TargetArea area;
 	private static SlatePiece[] pieceArr;
+	private static int bestMark = 10000;
     public static void main( String[] args )
     {
     	FileManager fileMgr = new FileManager();
     	FirstBrain brain = new FirstBrain();
     	
+    	int currentMark = 0;
 		fileMgr.readFile();
-		area = fileMgr.getArea();
-		pieceArr = fileMgr.getPieceArr();
+//		area = fileMgr.getArea();
 		
-		area.commit();
-		for (int i = 0; i < pieceArr.length; i++){
-			Brain.Place best = brain.bestPlace(area, pieceArr[i]);
-//			while (best.rX == CommonVL.BELOW_LIMIT_OF_LOCATION 
-//					&& best.rY == CommonVL.BELOW_LIMIT_OF_LOCATION){
-//				i++;
-//				System.out.println(best.piece.toString());
-//			}
+		//execute 10.000 times and choose the best time
+		for (int k = 0; k < 10000; k++) {
+			area = new TargetArea(fileMgr.getAreaString());
+			pieceArr = fileMgr.getPieceArr();
 			
-//			i--;
-			if (best.rX != CommonVL.BELOW_LIMIT_OF_LOCATION 
-					&& best.rY != CommonVL.BELOW_LIMIT_OF_LOCATION) 
-			{
-				area.place(best.piece, best.rX, best.rY);
-				area.commit();
-				System.out.println(best.piece.toString());
-			} else{
-				System.out.println("Skip this slate piece");
+			area.commit();
+			for (int i = 0; i < pieceArr.length; i++){
+				Brain.Place best = brain.bestPlace(area, pieceArr[i]);
+				if (best.rX != CommonVL.BELOW_LIMIT_OF_LOCATION 
+						&& best.rY != CommonVL.BELOW_LIMIT_OF_LOCATION) 
+				{
+					area.place(best.piece, best.rX, best.rY);
+					area.commit();
+					System.out.println(best.piece.toString());
+				} else{
+					System.out.println("Skip this slate piece");
+				}
+			}
+			currentMark = area.countEmptyCells();
+			System.out.println("Current mark: "+currentMark);
+			System.out.println("Current best mark: "+bestMark);
+			if (bestMark > currentMark){
+				bestMark = currentMark;
 			}
 		}
-		
-		area.print();
-		System.out.println("Mark: "+area.countEmptyCells());
+//		area.print();
+		System.out.println("Best mark: "+bestMark);
     }
 }
