@@ -29,9 +29,9 @@ public class Main
 				{
 					area.place(best.piece, best.rX, best.rY);
 					area.commit();
-					System.out.println(best.piece.toString());
+//					System.out.println(best.piece.toString());
 				} else{
-					System.out.println("Skip this slate piece");
+//					System.out.println("Skip this slate piece");
 				}
 			}
 			currentMark = area.countEmptyCells();
