@@ -64,6 +64,10 @@ public class FirstBrain implements Brain {
 		
 		if (bestPiece != null) {
 			return new Brain.Place(bestPiece.getReferenceCell().getX(), bestPiece.getReferenceCell().getY(), bestPiece);
+//			place.rX = bestPiece.getReferenceCell().getX();
+//			place.rY = bestPiece.getReferenceCell().getY();
+//			place.piece = bestPiece;
+//			return place;
 		}
 		return new Brain.Place();
 	}
