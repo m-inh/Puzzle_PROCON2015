@@ -18,11 +18,11 @@ public class Main
 //		area = fileMgr.getArea();
 		
 		//execute 10.000 times and choose the best time
-		for (int k = 0; k < 10000; k++) {
+		for (int k = 0; k < 100; k++) {
 			area = new TargetArea(fileMgr.getAreaString());
 			pieceArr = fileMgr.getPieceArr();
-			System.out.println("width area: "+CommonVL.WIDTH_TARGET_AREA);
-			System.out.println("height area: "+CommonVL.HEIGHT_TARGET_AREA);
+//			System.out.println("width area: "+CommonVL.WIDTH_TARGET_AREA);
+//			System.out.println("height area: "+CommonVL.HEIGHT_TARGET_AREA);
 			area.commit();
 			for (int i = 0; i < pieceArr.length; i++){
 				Brain.Place best = brain.bestPlace(area, pieceArr[i]);
@@ -31,14 +31,13 @@ public class Main
 					area.place(best.piece, best.rX, best.rY);
 					area.commit();
 //					System.out.println(best.piece.toString());
-//					area.print();
 				} else{
 //					System.out.println("Skip this slate piece");
 				}
 			}
 			currentMark = area.countEmptyCells();
-			System.out.println("Current mark: "+currentMark);
-			System.out.println("Current best mark: "+bestMark);
+//			System.out.println("Current mark: "+currentMark);
+//			System.out.println("Current best mark: "+bestMark);
 			if (bestMark > currentMark){
 				bestMark = currentMark;
 			}

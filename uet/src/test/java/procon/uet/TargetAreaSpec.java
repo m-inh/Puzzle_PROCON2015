@@ -93,7 +93,7 @@ public class TargetAreaSpec {
 				"01000000",
 				"01000000",
 				"01000000",
-				"01100000",
+				"01000000",
 				"01000000",
 				"01110000",
 				"00000000"
@@ -149,9 +149,12 @@ public class TargetAreaSpec {
 	
 	@Test
 	public void testPlaceOK(){
+		assertEquals(targetArea1.place(s1.fastRotation(), -1, 5), TargetArea.PLACE_OK);
+		targetArea1.undo();
 		assertEquals(targetArea1.place(s1, 1, 0), TargetArea.PLACE_OK);
 		targetArea1.commit();
 		assertEquals(targetArea1.place(s2, 3, 1), TargetArea.PLACE_OK);
+		targetArea1.commit();
 	}
 	
 	@Test
@@ -161,13 +164,11 @@ public class TargetAreaSpec {
 		assertEquals(targetArea1.place(s2, 5, 1), TargetArea.PLACE_NONADJACENT);
 	}
 	
-	public static void main(String[] args) {
-		TargetAreaSpec temp = new TargetAreaSpec();
-		temp.setup();
-//		targetArea1.place(s1, 2, 0);
+//	public static void main(String[] args) {
+//		TargetAreaSpec ta = new TargetAreaSpec();
+//		ta.setup();
+//		System.out.println(targetArea1.place(s1.fastFlipOver().fastRotation().fastRotation(), -1, -1));
 //		targetArea1.commit();
-		targetArea2.place(s2, 3, 24);
-		targetArea2.commit();
-		System.out.println(targetArea2.place(s2, 2, 24));
-	}
+//		targetArea1.print();
+//	}
 }

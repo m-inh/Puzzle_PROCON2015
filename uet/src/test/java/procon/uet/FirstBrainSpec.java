@@ -159,43 +159,25 @@ public class FirstBrainSpec {
 		s3 = new SlatePiece(s3string);
 	}
 	
-//	@Test
-//	public void testRateBoard(){
-//		assertEquals(9,firstBrain.ratePiece(targetArea1, s1, -1, 0));
-//		assertEquals(0,firstBrain.ratePiece(targetArea2, s2, 0, 0));
-//	}
-//	
-//	@Test
-//	public void testRateBoardWhenRotated(){
-//		SlatePiece s1Rotated = s1.fastRotation();
-//		assertEquals(1,firstBrain.ratePiece(targetArea1, s1Rotated, 0, 0));
-//		assertEquals(2,firstBrain.ratePiece(targetArea1, s3.fastRotation(), 8, 7));
-//	}
+	@Test
+	public void testRateBoard(){
+		assertEquals(9,firstBrain.ratePiece(targetArea1, s1, -1, 0));
+		assertEquals(0,firstBrain.ratePiece(targetArea2, s2, 0, 0));
+	}
 	
-	public static void main(String[] args) {
-		FirstBrainSpec firstBrainSpec = new FirstBrainSpec();
-		firstBrainSpec.setup();
-		
-//		targetArea1.place(s1.fastRotation(),-1,0);
-//		targetArea1.commit();
-//		targetArea1.place(s1.fastRotation(),-1,-1);
-//		targetArea1.commit();
-//		targetArea1.place(s3.fastRotation(),8,7);
-//		System.out.println("ratePoint of s3: "+ firstBrain.ratePiece(targetArea1, s3.fastRotation(), 8, 7));
-//		targetArea1.commit();
-//		targetArea1.print();
-		
-		Brain.Place bestPlace = new Place();
-		bestPlace = firstBrain.bestPlace(targetArea3, s3);
-		System.out.println("rX: "+ bestPlace.rX);
-		System.out.println("rY: "+ bestPlace.rY);
-		targetArea3.place(bestPlace.piece, bestPlace.rX, bestPlace.rY);
-		targetArea3.commit();
-		targetArea3.print();
+	@Test
+	public void testRateBoardWhenRotated(){
+		SlatePiece s1Rotated = s1.fastRotation();
+		assertEquals(1,firstBrain.ratePiece(targetArea1, s1Rotated, 0, 0));
+		assertEquals(2,firstBrain.ratePiece(targetArea1, s3.fastRotation(), 8, 7));
+		assertEquals(4, firstBrain.ratePiece(targetArea1, s3.fastRotation(), -1, 5));
+		assertEquals(3, firstBrain.ratePiece(targetArea1, s3.fastRotation(), -1, 4));
+		assertEquals(1, firstBrain.ratePiece(targetArea1, s3.fastFlipOver().fastRotation(), 6, -4));
+		assertEquals(4, firstBrain.ratePiece(targetArea1, s3.fastRotation(), -1, 5));
+		assertEquals(11, firstBrain.ratePiece(targetArea1, s3.fastRotation(), -1, -1));
+		assertEquals(2, firstBrain.ratePiece(targetArea1, s3.fastFlipOver().fastRotation().fastRotation(), 12, 4));
 	}
 }
-
-
 
 
 

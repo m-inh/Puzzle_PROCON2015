@@ -5,7 +5,7 @@ import java.util.Random;
 
 public class FirstBrain implements Brain {
 	public Brain.Place bestPlace(TargetArea area, SlatePiece piece) {
-		int maxMark = -1;
+		int maxMark = 0;
 		int currentMark = 0;
 		ArrayList<SlatePiece> pieceArr = new ArrayList<SlatePiece>();
 		SlatePiece tempPiece = piece;
@@ -16,19 +16,17 @@ public class FirstBrain implements Brain {
 				for (int j =0-tempPiece.getMinY(); j < CommonVL.HEIGHT_TARGET_AREA - tempPiece.getMaxY(); j++) {
 					if (area.place(tempPiece, i, j) == TargetArea.PLACE_OK) {
 						area.undo();
-//						System.out.println("i: "+i);
-//						System.out.println("j: "+j);
-						currentMark = ratePiece(area, piece, i, j);
-//						System.out.println("current mark: "+currentMark);
-//						System.out.println("max mark: "+maxMark);
-						if (maxMark == currentMark) {
-							pieceArr.add(tempPiece);
+
+						currentMark = ratePiece(area, tempPiece, i, j);
+						if (currentMark == maxMark) {
+							pieceArr.add(tempPiece.clone());
 						}
-						if (maxMark < currentMark) {
-							pieceArr = new ArrayList<SlatePiece>();
-							pieceArr.add(tempPiece);
-							maxMark = currentMark;
-						}
+						else
+							if (currentMark > maxMark) {
+								pieceArr = new ArrayList<SlatePiece>();
+								pieceArr.add(tempPiece.clone());
+								maxMark = currentMark;
+							}
 					} else
 						area.commit();
 				}
@@ -45,25 +43,25 @@ public class FirstBrain implements Brain {
 					if (area.place(tempPiece, i, j) == TargetArea.PLACE_OK) {
 						area.undo();
 
-						currentMark = ratePiece(area, piece, i, j);
-
+						currentMark = ratePiece(area, tempPiece, i, j);
 						if (maxMark == currentMark) {
-							pieceArr.add(tempPiece);
+							pieceArr.add(tempPiece.clone());
 						}
-						if (maxMark < currentMark) {
-							pieceArr = new ArrayList<SlatePiece>();
-							pieceArr.add(tempPiece);
-							maxMark = currentMark;
-						}
+						else
+							if (maxMark < currentMark) {
+								pieceArr = new ArrayList<SlatePiece>();
+								pieceArr.add(tempPiece.clone());
+								maxMark = currentMark;
+							}
 					} else
 						area.commit();
 				}
 			}
 			tempPiece = tempPiece.fastRotation();
 		}
-
+		
 		SlatePiece bestPiece = (SlatePiece) randomChoosePiece(pieceArr);
-
+		
 		if (bestPiece != null) {
 			return new Brain.Place(bestPiece.getReferenceCell().getX(), bestPiece.getReferenceCell().getY(), bestPiece);
 		}

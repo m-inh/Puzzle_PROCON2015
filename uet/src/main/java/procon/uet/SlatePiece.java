@@ -128,6 +128,15 @@ public class SlatePiece {
 //		return root;
 	}
 	
+	public SlatePiece clone(){
+		SlatePiece duplicate = new SlatePiece(core);
+		duplicate.referenceCell = new Point(referenceCell.x, referenceCell.y);
+		duplicate.angle = angle;
+		duplicate.frontSide = frontSide;
+		
+		return duplicate;
+	}
+	
 	public boolean equals(Object obj){
 		// standard equals() technique 1
 		if (obj == this)
