@@ -131,4 +131,20 @@ public class SlatePieceSpec {
 		assertFalse(s1.equals(s1.fastRotation()));
 		assertTrue(s1.equals(s1.fastRotation().fastRotation().fastRotation().fastRotation()));
 	}
+	
+	@Test
+	public void testMinMaxWidthHeight(){
+		assertEquals(1, s1.getMinX());
+		assertEquals(3, s1.getMaxX());
+		
+		assertEquals(0, s1.getMinY());
+		assertEquals(6, s1.getMaxY());
+		
+		SlatePiece s2Rotated = s2.fastRotation();
+		assertEquals(3, s2Rotated.getMinX());
+		assertEquals(6, s2Rotated.getMaxX());
+	}
 }
+
+
+

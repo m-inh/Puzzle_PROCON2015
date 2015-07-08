@@ -7,7 +7,9 @@ public class Main
 {
 	private static TargetArea area;
 	private static SlatePiece[] pieceArr;
+	private static Brain.Place bestPlace;
 	private static int bestMark = 10000;
+	
     public static void main( String[] args )
     {
     	FileManager fileMgr = new FileManager();
@@ -21,19 +23,19 @@ public class Main
 		for (int k = 0; k < 10000; k++) {
 			area = new TargetArea(fileMgr.getAreaString());
 			pieceArr = fileMgr.getPieceArr();
-			System.out.println("width area: "+CommonVL.WIDTH_TARGET_AREA);
-			System.out.println("height area: "+CommonVL.HEIGHT_TARGET_AREA);
+//			System.out.println("width area: "+CommonVL.WIDTH_TARGET_AREA);
+//			System.out.println("height area: "+CommonVL.HEIGHT_TARGET_AREA);
 			area.commit();
 			for (int i = 0; i < pieceArr.length; i++){
-				Brain.Place best = brain.bestPlace(area, pieceArr[i]);
-				if (best.piece != null) 
+				bestPlace = brain.bestPlace(area, pieceArr[i], bestPlace);
+				if (bestPlace.piece != null) 
 				{
-					area.place(best.piece, best.rX, best.rY);
+					area.place(bestPlace.piece, bestPlace.rX, bestPlace.rY);
 					area.commit();
-//					System.out.println(best.piece.toString());
+					System.out.println(bestPlace.piece.toString());
 //					area.print();
 				} else{
-//					System.out.println("Skip this slate piece");
+					System.out.println("Skip this slate piece");
 				}
 			}
 			currentMark = area.countEmptyCells();

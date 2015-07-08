@@ -186,12 +186,14 @@ public class FirstBrainSpec {
 //		targetArea1.print();
 		
 		Brain.Place bestPlace = new Place();
-		bestPlace = firstBrain.bestPlace(targetArea3, s3);
+		bestPlace = firstBrain.bestPlace(targetArea3, s3, bestPlace);
 		System.out.println("rX: "+ bestPlace.rX);
 		System.out.println("rY: "+ bestPlace.rY);
 		targetArea3.place(bestPlace.piece, bestPlace.rX, bestPlace.rY);
 		targetArea3.commit();
 		targetArea3.print();
+		System.out.println(bestPlace.piece.toString());
+		System.out.println("Mark: "+firstBrain.ratePiece(targetArea3, bestPlace.piece, bestPlace.rX, bestPlace.rY));
 	}
 }
 

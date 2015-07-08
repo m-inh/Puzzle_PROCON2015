@@ -161,6 +161,15 @@ public class TargetAreaSpec {
 		assertEquals(targetArea1.place(s2, 5, 1), TargetArea.PLACE_NONADJACENT);
 	}
 	
+	@Test
+	public void testUndo(){
+		int beforeMark = targetArea1.countEmptyCells();
+		targetArea1.place(s1, 2, 0);
+		targetArea1.undo();
+		int afterMark = targetArea1.countEmptyCells();
+		assertEquals(beforeMark, afterMark);
+	}
+	
 	public static void main(String[] args) {
 		TargetAreaSpec temp = new TargetAreaSpec();
 		temp.setup();

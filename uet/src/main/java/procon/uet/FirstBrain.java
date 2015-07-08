@@ -4,7 +4,13 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class FirstBrain implements Brain {
-	public Brain.Place bestPlace(TargetArea area, SlatePiece piece) {
+	
+	public Brain.Place bestPlace(TargetArea area, SlatePiece piece, Brain.Place place) {
+		
+		if (place == null){
+			place = new Brain.Place();
+		}
+		
 		int maxMark = -1;
 		int currentMark = 0;
 		ArrayList<SlatePiece> pieceArr = new ArrayList<SlatePiece>();
@@ -21,16 +27,17 @@ public class FirstBrain implements Brain {
 						currentMark = ratePiece(area, piece, i, j);
 //						System.out.println("current mark: "+currentMark);
 //						System.out.println("max mark: "+maxMark);
-						if (maxMark == currentMark) {
+						if (currentMark == maxMark) {
 							pieceArr.add(tempPiece);
 						}
-						if (maxMark < currentMark) {
+						if (currentMark > maxMark ) {
 							pieceArr = new ArrayList<SlatePiece>();
 							pieceArr.add(tempPiece);
 							maxMark = currentMark;
 						}
-					} else
+					} else{
 						area.commit();
+					}
 				}
 			}
 			tempPiece = tempPiece.fastRotation();
@@ -47,16 +54,17 @@ public class FirstBrain implements Brain {
 
 						currentMark = ratePiece(area, piece, i, j);
 
-						if (maxMark == currentMark) {
+						if (currentMark == maxMark) {
 							pieceArr.add(tempPiece);
 						}
-						if (maxMark < currentMark) {
+						if (currentMark > maxMark) {
 							pieceArr = new ArrayList<SlatePiece>();
 							pieceArr.add(tempPiece);
 							maxMark = currentMark;
 						}
-					} else
+					} else{
 						area.commit();
+					}
 				}
 			}
 			tempPiece = tempPiece.fastRotation();
@@ -65,7 +73,11 @@ public class FirstBrain implements Brain {
 		SlatePiece bestPiece = (SlatePiece) randomChoosePiece(pieceArr);
 
 		if (bestPiece != null) {
-			return new Brain.Place(bestPiece.getReferenceCell().getX(), bestPiece.getReferenceCell().getY(), bestPiece);
+//			return new Brain.Place(bestPiece.getReferenceCell().getX(), bestPiece.getReferenceCell().getY(), bestPiece);
+			place.rX = bestPiece.getReferenceCell().getX();
+			place.rY = bestPiece.getReferenceCell().getY();
+			place.piece = bestPiece;
+			return place;
 		}
 		return new Brain.Place();
 	}
