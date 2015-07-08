@@ -121,6 +121,10 @@ public class FirstBrain implements Brain {
 		if (pieceArr.size() == 0) {
 			return null;
 		}
+		// random choose the this piece
+		if (rand.nextInt(100)%100 > 90){
+			return null;
+		}
 		return pieceArr.get(rand.nextInt(pieceArr.size()));
 	}
 }

@@ -19,8 +19,9 @@ public class Main
 		fileMgr.readFile();
 //		area = fileMgr.getArea();
 		
+		TargetArea bestAreaResult = area;
 		//execute 10.000 times and choose the best time
-		for (int k = 0; k < 10000; k++) {
+		for (int k = 0; k < 100; k++) {
 			area = new TargetArea(fileMgr.getAreaString());
 			pieceArr = fileMgr.getPieceArr();
 //			System.out.println("width area: "+CommonVL.WIDTH_TARGET_AREA);
@@ -45,9 +46,13 @@ public class Main
 			System.out.println("Current best mark: "+bestMark);
 			if (bestMark > currentMark){
 				bestMark = currentMark;
+				bestAreaResult = area;
 			}
 		}
-//		area.print();
+		// print the best area result
+		bestAreaResult.print();
 		System.out.println("Best mark: "+bestMark);
+		
+//		fileMgr.writeLine("klasjdfklasjd\nkdskdfjklsdjfklsdf\nsdfsdfsdf");
     }
 }
