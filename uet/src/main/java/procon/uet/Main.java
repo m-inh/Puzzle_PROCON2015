@@ -9,6 +9,7 @@ public class Main
 	private static SlatePiece[] pieceArr;
 	private static Brain.Place bestPlace;
 	private static int bestMark = 10000;
+	private static String answer = "";
 	
     public static void main( String[] args )
     {
@@ -27,32 +28,34 @@ public class Main
 //			System.out.println("width area: "+CommonVL.WIDTH_TARGET_AREA);
 //			System.out.println("height area: "+CommonVL.HEIGHT_TARGET_AREA);
 			area.commit();
+			String tempAnswer = "";
 			for (int i = 0; i < pieceArr.length; i++){
 				bestPlace = brain.bestPlace(area, pieceArr[i]);
-//				bestPlace = brain.bestPlace(area, pieceArr[i], bestPlace);
-//				if (bestPlace != null) 
 				if (bestPlace.piece != null) 
 				{
 					area.place(bestPlace.piece, bestPlace.rX, bestPlace.rY);
 					area.commit();
-					System.out.println(bestPlace.piece.toString());
+					tempAnswer += bestPlace.piece.toString();
+//					System.out.println(bestPlace.piece.toString());
 //					area.print();
 				} else{
-					System.out.println("Skip this slate piece");
+//					System.out.println("Skip this slate piece");
 				}
+				tempAnswer += ";";
 			}
 			currentMark = area.countEmptyCells();
-			System.out.println("Current mark: "+currentMark);
-			System.out.println("Current best mark: "+bestMark);
+//			System.out.println("Current mark: "+currentMark);
+//			System.out.println("Current best mark: "+bestMark);
 			if (bestMark > currentMark){
 				bestMark = currentMark;
 				bestAreaResult = area;
+				answer = tempAnswer;
 			}
 		}
 		// print the best area result
 		bestAreaResult.print();
 		System.out.println("Best mark: "+bestMark);
 		
-//		fileMgr.writeLine("klasjdfklasjd\nkdskdfjklsdjfklsdf\nsdfsdfsdf");
+		fileMgr.writeLine(answer);
     }
 }

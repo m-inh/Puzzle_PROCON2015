@@ -214,7 +214,9 @@ public class SlatePiece {
 		return maxY;
 	}
 	public String toString(){
-		return referenceCell != null ? referenceCell.toString() + " " 
-						+ (frontSide ? "H" : "T") + " " + Integer.toString(angle) : "";
+		String answer = referenceCell != null ? referenceCell.toString() + " " 
+				+ (frontSide ? "H" : "T") + " " + Integer.toString(angle) : "";
+//		CommonVL.STRING_ANSWER_LENGTH = answer.length();
+		return answer;
 	}
 }

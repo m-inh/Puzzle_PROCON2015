@@ -11,6 +11,8 @@ public class CommonVL {
 	//Define width height of real area
 	public static int WIDTH_TARGET_AREA = 0;
 	public static int HEIGHT_TARGET_AREA = 0;
+
+//	public static int STRING_ANSWER_LENGTH = 0;
 	
 	public static final int BACK_SIZE_SLATE_PIECE = 1;
 	public static final int FRONT_SIZE_SLATE_PIECE = 0;

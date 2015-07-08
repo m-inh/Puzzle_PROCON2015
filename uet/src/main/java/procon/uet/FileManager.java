@@ -1,9 +1,12 @@
 package procon.uet;
 
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.RandomAccessFile;
+import java.io.Writer;
 
 import javax.swing.JOptionPane;
 
@@ -16,6 +19,8 @@ public class FileManager {
 	private String inputPath;
 	private String outputPath;
 	
+	private BufferedWriter buffWriter;
+	
 	private SlatePiece[] pieceArr;
 //	private TargetArea area;
 	
@@ -25,8 +30,8 @@ public class FileManager {
 		inputPath = getClass().getResource("/file/quest.txt").toString();
 		outputPath = getClass().getResource("/file/answer.txt").toString();
 		
-//		System.out.println(inputPath);
-//		System.out.println(outputPath);
+		System.out.println("input path: "+inputPath);
+		System.out.println("output path: "+outputPath);
 		answerOutputFile = new File(outputPath.substring(6));
 		try {
 			answerOutputFile.createNewFile();
@@ -64,9 +69,11 @@ public class FileManager {
 	public boolean openFileOutput(){
 		if (checkExistFileOutput() == true){
 			try {
-				rdf = new RandomAccessFile(answerOutputFile, "rw");
+//				rdf = new RandomAccessFile(answerOutputFile, "rw");
+				System.out.println("answer path: "+answerOutputFile.getAbsolutePath());
+				buffWriter = new BufferedWriter(new FileWriter(answerOutputFile.getAbsolutePath()));
 				return true;
-			} catch (FileNotFoundException e) {
+			} catch (Exception e) {
 				e.printStackTrace();
 				JOptionPane.showConfirmDialog(null, "Khong the mo file answer!" + e.toString());
 			}
@@ -151,13 +158,20 @@ public class FileManager {
 	public void writeLine(String content){
 		if (openFileOutput() == true){
 			try {
-				rdf.seek(rdf.length());
-//				rdf.writeChars("\n");
-//				rdf.writeChar('\n');
-				rdf.writeBytes(content + "\n");
-				System.out.println(content);
-				close();
-			} catch (IOException e) {
+//				rdf.seek(rdf.length());
+//				rdf.writeBytes(content + "\n");
+				int tempChar;
+				for (int i = 0; i < content.length(); i++) {
+					tempChar = (int)content.charAt(i);
+					if(tempChar != (int)';'){
+						buffWriter.write(tempChar);
+					} else{
+						buffWriter.newLine();
+					}
+				}
+				
+				buffWriter.close();
+			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		} else {
@@ -168,6 +182,7 @@ public class FileManager {
 	public void close(){
 		try {
 			rdf.close();
+//			buffWriter.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 			JOptionPane.showConfirmDialog(null, "Khong the dong file!" + e.toString());
