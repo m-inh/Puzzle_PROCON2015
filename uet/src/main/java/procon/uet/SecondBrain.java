@@ -2,8 +2,6 @@ package procon.uet;
 
 import java.util.ArrayList;
 
-import procon.uet.Brain.Place;
-
 public class SecondBrain extends FirstBrain implements Brain{
 	@Override
 	public Brain.Place bestPlace(TargetArea area, SlatePiece piece){
