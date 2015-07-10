@@ -4,9 +4,9 @@ import java.lang.annotation.Target;
 import java.util.ArrayList;
 
 public class SecondBrain extends FirstBrain{
-	public int bestPlace(TargetArea area, SlatePiece[] pieces, int i, int blocks, ArrayList<SlatePiece> chosenPiece, int emptyCells, int bestMark){
+	public int bestPlace(TargetArea area, SlatePiece[] pieces, int i, int blocks, ArrayList<SlatePiece> chosenPiece, int emptyCells, Integer bestMark){
 		if (blocks >  emptyCells|| i >= pieces.length - 1)
-			return -1;
+			return emptyCells - blocks;
 		ArrayList<SlatePiece> pieceArr = mostAdjacentPieces(area, pieces[i]);
 		area.undo();
 		if (chosenPiece.size() > 0)
