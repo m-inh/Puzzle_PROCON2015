@@ -8,27 +8,26 @@ public class SecondBrain extends FirstBrain{
 		if (blocks >  emptyCells|| i >= pieces.length - 1)
 			return emptyCells - blocks;
 		ArrayList<SlatePiece> pieceArr = mostAdjacentPieces(area, pieces[i]);
-		area.undo();
-		if (chosenPiece.size() > 0)
-			chosenPiece.remove(chosenPiece.size() - 1);
 		
-		System.out.println("i = " + i + " size: " + pieceArr.size());
-//		int bestMark = emptyCells - blocks;
+		System.out.println("i = " + i + " pieces size: " + pieceArr.size() + " chosen piece size: " + chosenPiece.size());
 		
 		for (int j = 0; j < pieceArr.size(); j++){
 			chosenPiece.add(pieceArr.get(j));
 			blocks += pieceArr.get(j).getSize();
-			int currentMark = bestPlace(area, pieces, i+1, blocks, chosenPiece, emptyCells, bestMark);
+			TargetArea areaClone = area.clone();
+			ArrayList<SlatePiece> chosenPieceClone = (ArrayList<SlatePiece>) chosenPiece.clone();
+			int currentMark = bestPlace(areaClone, pieces, i+1, blocks, chosenPieceClone, emptyCells, bestMark);
 			if (currentMark < bestMark && currentMark >= 0){
 				System.out.println("i = " + i + " j = " + j + " blocks: " + blocks);
 //				System.out.println(chosenPiece);
-				
+				area = areaClone;
+				chosenPiece = chosenPieceClone;
 				area.place(pieceArr.get(j), pieceArr.get(j).getLocation().x, pieceArr.get(j).getLocation().y);
 				area.commit();
 				bestMark = currentMark;
 			}
-			System.out.println("best mark: " + bestMark);
 		}
+		System.out.println("best mark: " + bestMark);
 		
 		return emptyCells - blocks;
 	}

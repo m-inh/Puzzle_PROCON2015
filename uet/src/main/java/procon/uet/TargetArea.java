@@ -21,6 +21,8 @@ public class TargetArea {
 	public static final int PLACE_BAD = 2;
 	public static final int PLACE_NONADJACENT = 3;
 	
+	public TargetArea(){}
+	
 	public TargetArea(String[] areaString) {
 		CommonVL.WIDTH_TARGET_AREA = 0;
 		CommonVL.HEIGHT_TARGET_AREA = 0;
@@ -223,12 +225,14 @@ public class TargetArea {
 		return noPieces;
 	}
 	
-//	private void calculateMinMaxXY(){
-//		for (int i = 0; i < CommonVL.SIZE_TARGET_AREA; i++){
-//			for (int j = 0; j < CommonVL.SIZE_TARGET_AREA; j++){
-//				if (grid[i][j] > 0)
-//					
-//			}
-//		}
-//	}
+	public TargetArea clone(){
+		TargetArea newArea = new TargetArea();
+		newArea.grid = grid;
+		newArea.gridBackup = gridBackup;
+		newArea.committed = true;
+		newArea.noPieces = noPieces;
+		newArea.noPiecesBackup = noPiecesBackup;
+		
+		return newArea;
+	}
 }
