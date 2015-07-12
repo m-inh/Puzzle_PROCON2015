@@ -13,7 +13,7 @@ public class EqualAdjacentPiece {
 	}
 	
 	public void pushPiece(SlatePiece piece){
-		equalPieceArr.add(piece.clone());
+		equalPieceArr.add(piece);
 	}
 	
 	public ArrayList<SlatePiece> getEqualPieceArr(){

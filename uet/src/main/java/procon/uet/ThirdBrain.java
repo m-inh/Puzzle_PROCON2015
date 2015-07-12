@@ -16,22 +16,33 @@ public class ThirdBrain extends FirstBrain{
 		for (int k = 0; k < 4; k++) {
 			for (int i = 0-tempPiece.getMinX(); i < CommonVL.WIDTH_TARGET_AREA-tempPiece.getMaxX(); i++) {
 				for (int j = 0-tempPiece.getMinY(); j < CommonVL.HEIGHT_TARGET_AREA-tempPiece.getMaxY(); j++) {
+					
 					if (area.place(tempPiece, i, j) == TargetArea.PLACE_OK){
 						area.undo();
 						
 						currentMark = ratePiece(area, tempPiece, i, j);
 						
-						if (currentMark == equalAdPiece.getMark()){
-							equalAdPiece.pushPiece(tempPiece);
+//						if (currentMark == equalAdPiece.getMark()){
+//							equalAdPiece.pushPiece(tempPiece.clone());
+//							System.out.println("add piece");
+//						} else {
+//							if (equalAdPiece.getMark() != 0){
+//								equalPieceArr.add(equalAdPiece);
+//							}
+//							equalAdPiece = new EqualAdjacentPiece(currentMark);
+//							equalAdPiece.pushPiece(tempPiece.clone());
+//						}
+						
+						if (isExist(currentMark, equalPieceArr)){
+							equalPieceArr.get(getPosition(currentMark, equalPieceArr)).pushPiece(tempPiece.clone());
 						} else {
-							if (equalAdPiece.getMark() != 0){
-								equalPieceArr.add(equalAdPiece);
-							}
 							equalAdPiece = new EqualAdjacentPiece(currentMark);
-							equalAdPiece.pushPiece(tempPiece);
+							equalAdPiece.pushPiece(tempPiece.clone());
+							equalPieceArr.add(equalAdPiece);
 						}
+					} else {
+						area.commit();
 					}
-					area.commit();
 				}
 			}
 			tempPiece = tempPiece.fastRotation();
@@ -46,31 +57,34 @@ public class ThirdBrain extends FirstBrain{
 						
 						currentMark = ratePiece(area, tempPiece, i, j);
 						
-						if (currentMark == equalAdPiece.getMark()){
-							equalAdPiece.pushPiece(tempPiece);
+						if (isExist(currentMark, equalPieceArr)){
+							equalPieceArr.get(getPosition(currentMark, equalPieceArr)).pushPiece(tempPiece.clone());
 						} else {
-							if (equalAdPiece.getMark() != 0){
-								equalPieceArr.add(equalAdPiece);
-							}
 							equalAdPiece = new EqualAdjacentPiece(currentMark);
-							equalAdPiece.pushPiece(tempPiece);
+							equalAdPiece.pushPiece(tempPiece.clone());
+							equalPieceArr.add(equalAdPiece);
 						}
+					} else {
+						area.commit();
 					}
-					area.commit();
 				}
 			}
 			tempPiece = tempPiece.fastRotation();
 		}
-		
-		SlatePiece bestPiece = chooseEqualAdjacentPiece(equalPieceArr).chooseRandomPiece();
-		if (bestPiece != null) {
-			return new Brain.Place(bestPiece.getReferenceCell().getX(), bestPiece.getReferenceCell().getY(), bestPiece);
+		EqualAdjacentPiece equalAdPieceChosen = chooseEqualAdjacentPiece(equalPieceArr);
+		SlatePiece bestPiece;
+		if (equalAdPieceChosen != null){
+			bestPiece = equalAdPieceChosen.chooseRandomPiece();
+			if (bestPiece != null) {
+				return new Brain.Place(bestPiece.getReferenceCell().getX(), bestPiece.getReferenceCell().getY(), bestPiece);
+			}
 		}
 		return new Brain.Place();
 	}
 	
-	private EqualAdjacentPiece chooseEqualAdjacentPiece(ArrayList<EqualAdjacentPiece> equaladPiece){
-		if (equaladPiece.size() == 0){
+	private EqualAdjacentPiece chooseEqualAdjacentPiece(ArrayList<EqualAdjacentPiece> equaladPieceArr){
+		if (equaladPieceArr.size() == 0){
+//			System.out.println("equalAdPieceArr null");
 			return null;
 		}
 		Random rand = new Random();
@@ -80,8 +94,8 @@ public class ThirdBrain extends FirstBrain{
 		
 		
 		int markSum = 0;
-		for (int i = 0; i < equaladPiece.size(); i++) {
-			markSum += equaladPiece.get(i).getMark();
+		for (int i = 0; i < equaladPieceArr.size(); i++) {
+			markSum += equaladPieceArr.get(i).getMark();
 		}
 		
 //		int count = 0;
@@ -91,7 +105,7 @@ public class ThirdBrain extends FirstBrain{
 		EqualAdjacentPiece tempEqualAdpiece;
 		int tempMark = 0;
 		for (int i = 0, j = 0, count = 0; i < markSum; i++) {
-			tempEqualAdpiece = equaladPiece.get(j);
+			tempEqualAdpiece = equaladPieceArr.get(j);
 			tempMark = tempEqualAdpiece.getMark();
 			intRandArr.add(j);
 			count++;
@@ -101,7 +115,28 @@ public class ThirdBrain extends FirstBrain{
 			}
 		}
 		
-		return equaladPiece.get(intRandArr.get(rand.nextInt(intRandArr.size())));
+		return equaladPieceArr.get((int)intRandArr.get(rand.nextInt(intRandArr.size())));
+	}
+	
+	private boolean isExist(int mark, ArrayList<EqualAdjacentPiece> equalAdPieceArr){
+		if (mark == 0){
+			return false;
+		}
+		for (int i = 0; i < equalAdPieceArr.size(); i++) {
+			if (equalAdPieceArr.get(i).getMark() == mark){
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	private int getPosition(int mark, ArrayList<EqualAdjacentPiece> equalAdPieceArr){
+		for (int i = 0; i < equalAdPieceArr.size(); i++) {
+			if (equalAdPieceArr.get(i).getMark() == mark){
+				return i;
+			}
+		}
+		return -1;
 	}
 	
 	public static void main(String[] args) {
@@ -121,7 +156,7 @@ public class ThirdBrain extends FirstBrain{
 		area = new TargetArea(fileMgr.getAreaString());
 		TargetArea bestAreaResult = area;
 		//execute 10.000 times and choose the best time
-		for (int k = 0; k < 100; k++) {
+		for (int k = 0; k < 1000; k++) {
 			area = new TargetArea(fileMgr.getAreaString());
 			pieceArr = fileMgr.getPieceArr();
 //			System.out.println("width area: "+CommonVL.WIDTH_TARGET_AREA);
@@ -135,16 +170,16 @@ public class ThirdBrain extends FirstBrain{
 					area.place(bestPlace.piece, bestPlace.rX, bestPlace.rY);
 					area.commit();
 					tempAnswer += bestPlace.piece.toString();
-//					System.out.println(bestPlace.piece.toString());
+					System.out.println(bestPlace.piece.toString());
 //					area.print();
 				} else{
-//					System.out.println("Skip this slate piece");
+					System.out.println("Skip this slate piece");
 				}
 				tempAnswer += ";";
 			}
 			currentMark = area.countEmptyCells();
-//			System.out.println("Current mark: "+currentMark);
-//			System.out.println("Current best mark: "+bestMark);
+			System.out.println("Current mark: "+currentMark);
+			System.out.println("Current best mark: "+bestMark);
 			if (bestMark > currentMark){
 				bestMark = currentMark;
 				bestAreaResult = area;
@@ -157,6 +192,7 @@ public class ThirdBrain extends FirstBrain{
 		
 		fileMgr.writeLine(answer);
 	}
+	
 }
 
 
