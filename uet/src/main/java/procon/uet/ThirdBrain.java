@@ -8,7 +8,7 @@ public class ThirdBrain extends FirstBrain{
 	@Override
 	public Place bestPlace(TargetArea area, SlatePiece piece) {
 		ArrayList<EqualAdjacentPiece> equalPieceArr = new ArrayList<EqualAdjacentPiece>();
-		EqualAdjacentPiece equaladPiece = new EqualAdjacentPiece(0);
+		EqualAdjacentPiece equalAdPiece = new EqualAdjacentPiece(0);
 		SlatePiece tempPiece = piece;
 		
 		int currentMark = 0;
@@ -21,14 +21,14 @@ public class ThirdBrain extends FirstBrain{
 						
 						currentMark = ratePiece(area, tempPiece, i, j);
 						
-						if (currentMark == equaladPiece.getMark()){
-							equaladPiece.pushPiece(tempPiece);
+						if (currentMark == equalAdPiece.getMark()){
+							equalAdPiece.pushPiece(tempPiece);
 						} else {
-							if (equaladPiece.getMark() != 0){
-								equalPieceArr.add(equaladPiece);
+							if (equalAdPiece.getMark() != 0){
+								equalPieceArr.add(equalAdPiece);
 							}
-							equaladPiece = new EqualAdjacentPiece(currentMark);
-							equaladPiece.pushPiece(tempPiece);
+							equalAdPiece = new EqualAdjacentPiece(currentMark);
+							equalAdPiece.pushPiece(tempPiece);
 						}
 					}
 					area.commit();
@@ -46,14 +46,14 @@ public class ThirdBrain extends FirstBrain{
 						
 						currentMark = ratePiece(area, tempPiece, i, j);
 						
-						if (currentMark == equaladPiece.getMark()){
-							equaladPiece.pushPiece(tempPiece);
+						if (currentMark == equalAdPiece.getMark()){
+							equalAdPiece.pushPiece(tempPiece);
 						} else {
-							if (equaladPiece.getMark() != 0){
-								equalPieceArr.add(equaladPiece);
+							if (equalAdPiece.getMark() != 0){
+								equalPieceArr.add(equalAdPiece);
 							}
-							equaladPiece = new EqualAdjacentPiece(currentMark);
-							equaladPiece.pushPiece(tempPiece);
+							equalAdPiece = new EqualAdjacentPiece(currentMark);
+							equalAdPiece.pushPiece(tempPiece);
 						}
 					}
 					area.commit();

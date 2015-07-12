@@ -32,13 +32,26 @@ public class FileManager {
 		
 		System.out.println("input path: "+inputPath);
 		System.out.println("output path: "+outputPath);
-		answerOutputFile = new File(outputPath.substring(6));
+		questInputFile = new File(inputPath.substring(5));
+		
+		answerOutputFile = new File(outputPath.substring(5));
 		try {
-			answerOutputFile.createNewFile();
+			if (!answerOutputFile.getParentFile().isDirectory()){
+				answerOutputFile.getParentFile().mkdirs();
+			}
+			if (!answerOutputFile.exists()){
+				answerOutputFile.createNewFile();
+				System.out.println("Tao file thanh cong");
+			}
+			System.out.println("answer path: "+answerOutputFile.getAbsolutePath());
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		questInputFile = new File(inputPath.substring(6));
+//		try {
+//			System.out.println(answerOutputFile.getAbsoluteFile());
+//		} catch (SecurityException e) {
+//			e.printStackTrace();
+//		}
 	}
 	
 // --------------------INPUT--------------------------	
@@ -70,7 +83,7 @@ public class FileManager {
 		if (checkExistFileOutput() == true){
 			try {
 //				rdf = new RandomAccessFile(answerOutputFile, "rw");
-				System.out.println("answer path: "+answerOutputFile.getAbsolutePath());
+//				System.out.println("answer path: "+answerOutputFile.getAbsolutePath());
 				buffWriter = new BufferedWriter(new FileWriter(answerOutputFile.getAbsolutePath()));
 				return true;
 			} catch (Exception e) {
