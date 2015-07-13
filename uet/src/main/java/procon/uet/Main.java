@@ -22,7 +22,7 @@ public class Main
 		
 		TargetArea bestAreaResult = area;
 		//execute 10.000 times and choose the best time
-		for (int k = 0; k < 100; k++) {
+		for (int k = 0; k < 1000; k++) {
 			area = new TargetArea(fileMgr.getAreaString());
 			pieceArr = fileMgr.getPieceArr();
 //			System.out.println("width area: "+CommonVL.WIDTH_TARGET_AREA);
