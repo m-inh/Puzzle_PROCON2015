@@ -4,46 +4,63 @@ import java.lang.annotation.Target;
 import java.util.ArrayList;
 
 public class SecondBrain extends FirstBrain{
-	public int bestPlace(TargetArea area, SlatePiece[] pieces, int i, int blocks, ArrayList<SlatePiece> chosenPiece, int emptyCells, Integer bestMark){
-		if (blocks >  emptyCells|| i >= pieces.length - 1)
+	public class BestMark{
+		public int best;
+		
+		public BestMark(){}
+	};
+	
+	public int bestPlace(TargetArea area, SlatePiece[] pieces, int i, int blocks, ArrayList<SlatePiece> chosenPiece, int emptyCells, BestMark bestMark){
+		if (i >= 2)
 			return emptyCells - blocks;
 		ArrayList<SlatePiece> pieceArr = mostAdjacentPieces(area, pieces[i]);
+//		area.print();
+		System.out.println(pieceArr);
 		
-		System.out.println("i = " + i + " pieces size: " + pieceArr.size() + " chosen piece size: " + chosenPiece.size());
-		
-		for (int j = 0; j < pieceArr.size(); j++){
-			chosenPiece.add(pieceArr.get(j));
-			blocks += pieceArr.get(j).getSize();
-			TargetArea areaClone = area.clone();
-			ArrayList<SlatePiece> chosenPieceClone = (ArrayList<SlatePiece>) chosenPiece.clone();
-			int currentMark = bestPlace(areaClone, pieces, i+1, blocks, chosenPieceClone, emptyCells, bestMark);
-			if (currentMark < bestMark && currentMark >= 0){
-				System.out.println("i = " + i + " j = " + j + " blocks: " + blocks);
-//				System.out.println(chosenPiece);
-				area = areaClone;
-				chosenPiece = chosenPieceClone;
-				area.place(pieceArr.get(j), pieceArr.get(j).getLocation().x, pieceArr.get(j).getLocation().y);
-				area.commit();
-				bestMark = currentMark;
+		System.out.println("i = " + i + " pieces size: " + pieceArr.size() + " chosen piece size: " + chosenPiece.size() + " first");
+		if (blocks + pieces[i].getSize() <= emptyCells){
+			blocks += pieces[i].getSize();
+//			System.out.println("blocks: " + blocks);
+			for (int j = 0; j < pieceArr.size(); j++){
+				ArrayList<SlatePiece> chosenPieceClone = (ArrayList<SlatePiece>) chosenPiece.clone();
+				TargetArea areaClone = area.clone();
+				
+				areaClone.place(pieceArr.get(j), pieceArr.get(j).getLocation().x, pieceArr.get(j).getLocation().y);
+				areaClone.commit();
+				chosenPieceClone.add(pieceArr.get(j));
+				
+				int currentMark = bestPlace(areaClone, pieces, i+1, blocks, chosenPieceClone, emptyCells, bestMark);
+				System.out.println("i = " + i + " j = " + j + " currentMark: " + currentMark + " bestMark: " + bestMark.best);
+				if (currentMark < bestMark.best && currentMark >= 0){
+//					System.out.println("i = " + i + " j = " + j + " blocks: " + blocks);
+					area.copy(areaClone);
+					chosenPiece.clear();
+					for (int k = 0; k < chosenPieceClone.size(); k++){
+						chosenPiece.add(chosenPieceClone.get(k));
+					}
+					System.out.println("i = " + i + " chosen piece size: " + chosenPiece.size());
+//					System.out.println("x: " + pieceArr.get(j).getLocation().x + " y: " + pieceArr.get(j).getLocation().y);
+//					area.place(pieceArr.get(j), pieceArr.get(j).getLocation().x, pieceArr.get(j).getLocation().y);
+//					area.commit();
+					bestMark.best = currentMark;
+					System.out.println("i = " + i + " bestMark: " + bestMark.best + " last");
+				}
+//				area.undo();
 			}
 		}
-		System.out.println("best mark: " + bestMark);
+//		area.print();
+		System.out.println("blocks: " + blocks);
 		
-		return emptyCells - blocks;
+		return bestMark.best;
 	}
 	
 	public ArrayList<SlatePiece> bestResult(TargetArea area, SlatePiece[] pieces){		
 		ArrayList<SlatePiece> res = new ArrayList<SlatePiece>();
-		Integer bestMark = area.countEmptyCells();
-		
+		BestMark bestMark = new BestMark();
+		bestMark.best = area.countEmptyCells();
 		area.commit();
 		
-		bestPlace(area, pieces, 0, 0, res, area.countEmptyCells(), bestMark);
-		System.out.println(bestMark);
-		for (int i = 0; i < res.size(); i++){
-			area.place(res.get(i), res.get(i).getLocation().x, res.get(i).getLocation().y);
-			area.commit();
-		}
+		bestMark.best = bestPlace(area, pieces, 0, 0, res, area.countEmptyCells(), bestMark);
 		
 		return res;
 	}
@@ -57,8 +74,8 @@ public class SecondBrain extends FirstBrain{
 		SlatePiece[] pieceArr = fileMgr.getPieceArr();
 		
 		ArrayList<SlatePiece> bestAnswer = secondBrain.bestResult(area, pieceArr);
-
+		System.out.println(bestAnswer.size());
 //		area.print();
-		System.out.println("Mark: " + area.countEmptyCells());
+//		System.out.println("Mark: " + area.countEmptyCells());
 	}
 }

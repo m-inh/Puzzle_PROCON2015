@@ -235,4 +235,12 @@ public class TargetArea {
 		
 		return newArea;
 	}
+	
+	public void copy(TargetArea other){
+		grid = other.grid;
+		gridBackup = other.gridBackup;
+		committed = other.committed;
+		noPieces = other.noPieces;
+		noPiecesBackup = other.noPiecesBackup;
+	}
 }
