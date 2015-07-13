@@ -27,8 +27,9 @@ public class FileManager {
 	String [] areaString;
 	
 	public FileManager() {
-		inputPath = getClass().getResource("/file/quest.txt").toString();
-		outputPath = getClass().getResource("/file/answer.txt").toString();
+		inputPath = getClass().getResource("/file/8.txt").toString();
+		String fileName = inputPath.substring(inputPath.indexOf("/file") + 6, inputPath.indexOf(".txt")) + "ans.txt";
+		outputPath = getClass().getResource("/file").toString() + "/" + fileName;
 		
 		System.out.println("input path: "+inputPath);
 		System.out.println("output path: "+outputPath);
@@ -180,6 +181,7 @@ public class FileManager {
 						buffWriter.write(tempChar);
 					} else{
 						buffWriter.newLine();
+//						buffWriter.write('\n');
 					}
 				}
 				

@@ -87,10 +87,12 @@ public class ThirdBrain extends FirstBrain{
 //			System.out.println("equalAdPieceArr null");
 			return null;
 		}
+		
+		// random skip this piece
 		Random rand = new Random();
-		if (rand.nextInt(100)%100 > 90){
-			return null;
-		}
+//		if (rand.nextInt(100)%100 > 90){
+//			return null;
+//		}
 		
 		
 		int markSum = 0;
@@ -104,12 +106,14 @@ public class ThirdBrain extends FirstBrain{
 		ArrayList<Integer> intRandArr = new ArrayList<Integer>();
 		EqualAdjacentPiece tempEqualAdpiece;
 		int tempMark = 0;
+		int gravity = 20;
+		markSum *= gravity;
 		for (int i = 0, j = 0, count = 0; i < markSum; i++) {
 			tempEqualAdpiece = equaladPieceArr.get(j);
 			tempMark = tempEqualAdpiece.getMark();
 			intRandArr.add(j);
 			count++;
-			if (tempMark == count){
+			if (tempMark * gravity == count){
 				count = 0;
 				j++;
 			}
@@ -156,7 +160,7 @@ public class ThirdBrain extends FirstBrain{
 		area = new TargetArea(fileMgr.getAreaString());
 		TargetArea bestAreaResult = area;
 		//execute 10.000 times and choose the best time
-		for (int k = 0; k < 1000; k++) {
+		for (int k = 0; k < 2; k++) {
 			area = new TargetArea(fileMgr.getAreaString());
 			pieceArr = fileMgr.getPieceArr();
 //			System.out.println("width area: "+CommonVL.WIDTH_TARGET_AREA);
