@@ -26,33 +26,15 @@ public class FileManager {
 	
 	String [] areaString;
 	
-	public FileManager() {
-		inputPath = getClass().getResource("/file/8.txt").toString();
-		String fileName = inputPath.substring(inputPath.indexOf("/file") + 6, inputPath.indexOf(".txt")) + "ans.txt";
-		outputPath = getClass().getResource("/file").toString() + "/" + fileName;
-		
-		System.out.println("input path: "+inputPath);
-		System.out.println("output path: "+outputPath);
-		questInputFile = new File(inputPath.substring(5));
-		
-		answerOutputFile = new File(outputPath.substring(5));
+	public FileManager(String inputFileName) {
 		try {
-			if (!answerOutputFile.getParentFile().isDirectory()){
-				answerOutputFile.getParentFile().mkdirs();
-			}
-			if (!answerOutputFile.exists()){
-				answerOutputFile.createNewFile();
-				System.out.println("Tao file thanh cong");
-			}
-			System.out.println("answer path: "+answerOutputFile.getAbsolutePath());
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-//		try {
-//			System.out.println(answerOutputFile.getAbsoluteFile());
-//		} catch (SecurityException e) {
+			inputPath = getClass().getResource("/file/"+inputFileName).toString();
+		} catch (Exception e) {
 //			e.printStackTrace();
-//		}
+			System.out.println("Input File Name is not invalid!!");
+		}
+		System.out.println("input path: "+inputPath);
+		questInputFile = new File(inputPath.substring(5));
 	}
 	
 // --------------------INPUT--------------------------	
@@ -80,6 +62,30 @@ public class FileManager {
 	}
 	
  // --------------------OUTPUT--------------------------
+	public void createNewOutputFile(int noBrain){
+		String fileName = inputPath.substring(inputPath.indexOf("/file") + 6, inputPath.indexOf(".txt")) + "ansOf"+ noBrain +".txt";
+		outputPath = getClass().getResource("/file").toString() + "/" + fileName;
+		System.out.println("output path: "+outputPath);
+		answerOutputFile = new File(outputPath.substring(5));
+		try {
+			if (!answerOutputFile.getParentFile().isDirectory()){
+				answerOutputFile.getParentFile().mkdirs();
+			}
+			if (!answerOutputFile.exists()){
+				answerOutputFile.createNewFile();
+				System.out.println("Tao file answer thanh cong!");
+			}
+			System.out.println("answer path: "+answerOutputFile.getAbsolutePath());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+//		try {
+//			System.out.println(answerOutputFile.getAbsoluteFile());
+//		} catch (SecurityException e) {
+//			e.printStackTrace();
+//		}
+	}
+	
 	public boolean openFileOutput(){
 		if (checkExistFileOutput() == true){
 			try {
