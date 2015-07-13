@@ -24,7 +24,7 @@ public class FileManager {
 	private SlatePiece[] pieceArr;
 //	private TargetArea area;
 	
-	String [] areaString;
+	private String [] areaString;
 	
 	public FileManager(String inputFileName) {
 		try {

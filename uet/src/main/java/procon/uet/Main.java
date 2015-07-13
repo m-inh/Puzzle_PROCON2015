@@ -16,18 +16,21 @@ public class Main
 	
     public static void main( String[] args )
     {
-    	fileMgr = new FileManager("9.txt");
+    	fileMgr = new FileManager("quest.txt");
 		fileMgr.readFile();
 		System.out.println("-------------------------");
 		
-		execute(1,3);
-		execute(3,4);
+		execute(1,400);
+		execute(3,0);
     }
     
     // Execute nhan 2 tham so truyen vao: ten brain thuc thi va so lan thuc thi
     // tuong ung
     private static void execute(int noBrain, int NoExecute){
     	FirstBrain brain = new FirstBrain();
+    	bestMark = 10000;
+		noSlatePiecesUsedMin = 10000;
+		bestAreaResult = new TargetArea(fileMgr.getAreaString());
     	switch (noBrain) {
 		case 1:
 			brain = new FirstBrain();
@@ -86,7 +89,5 @@ public class Main
 		System.out.println("Number of SlatePieces min: "+noSlatePiecesUsedMin);
 		fileMgr.createNewOutputFile(noBrain);
 		fileMgr.writeLine(answer); 
-		bestMark = 10000;
-		noSlatePiecesUsedMin = 10000;
     }
 }
