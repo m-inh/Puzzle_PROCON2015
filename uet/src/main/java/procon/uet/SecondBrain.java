@@ -1,6 +1,5 @@
 package procon.uet;
 
-import java.lang.annotation.Target;
 import java.util.ArrayList;
 
 public class SecondBrain extends FirstBrain{

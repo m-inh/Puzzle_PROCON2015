@@ -6,6 +6,20 @@ import java.util.Random;
 public class ThirdBrain extends FirstBrain{
 	@Override
 	public Place bestPlace(TargetArea area, SlatePiece piece) {
+		ArrayList<EqualAdjacentPiece> equalPieceArr = arrayOfEqualAjacentPieces(area, piece);
+		
+		EqualAdjacentPiece equalAdPieceChosen = chooseEqualAdjacentPiece(equalPieceArr);
+		SlatePiece bestPiece;
+		if (equalAdPieceChosen != null){
+			bestPiece = equalAdPieceChosen.chooseRandomPiece();
+			if (bestPiece != null) {
+				return new Brain.Place(bestPiece.getReferenceCell().getX(), bestPiece.getReferenceCell().getY(), bestPiece);
+			}
+		}
+		return new Brain.Place();
+	}
+	
+	protected ArrayList<EqualAdjacentPiece> arrayOfEqualAjacentPieces(TargetArea area, SlatePiece piece){
 		ArrayList<EqualAdjacentPiece> equalPieceArr = new ArrayList<EqualAdjacentPiece>();
 		EqualAdjacentPiece equalAdPiece = new EqualAdjacentPiece(0);
 		SlatePiece tempPiece = piece;
@@ -70,18 +84,11 @@ public class ThirdBrain extends FirstBrain{
 			}
 			tempPiece = tempPiece.fastRotation();
 		}
-		EqualAdjacentPiece equalAdPieceChosen = chooseEqualAdjacentPiece(equalPieceArr);
-		SlatePiece bestPiece;
-		if (equalAdPieceChosen != null){
-			bestPiece = equalAdPieceChosen.chooseRandomPiece();
-			if (bestPiece != null) {
-				return new Brain.Place(bestPiece.getReferenceCell().getX(), bestPiece.getReferenceCell().getY(), bestPiece);
-			}
-		}
-		return new Brain.Place();
+		
+		return equalPieceArr;
 	}
 	
-	protected EqualAdjacentPiece chooseEqualAdjacentPiece(ArrayList<EqualAdjacentPiece> equaladPieceArr){
+	private EqualAdjacentPiece chooseEqualAdjacentPiece(ArrayList<EqualAdjacentPiece> equaladPieceArr){
 		if (equaladPieceArr.size() == 0){
 //			System.out.println("equalAdPieceArr null");
 			return null;
@@ -121,7 +128,7 @@ public class ThirdBrain extends FirstBrain{
 		return equaladPieceArr.get((int)intRandArr.get(rand.nextInt(intRandArr.size())));
 	}
 	
-	protected boolean isExist(int mark, ArrayList<EqualAdjacentPiece> equalAdPieceArr){
+	private boolean isExist(int mark, ArrayList<EqualAdjacentPiece> equalAdPieceArr){
 		if (mark == 0){
 			return false;
 		}
@@ -133,7 +140,7 @@ public class ThirdBrain extends FirstBrain{
 		return false;
 	}
 	
-	protected int getPosition(int mark, ArrayList<EqualAdjacentPiece> equalAdPieceArr){
+	private int getPosition(int mark, ArrayList<EqualAdjacentPiece> equalAdPieceArr){
 		for (int i = 0; i < equalAdPieceArr.size(); i++) {
 			if (equalAdPieceArr.get(i).getMark() == mark){
 				return i;
@@ -149,7 +156,7 @@ public class ThirdBrain extends FirstBrain{
 		int bestMark = 10000;
 		String answer = "";
 		
-		FileManager fileMgr = new FileManager("11.txt");
+		FileManager fileMgr = new FileManager("quest.txt");
     	ThirdBrain brain = new ThirdBrain();
     	
     	int currentMark = 0;
@@ -162,8 +169,8 @@ public class ThirdBrain extends FirstBrain{
 		for (int k = 0; k < 10; k++) {
 			area = new TargetArea(fileMgr.getAreaString());
 			pieceArr = fileMgr.getPieceArr();
-			System.out.println("width area: "+CommonVL.WIDTH_TARGET_AREA);
-			System.out.println("height area: "+CommonVL.HEIGHT_TARGET_AREA);
+//			System.out.println("width area: "+CommonVL.WIDTH_TARGET_AREA);
+//			System.out.println("height area: "+CommonVL.HEIGHT_TARGET_AREA);
 			area.commit();
 			String tempAnswer = "";
 			for (int i = 0; i < pieceArr.length; i++){
@@ -173,16 +180,16 @@ public class ThirdBrain extends FirstBrain{
 					area.place(bestPlace.piece, bestPlace.rX, bestPlace.rY);
 					area.commit();
 					tempAnswer += bestPlace.piece.toString();
-					System.out.println(bestPlace.piece.toString());
+//					System.out.println(bestPlace.piece.toString());
 //					area.print();
 				} else{
-					System.out.println("Skip this slate piece");
+//					System.out.println("Skip this slate piece");
 				}
 				tempAnswer += ";";
 			}
 			currentMark = area.countEmptyCells();
-			System.out.println("Current mark: "+currentMark);
-			System.out.println("Current best mark: "+bestMark);
+//			System.out.println("Current mark: "+currentMark);
+//			System.out.println("Current best mark: "+bestMark);
 			if (bestMark > currentMark){
 				bestMark = currentMark;
 				bestAreaResult = area;
