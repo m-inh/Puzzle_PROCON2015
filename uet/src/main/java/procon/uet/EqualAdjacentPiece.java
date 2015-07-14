@@ -3,7 +3,7 @@ package procon.uet;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class EqualAdjacentPiece {
+public class EqualAdjacentPiece implements Comparable{
 	private ArrayList<SlatePiece> equalPieceArr;
 	private int mark;
 	
@@ -49,13 +49,15 @@ public class EqualAdjacentPiece {
 		
 		return res;
 	}
-	
-	public static int compareMark(EqualAdjacentPiece one, EqualAdjacentPiece two){
-		if (one.mark < two.mark)
-			return -1;
+
+	public int compareTo(Object obj) {	
+		EqualAdjacentPiece other = (EqualAdjacentPiece)obj;
+		
+		if (mark < other.mark)
+			return 1;
 		else
-			if (one.mark > two.mark)
-				return 1;
+			if (mark > other.mark)
+				return -1;
 			else
 				return 0;
 	}
