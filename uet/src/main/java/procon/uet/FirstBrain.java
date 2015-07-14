@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class FirstBrain implements Brain {
-	
 	public Brain.Place bestPlace(TargetArea area, SlatePiece piece) {
 		ArrayList<SlatePiece> pieceArr = mostAdjacentPieces(area, piece);
 		

@@ -9,25 +9,51 @@ public class Main
 	private static SlatePiece[] pieceArr;
 	private static Brain.Place bestPlace;
 	private static int bestMark = 10000;
+	private static int noSlatePiecesUsedMin = 10000;
 	private static String answer = "";
+	private static TargetArea bestAreaResult;
+	private static FileManager fileMgr;
 	
     public static void main( String[] args )
     {
-    	FileManager fileMgr = new FileManager();
-    	FirstBrain brain = new FirstBrain();
-    	
-    	int currentMark = 0;
+    	fileMgr = new FileManager("quest.txt");
 		fileMgr.readFile();
-//		area = fileMgr.getArea();
+		System.out.println("-------------------------");
 		
-		TargetArea bestAreaResult = area;
-		//execute 10.000 times and choose the best time
-		for (int k = 0; k < 1000; k++) {
+		execute(1,400);
+		execute(3,0);
+    }
+    
+    // Execute nhan 2 tham so truyen vao: ten brain thuc thi va so lan thuc thi
+    // tuong ung
+    private static void execute(int noBrain, int NoExecute){
+    	FirstBrain brain = new FirstBrain();
+    	bestMark = 10000;
+		noSlatePiecesUsedMin = 10000;
+		bestAreaResult = new TargetArea(fileMgr.getAreaString());
+    	switch (noBrain) {
+		case 1:
+			brain = new FirstBrain();
+			break;
+		case 2:
+			// use for 2nd Brain :v
+			brain = new SecondBrain();
+			break;
+		case 3:
+			brain = (ThirdBrain) new ThirdBrain();
+			break;
+		default:
+			break;
+		}
+    	
+		//execute few times and choose the best time
+		for (int k = 0; k < NoExecute; k++) {
 			area = new TargetArea(fileMgr.getAreaString());
 			pieceArr = fileMgr.getPieceArr();
 //			System.out.println("width area: "+CommonVL.WIDTH_TARGET_AREA);
 //			System.out.println("height area: "+CommonVL.HEIGHT_TARGET_AREA);
 			area.commit();
+			int noSlatePiecesUsedCurrent = 0;
 			String tempAnswer = "";
 			for (int i = 0; i < pieceArr.length; i++){
 				bestPlace = brain.bestPlace(area, pieceArr[i]);
@@ -36,6 +62,7 @@ public class Main
 					area.place(bestPlace.piece, bestPlace.rX, bestPlace.rY);
 					area.commit();
 					tempAnswer += bestPlace.piece.toString();
+					noSlatePiecesUsedCurrent++;
 //					System.out.println(bestPlace.piece.toString());
 //					area.print();
 				} else{
@@ -43,11 +70,15 @@ public class Main
 				}
 				tempAnswer += ";";
 			}
+			int currentMark = 0;
 			currentMark = area.countEmptyCells();
-//			System.out.println("Current mark: "+currentMark);
-//			System.out.println("Current best mark: "+bestMark);
-			if (bestMark > currentMark){
+			System.out.println("Current mark: "+currentMark);
+			System.out.println("Current best mark: "+bestMark);
+			System.out.println("Current Number of SlatePieces: "+noSlatePiecesUsedCurrent);
+			System.out.println("Current Number of SlatePieces Min: "+noSlatePiecesUsedMin);
+			if (bestMark > currentMark || (bestMark == currentMark && noSlatePiecesUsedMin > noSlatePiecesUsedCurrent)){
 				bestMark = currentMark;
+				noSlatePiecesUsedMin = noSlatePiecesUsedCurrent;
 				bestAreaResult = area;
 				answer = tempAnswer;
 			}
@@ -55,7 +86,8 @@ public class Main
 		// print the best area result
 		bestAreaResult.print();
 		System.out.println("Best mark: "+bestMark);
-		
-		fileMgr.writeLine(answer);
+		System.out.println("Number of SlatePieces min: "+noSlatePiecesUsedMin);
+		fileMgr.createNewOutputFile(noBrain);
+		fileMgr.writeLine(answer); 
     }
 }

@@ -71,7 +71,7 @@ public class SecondBrain extends FirstBrain{
 	
 	public static void main(String[] args) {
 		SecondBrain secondBrain = new SecondBrain();
-		FileManager fileMgr = new FileManager();
+		FileManager fileMgr = new FileManager("11.txt");
 		fileMgr.readFile();
 		
 		TargetArea area = new TargetArea(fileMgr.getAreaString());
