@@ -81,7 +81,7 @@ public class ThirdBrain extends FirstBrain{
 		return new Brain.Place();
 	}
 	
-	private EqualAdjacentPiece chooseEqualAdjacentPiece(ArrayList<EqualAdjacentPiece> equaladPieceArr){
+	protected EqualAdjacentPiece chooseEqualAdjacentPiece(ArrayList<EqualAdjacentPiece> equaladPieceArr){
 		if (equaladPieceArr.size() == 0){
 //			System.out.println("equalAdPieceArr null");
 			return null;
@@ -121,7 +121,7 @@ public class ThirdBrain extends FirstBrain{
 		return equaladPieceArr.get((int)intRandArr.get(rand.nextInt(intRandArr.size())));
 	}
 	
-	private boolean isExist(int mark, ArrayList<EqualAdjacentPiece> equalAdPieceArr){
+	protected boolean isExist(int mark, ArrayList<EqualAdjacentPiece> equalAdPieceArr){
 		if (mark == 0){
 			return false;
 		}
@@ -133,7 +133,7 @@ public class ThirdBrain extends FirstBrain{
 		return false;
 	}
 	
-	private int getPosition(int mark, ArrayList<EqualAdjacentPiece> equalAdPieceArr){
+	protected int getPosition(int mark, ArrayList<EqualAdjacentPiece> equalAdPieceArr){
 		for (int i = 0; i < equalAdPieceArr.size(); i++) {
 			if (equalAdPieceArr.get(i).getMark() == mark){
 				return i;
