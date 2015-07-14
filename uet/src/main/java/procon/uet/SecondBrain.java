@@ -45,7 +45,7 @@ public class SecondBrain extends FirstBrain{
 					bestMark.best = currentMark;
 					System.out.println("i = " + i + " bestMark: " + bestMark.best + " last");
 				}
-//				area.undo();
+				area.undo();
 			}
 		}
 //		area.print();
@@ -54,6 +54,10 @@ public class SecondBrain extends FirstBrain{
 		return bestMark.best;
 	}
 	
+//	public Brain.Place bestPlace(TargetArea area, SlatePiece piece){
+//		return null;
+//	}
+	
 	public ArrayList<SlatePiece> bestResult(TargetArea area, SlatePiece[] pieces){		
 		ArrayList<SlatePiece> res = new ArrayList<SlatePiece>();
 		BestMark bestMark = new BestMark();
@@ -61,7 +65,7 @@ public class SecondBrain extends FirstBrain{
 		area.commit();
 		
 		bestMark.best = bestPlace(area, pieces, 0, 0, res, area.countEmptyCells(), bestMark);
-		
+
 		return res;
 	}
 	
