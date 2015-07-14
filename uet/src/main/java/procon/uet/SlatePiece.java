@@ -213,6 +213,26 @@ public class SlatePiece {
 	public int getMaxY() {
 		return maxY;
 	}
+	public int getEdges(){
+		int size = core.size();
+		int count = 4*size;
+		
+		for (int i = 0; i < size; i++){
+			for (int j = 0; j < size; j++){
+				Point cur = core.get(i);
+				if (cur.x > 0 && core.get(j).equals(new Point(cur.x - 1, cur.y)))
+					count--;
+				if (core.get(j).equals(new Point(cur.x + 1, cur.y)))
+					count--;
+				if (cur.y > 0 && core.get(j).equals(new Point(cur.x, cur.y - 1)))
+					count--;
+				if (core.get(j).equals(new Point(cur.x, cur.y + 1)))
+					count--;
+			}
+		}
+		
+		return count;
+	}
 	public String toString(){
 		String answer = referenceCell != null ? referenceCell.toString() + " " 
 				+ (frontSide ? "H" : "T") + " " + Integer.toString(angle) : "";

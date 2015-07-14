@@ -144,6 +144,12 @@ public class SlatePieceSpec {
 		assertEquals(3, s2Rotated.getMinX());
 		assertEquals(6, s2Rotated.getMaxX());
 	}
+	
+	@Test
+	public void testEdges(){
+		assertEquals(22, s1.getEdges());
+		assertEquals(12, s2.getEdges());
+	}
 }
 
 

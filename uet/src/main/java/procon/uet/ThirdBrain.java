@@ -88,7 +88,7 @@ public class ThirdBrain extends FirstBrain{
 		return equalPieceArr;
 	}
 	
-	private EqualAdjacentPiece chooseEqualAdjacentPiece(ArrayList<EqualAdjacentPiece> equaladPieceArr){
+	protected EqualAdjacentPiece chooseEqualAdjacentPiece(ArrayList<EqualAdjacentPiece> equaladPieceArr){
 		if (equaladPieceArr.size() == 0){
 //			System.out.println("equalAdPieceArr null");
 			return null;

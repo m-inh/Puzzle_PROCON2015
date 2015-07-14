@@ -16,12 +16,12 @@ public class Main
 	
     public static void main( String[] args )
     {
-    	fileMgr = new FileManager("quest.txt");
+    	fileMgr = new FileManager("9.txt");
 		fileMgr.readFile();
 		System.out.println("-------------------------");
 		
-		execute(1,400);
-		execute(3,0);
+//		execute(1,10);
+		execute(4,10);
     }
     
     // Execute nhan 2 tham so truyen vao: ten brain thuc thi va so lan thuc thi
@@ -41,6 +41,9 @@ public class Main
 			break;
 		case 3:
 			brain = (ThirdBrain) new ThirdBrain();
+			break;
+		case 4:
+			brain = new FourthBrain();
 			break;
 		default:
 			break;
