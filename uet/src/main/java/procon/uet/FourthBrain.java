@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public class FourthBrain extends ThirdBrain{
+	
 	public Place bestPlace(TargetArea area, SlatePiece piece) {
 		ArrayList<EqualAdjacentPiece> equalPieceArr = arrayOfEqualAjacentPieces(area, piece);
 		
@@ -79,7 +80,7 @@ public class FourthBrain extends ThirdBrain{
 		// print the best area result
 		bestAreaResult.print();
 		System.out.println("Best mark: "+bestMark);
-		fileMgr.createNewOutputFile(3);
+//		fileMgr.createNewOutputFile(3);
 		fileMgr.writeLine(answer);
 	}
 }

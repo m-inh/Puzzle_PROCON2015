@@ -62,8 +62,8 @@ public class FileManager {
 	}
 	
  // --------------------OUTPUT--------------------------
-	public void createNewOutputFile(int noBrain){
-		String fileName = inputPath.substring(inputPath.indexOf("/file") + 6, inputPath.indexOf(".txt")) + "ansOf"+ noBrain +".txt";
+	public void createNewOutputFile(int noBrain, int mark, int NoPiece){
+		String fileName = inputPath.substring(inputPath.indexOf("/file") + 6, inputPath.indexOf(".txt")) + "ansOf"+ noBrain + "-" + mark + "m" + NoPiece + "no" +".txt";
 		outputPath = getClass().getResource("/file").toString() + "/" + fileName;
 		System.out.println("output path: "+outputPath);
 		answerOutputFile = new File(outputPath.substring(5));

@@ -20,8 +20,8 @@ public class Main
 		fileMgr.readFile();
 		System.out.println("-------------------------");
 		
-//		execute(1,10);
-		execute(4,10);
+		execute(1,10);
+//		execute(4,10);
     }
     
     // Execute nhan 2 tham so truyen vao: ten brain thuc thi va so lan thuc thi
@@ -90,7 +90,7 @@ public class Main
 		bestAreaResult.print();
 		System.out.println("Best mark: "+bestMark);
 		System.out.println("Number of SlatePieces min: "+noSlatePiecesUsedMin);
-		fileMgr.createNewOutputFile(noBrain);
+		fileMgr.createNewOutputFile(noBrain,bestMark,noSlatePiecesUsedMin);
 		fileMgr.writeLine(answer); 
     }
 }
