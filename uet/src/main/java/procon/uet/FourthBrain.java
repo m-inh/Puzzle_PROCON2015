@@ -4,11 +4,25 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public class FourthBrain extends ThirdBrain{
+	
 	public Place bestPlace(TargetArea area, SlatePiece piece) {
 		ArrayList<EqualAdjacentPiece> equalPieceArr = arrayOfEqualAjacentPieces(area, piece);
-		//do something to select the best piece
 		
-		return new Place(piece.getLocation().x, piece.getLocation().y, piece);
+		SlatePiece bestPiece = null;
+		EqualAdjacentPiece equalAdPiece = chooseEqualAdjacentPiece(equalPieceArr);
+//		System.out.println(equalAdPiece.getMark());
+		
+		while (equalAdPiece == null || equalAdPiece.getMark() >= piece.getEdges() - 1){
+			equalAdPiece = chooseEqualAdjacentPiece(equalPieceArr);
+		}
+		
+		if (equalAdPiece != null){
+			bestPiece = equalAdPiece.chooseRandomPiece();
+			if (bestPiece != null) {
+				return new Brain.Place(bestPiece.getReferenceCell().getX(), bestPiece.getReferenceCell().getY(), bestPiece);
+			}
+		}
+		return new Brain.Place();
 	}
 	
 	protected ArrayList<EqualAdjacentPiece> arrayOfEqualAjacentPieces(TargetArea area, SlatePiece piece){
@@ -24,7 +38,7 @@ public class FourthBrain extends ThirdBrain{
 		int bestMark = 10000;
 		String answer = "";
 		
-		FileManager fileMgr = new FileManager("quest.txt");
+		FileManager fileMgr = new FileManager("11.txt");
     	FourthBrain brain = new FourthBrain();
     	
     	int currentMark = 0;
@@ -67,7 +81,7 @@ public class FourthBrain extends ThirdBrain{
 		// print the best area result
 		bestAreaResult.print();
 		System.out.println("Best mark: "+bestMark);
-		fileMgr.createNewOutputFile(3);
+//		fileMgr.createNewOutputFile(3);
 		fileMgr.writeLine(answer);
 	}
 }

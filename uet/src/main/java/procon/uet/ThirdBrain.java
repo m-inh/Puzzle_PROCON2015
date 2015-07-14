@@ -35,17 +35,6 @@ public class ThirdBrain extends FirstBrain{
 						
 						currentMark = ratePiece(area, tempPiece, i, j);
 						
-//						if (currentMark == equalAdPiece.getMark()){
-//							equalAdPiece.pushPiece(tempPiece.clone());
-//							System.out.println("add piece");
-//						} else {
-//							if (equalAdPiece.getMark() != 0){
-//								equalPieceArr.add(equalAdPiece);
-//							}
-//							equalAdPiece = new EqualAdjacentPiece(currentMark);
-//							equalAdPiece.pushPiece(tempPiece.clone());
-//						}
-						
 						if (isExist(currentMark, equalPieceArr)){
 							equalPieceArr.get(getPosition(currentMark, equalPieceArr)).pushPiece(tempPiece.clone());
 						} else {
@@ -88,7 +77,7 @@ public class ThirdBrain extends FirstBrain{
 		return equalPieceArr;
 	}
 	
-	private EqualAdjacentPiece chooseEqualAdjacentPiece(ArrayList<EqualAdjacentPiece> equaladPieceArr){
+	protected EqualAdjacentPiece chooseEqualAdjacentPiece(ArrayList<EqualAdjacentPiece> equaladPieceArr){
 		if (equaladPieceArr.size() == 0){
 //			System.out.println("equalAdPieceArr null");
 			return null;
@@ -199,7 +188,7 @@ public class ThirdBrain extends FirstBrain{
 		// print the best area result
 		bestAreaResult.print();
 		System.out.println("Best mark: "+bestMark);
-		fileMgr.createNewOutputFile(3);
+//		fileMgr.createNewOutputFile(3,bestMark);
 		fileMgr.writeLine(answer);
 	}
 	
