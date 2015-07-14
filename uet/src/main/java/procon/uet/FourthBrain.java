@@ -10,7 +10,7 @@ public class FourthBrain extends ThirdBrain{
 		
 		SlatePiece bestPiece = null;
 		EqualAdjacentPiece equalAdPiece = chooseEqualAdjacentPiece(equalPieceArr);
-//		System.out.println(equalAdPiece.getMark());
+		System.out.println(equalAdPiece.getMark());
 		
 		while (equalAdPiece == null || equalAdPiece.getMark() >= piece.getEdges() - 1){
 			equalAdPiece = chooseEqualAdjacentPiece(equalPieceArr);
