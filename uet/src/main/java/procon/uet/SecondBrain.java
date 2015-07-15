@@ -68,17 +68,17 @@ public class SecondBrain extends FirstBrain{
 		return res;
 	}
 	
-	public static void main(String[] args) {
-		SecondBrain secondBrain = new SecondBrain();
-		FileManager fileMgr = new FileManager("11.txt");
-		fileMgr.readFile();
-		
-		TargetArea area = new TargetArea(fileMgr.getAreaString());
-		SlatePiece[] pieceArr = fileMgr.getPieceArr();
-		
-		ArrayList<SlatePiece> bestAnswer = secondBrain.bestResult(area, pieceArr);
-		System.out.println(bestAnswer.size());
-//		area.print();
-//		System.out.println("Mark: " + area.countEmptyCells());
-	}
+//	public static void main(String[] args) {
+//		SecondBrain secondBrain = new SecondBrain();
+//		FileManager fileMgr = new FileManager("11.txt");
+//		fileMgr.readFile();
+//		
+//		TargetArea area = new TargetArea(fileMgr.getAreaString());
+//		SlatePiece[] pieceArr = fileMgr.getPieceArr();
+//		
+//		ArrayList<SlatePiece> bestAnswer = secondBrain.bestResult(area, pieceArr);
+//		System.out.println(bestAnswer.size());
+////		area.print();
+////		System.out.println("Mark: " + area.countEmptyCells());
+//	}
 }
