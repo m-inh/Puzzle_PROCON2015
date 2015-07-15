@@ -16,12 +16,13 @@ public class Main
 	
     public static void main( String[] args )
     {
-    	fileMgr = new FileManager("9.txt");
+    	fileMgr = new FileManager("11.txt");
 		fileMgr.readFile();
 		System.out.println("-------------------------");
 		
-		execute(1,10);
-//		execute(4,10);
+//		execute(1,10);
+//		execute(3, 10);
+		execute(4,10);
     }
     
     // Execute nhan 2 tham so truyen vao: ten brain thuc thi va so lan thuc thi

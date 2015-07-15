@@ -9,18 +9,24 @@ public class FourthBrain extends ThirdBrain{
 		ArrayList<EqualAdjacentPiece> equalPieceArr = arrayOfEqualAjacentPieces(area, piece);
 		
 		SlatePiece bestPiece = null;
-		EqualAdjacentPiece equalAdPiece = chooseEqualAdjacentPiece(equalPieceArr);
-		
-		while (equalAdPiece == null || equalAdPiece.getMark() >= piece.getEdges() - 1){
-			equalAdPiece = chooseEqualAdjacentPiece(equalPieceArr);
-		}
-		
-		if (equalAdPiece != null){
+		if (equalPieceArr.size() > 0){
+			EqualAdjacentPiece equalAdPiece = equalPieceArr.get(0);
+			
+			if (area.getNoPieces() == 0){
+//				while (equalPieceArr.size() > 1 && equalAdPiece.getMark() >= piece.getEdges() - 1){
+//					equalAdPiece = chooseEqualAdjacentPiece(equalPieceArr);
+//				}
+				if (equalPieceArr.size() > 1 && equalAdPiece.getMark() >= piece.getEdges() - 1){
+					equalAdPiece = equalPieceArr.get(1);
+				}
+			}
+			
 			bestPiece = equalAdPiece.chooseRandomPiece();
 			if (bestPiece != null) {
 				return new Brain.Place(bestPiece.getReferenceCell().getX(), bestPiece.getReferenceCell().getY(), bestPiece);
 			}
 		}
+		
 		return new Brain.Place();
 	}
 	
