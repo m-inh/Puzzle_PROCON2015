@@ -16,13 +16,13 @@ public class Main
 	
     public static void main( String[] args )
     {
-    	fileMgr = new FileManager("11.txt");
+    	fileMgr = new FileManager("8.txt");
 		fileMgr.readFile();
 		System.out.println("-------------------------");
 		
 //		execute(1,10);
-//		execute(3, 10);
-		execute(4,10);
+		execute(3, 1);
+//		execute(4,10);
     }
     
     // Execute nhan 2 tham so truyen vao: ten brain thuc thi va so lan thuc thi
@@ -76,10 +76,10 @@ public class Main
 			}
 			int currentMark = 0;
 			currentMark = area.countEmptyCells();
-			System.out.println("Current mark: "+currentMark);
-			System.out.println("Current best mark: "+bestMark);
-			System.out.println("Current Number of SlatePieces: "+noSlatePiecesUsedCurrent);
-			System.out.println("Current Number of SlatePieces Min: "+noSlatePiecesUsedMin);
+//			System.out.println("Current mark: "+currentMark);
+//			System.out.println("Current best mark: "+bestMark);
+//			System.out.println("Current Number of SlatePieces: "+noSlatePiecesUsedCurrent);
+//			System.out.println("Current Number of SlatePieces Min: "+noSlatePiecesUsedMin);
 			if (bestMark > currentMark || (bestMark == currentMark && noSlatePiecesUsedMin > noSlatePiecesUsedCurrent)){
 				bestMark = currentMark;
 				noSlatePiecesUsedMin = noSlatePiecesUsedCurrent;
@@ -89,8 +89,8 @@ public class Main
 		}
 		// print the best area result
 		bestAreaResult.print();
-		System.out.println("Best mark: "+bestMark);
-		System.out.println("Number of SlatePieces min: "+noSlatePiecesUsedMin);
+//		System.out.println("Best mark: "+bestMark);
+//		System.out.println("Number of SlatePieces min: "+noSlatePiecesUsedMin);
 		fileMgr.createNewOutputFile(noBrain,bestMark,noSlatePiecesUsedMin);
 		fileMgr.writeLine(answer); 
     }
