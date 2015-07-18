@@ -117,4 +117,8 @@ public class FirstBrain implements Brain {
 		}
 		return pieceArr.get(rand.nextInt(pieceArr.size()));
 	}
+
+	public Place bestPlace(TargetArea area, int i, SlatePiece[] pieces) {
+		return null;
+	}
 }

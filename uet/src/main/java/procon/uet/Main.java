@@ -21,17 +21,19 @@ public class Main
 		System.out.println("-------------------------");
 		
 //		execute(1,10);
-		execute(3, 1);
+		execute(3, 10);
 //		execute(4,10);
+//		execute(5,10);
     }
     
     // Execute nhan 2 tham so truyen vao: ten brain thuc thi va so lan thuc thi
     // tuong ung
     private static void execute(int noBrain, int NoExecute){
-    	FirstBrain brain = new FirstBrain();
+    	Brain brain = new FirstBrain();
     	bestMark = 10000;
 		noSlatePiecesUsedMin = 10000;
 		bestAreaResult = new TargetArea(fileMgr.getAreaString());
+		pieceArr = fileMgr.getPieceArr();
     	switch (noBrain) {
 		case 1:
 			brain = new FirstBrain();
@@ -46,34 +48,52 @@ public class Main
 		case 4:
 			brain = new FourthBrain();
 			break;
+		case 5:
+			brain = new FifthBrain();
+			break;
 		default:
 			break;
 		}
-    	
 		//execute few times and choose the best time
 		for (int k = 0; k < NoExecute; k++) {
 			area = new TargetArea(fileMgr.getAreaString());
-			pieceArr = fileMgr.getPieceArr();
 //			System.out.println("width area: "+CommonVL.WIDTH_TARGET_AREA);
 //			System.out.println("height area: "+CommonVL.HEIGHT_TARGET_AREA);
 			area.commit();
 			int noSlatePiecesUsedCurrent = 0;
 			String tempAnswer = "";
-			for (int i = 0; i < pieceArr.length; i++){
-				bestPlace = brain.bestPlace(area, pieceArr[i]);
-				if (bestPlace.piece != null) 
-				{
-					area.place(bestPlace.piece, bestPlace.rX, bestPlace.rY);
-					area.commit();
-					tempAnswer += bestPlace.piece.toString();
-					noSlatePiecesUsedCurrent++;
-//					System.out.println(bestPlace.piece.toString());
-//					area.print();
-				} else{
-//					System.out.println("Skip this slate piece");
+			if (noBrain != 5)
+				for (int i = 0; i < pieceArr.length; i++){
+					bestPlace = brain.bestPlace(area, pieceArr[i]);
+					if (bestPlace.piece != null) 
+					{
+						area.place(bestPlace.piece, bestPlace.rX, bestPlace.rY);
+						area.commit();
+						tempAnswer += bestPlace.piece.toString();
+						noSlatePiecesUsedCurrent++;
+	//					System.out.println(bestPlace.piece.toString());
+	//					area.print();
+					} else{
+	//					System.out.println("Skip this slate piece");
+					}
+					tempAnswer += ";";
 				}
-				tempAnswer += ";";
-			}
+			else
+				for (int i = 0; i < pieceArr.length; i++){
+					bestPlace = brain.bestPlace(area, i, pieceArr);
+					if (bestPlace.piece != null) 
+					{
+						area.place(bestPlace.piece, bestPlace.rX, bestPlace.rY);
+						area.commit();
+						tempAnswer += bestPlace.piece.toString();
+						noSlatePiecesUsedCurrent++;
+	//					System.out.println(bestPlace.piece.toString());
+	//					area.print();
+					} else{
+	//					System.out.println("Skip this slate piece");
+					}
+					tempAnswer += ";";
+				}
 			int currentMark = 0;
 			currentMark = area.countEmptyCells();
 //			System.out.println("Current mark: "+currentMark);
