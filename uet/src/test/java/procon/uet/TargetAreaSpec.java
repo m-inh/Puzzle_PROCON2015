@@ -13,7 +13,9 @@ public class TargetAreaSpec {
 	private static TargetArea targetArea2;
 	private static SlatePiece s1;
 	private static SlatePiece s2;
-	
+	private static TargetArea target11;
+	private static SlatePiece[] slatePieces;
+	private static FileManager fileMgr;
 	@Before
 	public void setup(){
 		String[] str1 = new String[]{
@@ -110,6 +112,10 @@ public class TargetAreaSpec {
 		};
 		s1 = new SlatePiece(s1string);
 		s2 = new SlatePiece(s2string);
+		fileMgr = new FileManager("11.txt");
+		fileMgr.readFile();
+		target11 = new TargetArea(fileMgr.getAreaString());
+		slatePieces = fileMgr.getPieceArr();
 	}
 	
 	@Test
@@ -164,6 +170,30 @@ public class TargetAreaSpec {
 		assertEquals(targetArea1.place(s2, 5, 1), TargetArea.PLACE_NONADJACENT);
 	}
 	
+	@Test
+	public void testPlaceNonadjacentOfManyPieces(){
+		target11.commit();
+		assertEquals(TargetArea.PLACE_OK, target11.place(slatePieces[0].fastRotation().fastRotation(), 0, -1));
+		target11.commit();
+		assertEquals(TargetArea.PLACE_OK, target11.place(slatePieces[1].fastRotation().fastRotation(), -1, -6));
+		target11.commit();
+		assertEquals(TargetArea.PLACE_OK, target11.place(slatePieces[2].fastRotation(), 3, -6));
+		target11.commit();
+		assertEquals(TargetArea.PLACE_OK, target11.place(slatePieces[3].fastRotation(), 1, -6));
+		target11.commit();
+		assertEquals(TargetArea.PLACE_OK, target11.place(slatePieces[4], 4, 1));
+		target11.commit();
+		assertEquals(TargetArea.PLACE_OK, target11.place(slatePieces[5].fastRotation().fastRotation().fastRotation(), 11, -6));
+		target11.commit();
+		assertEquals(TargetArea.PLACE_OK, target11.place(slatePieces[6].fastRotation().fastRotation().fastRotation(), 12, 0));
+		target11.commit();
+		assertEquals(TargetArea.PLACE_OK, target11.place(slatePieces[7].fastRotation(), 15, 1));
+		target11.commit();
+		assertEquals(TargetArea.PLACE_NONADJACENT, target11.place(slatePieces[9], 29, 23));
+//		target11.commit();
+//		assertEquals(TargetArea.PLACE_OK, target11.place(slatePieces[9].fastRotation(), 15, 1));
+//		target11.commit();
+	}
 //	public static void main(String[] args) {
 //		TargetAreaSpec ta = new TargetAreaSpec();
 //		ta.setup();
