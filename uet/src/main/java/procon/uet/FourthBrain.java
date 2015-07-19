@@ -89,5 +89,4 @@ public class FourthBrain extends ThirdBrain{
 ////		fileMgr.createNewOutputFile(3);
 //		fileMgr.writeLine(answer);
 //	}
->>>>>>> d967e7bb305a3c8d73ece0a11bfd51d2f1007a06
 }
