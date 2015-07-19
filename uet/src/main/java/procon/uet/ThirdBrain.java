@@ -19,7 +19,7 @@ public class ThirdBrain extends FirstBrain{
 		return new Brain.Place();
 	}
 	
-	protected ArrayList<EqualAdjacentPiece> arrayOfEqualAjacentPieces(TargetArea area, SlatePiece piece){
+	public ArrayList<EqualAdjacentPiece> arrayOfEqualAjacentPieces(TargetArea area, SlatePiece piece){
 		ArrayList<EqualAdjacentPiece> equalPieceArr = new ArrayList<EqualAdjacentPiece>();
 		EqualAdjacentPiece equalAdPiece = new EqualAdjacentPiece(0);
 		SlatePiece tempPiece = piece;

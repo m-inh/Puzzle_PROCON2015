@@ -39,7 +39,7 @@ public class FifthBrain extends ThirdBrain{
 		return new Place();
 	}
 	
-	protected ArrayList<EqualAdjacentPiece> arrayOfEqualAjacentPieces(TargetArea area, SlatePiece piece){
+	public ArrayList<EqualAdjacentPiece> arrayOfEqualAjacentPieces(TargetArea area, SlatePiece piece){
 		ArrayList<EqualAdjacentPiece> equalPieceArr = super.arrayOfEqualAjacentPieces(area, piece);
 		Collections.sort(equalPieceArr);
 		return equalPieceArr;
