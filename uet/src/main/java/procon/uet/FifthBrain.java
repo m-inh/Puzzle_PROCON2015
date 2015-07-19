@@ -29,7 +29,7 @@ public class FifthBrain extends ThirdBrain{
 				bestPiece = curPiece;
 			else
 				if (nextEqualPieceArr.size() > 1)
-					bestPiece = equalPieceArr.get(0).chooseRandomPiece();
+					bestPiece = equalPieceArr.get(1).chooseRandomPiece();
 		}
 //		bestPiece = equalAdPiece.chooseRandomPiece();
 		if (bestPiece != null) {
@@ -39,9 +39,29 @@ public class FifthBrain extends ThirdBrain{
 		return new Place();
 	}
 	
-	public ArrayList<EqualAdjacentPiece> arrayOfEqualAjacentPieces(TargetArea area, SlatePiece piece){
-		ArrayList<EqualAdjacentPiece> equalPieceArr = super.arrayOfEqualAjacentPieces(area, piece);
-		Collections.sort(equalPieceArr);
-		return equalPieceArr;
+	public boolean onlyOneWayToPlaceTheFollowingPieces(TargetArea area, int i, SlatePiece[] pieces){
+		if (i >= pieces.length - 1){
+			return true;
+		}
+		while (i < pieces.length - 1){
+			ArrayList<EqualAdjacentPiece> equalPieceArr = arrayOfEqualAjacentPieces(area, pieces[i+1]);
+			if (equalPieceArr.size() <= 1 ){
+				if (equalPieceArr.size() > 0 && equalPieceArr.get(0).getMark() >= pieces[i+1].getEdges() - 1){
+					SlatePiece piece = equalPieceArr.get(0).getEqualPieceArr().get(0);
+					area.place(piece, piece.getLocation().x, piece.getLocation().y);
+					area.commit();
+				}
+			}
+			else
+				return false;
+			i++;
+		}
+		return (i >= pieces.length - 1);
 	}
+	
+//	public ArrayList<EqualAdjacentPiece> arrayOfEqualAjacentPieces(TargetArea area, SlatePiece piece){
+//		ArrayList<EqualAdjacentPiece> equalPieceArr = super.arrayOfEqualAjacentPieces(area, piece);
+//		Collections.sort(equalPieceArr);
+//		return equalPieceArr;
+//	}
 }

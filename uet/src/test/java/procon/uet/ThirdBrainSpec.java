@@ -12,7 +12,7 @@ public class ThirdBrainSpec {
 	
 	@Before
 	public void setup(){
-		fileMgr = new FileManager("11.txt");
+		fileMgr = new FileManager("8.txt");
 		fileMgr.readFile();
 		target11 = new TargetArea(fileMgr.getAreaString());
 		pieces = fileMgr.getPieceArr();
@@ -23,8 +23,8 @@ public class ThirdBrainSpec {
 	@Test
 	public void testArrayOfEqualAdjacentPieces(){
 		ArrayList<EqualAdjacentPiece> equalPieceArr = brain.arrayOfEqualAjacentPieces(target11, pieces[0]);
-		for (EqualAdjacentPiece equalAdPiece : equalPieceArr){
-			System.out.println(equalAdPiece.getEqualPieceArr());
-		}
+//		for (EqualAdjacentPiece equalAdPiece : equalPieceArr){
+//			System.out.println(equalAdPiece.getEqualPieceArr());
+//		}
 	}
 }

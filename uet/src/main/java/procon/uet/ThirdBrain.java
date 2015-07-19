@@ -51,7 +51,7 @@ public class ThirdBrain extends FirstBrain{
 			tempPiece = tempPiece.fastRotation();
 		}
 		
-		tempPiece.fastFlipOver();
+		tempPiece = tempPiece.fastFlipOver();
 		for (int k = 0; k < 4; k++) {
 			for (int i = 0-tempPiece.getMinX(); i < CommonVL.WIDTH_TARGET_AREA-tempPiece.getMaxX(); i++) {
 				for (int j = 0-tempPiece.getMinY(); j < CommonVL.HEIGHT_TARGET_AREA-tempPiece.getMaxY(); j++) {
@@ -109,7 +109,7 @@ public class ThirdBrain extends FirstBrain{
 		int tempMark = 0;
 		int gravity = 1;
 		markSum *= gravity;
-		System.out.println("---------------------");
+//		System.out.println("---------------------");
 		// i is iterator of total size intRandom
 		// j is the current mark
 		// count is the iterator of each equalAdPieceArr
@@ -118,7 +118,7 @@ public class ThirdBrain extends FirstBrain{
 			tempMark = tempEqualAdpiece.getMark();
 			intRandArr.add(j);
 			count++;
-			System.out.println(j);
+//			System.out.println(j);
 			if (tempMark * gravity == count){
 				count = 0;
 				j++;

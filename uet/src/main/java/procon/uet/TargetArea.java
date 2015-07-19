@@ -237,8 +237,8 @@ public class TargetArea {
 	}
 	
 	public void copy(TargetArea other){
-		grid = other.grid;
-		gridBackup = other.gridBackup;
+		grid = other.grid.clone();
+		gridBackup = other.gridBackup.clone();
 		committed = other.committed;
 		noPieces = other.noPieces;
 		noPiecesBackup = other.noPiecesBackup;
