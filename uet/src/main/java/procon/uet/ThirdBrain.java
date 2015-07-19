@@ -1,6 +1,7 @@
 package procon.uet;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Random;
 
 public class ThirdBrain extends FirstBrain{
@@ -73,12 +74,17 @@ public class ThirdBrain extends FirstBrain{
 			}
 			tempPiece = tempPiece.fastRotation();
 		}
-		
+		Collections.sort(equalPieceArr);
+		// test sort()
+//		System.out.println("------------------------");
+//		for (int i = 0; i < equalPieceArr.size(); i++) {
+//			System.out.println(equalPieceArr.get(i).getMark()+"");
+//		}
 		return equalPieceArr;
 	}
 	
-	protected EqualAdjacentPiece chooseEqualAdjacentPiece(ArrayList<EqualAdjacentPiece> equaladPieceArr){
-		if (equaladPieceArr.size() == 0){
+	protected EqualAdjacentPiece chooseEqualAdjacentPiece(ArrayList<EqualAdjacentPiece> equalAdPieceArr){
+		if (equalAdPieceArr.size() == 0){
 //			System.out.println("equalAdPieceArr null");
 			return null;
 		}
@@ -91,8 +97,8 @@ public class ThirdBrain extends FirstBrain{
 		
 		
 		int markSum = 0;
-		for (int i = 0; i < equaladPieceArr.size(); i++) {
-			markSum += equaladPieceArr.get(i).getMark();
+		for (int i = 0; i < equalAdPieceArr.size(); i++) {
+			markSum += equalAdPieceArr.get(i).getMark();
 		}
 		
 //		int count = 0;
@@ -101,20 +107,25 @@ public class ThirdBrain extends FirstBrain{
 		ArrayList<Integer> intRandArr = new ArrayList<Integer>();
 		EqualAdjacentPiece tempEqualAdpiece;
 		int tempMark = 0;
-		int gravity = 20;
+		int gravity = 1;
 		markSum *= gravity;
+		System.out.println("---------------------");
+		// i is iterator of total size intRandom
+		// j is the current mark
+		// count is the iterator of each equalAdPieceArr
 		for (int i = 0, j = 0, count = 0; i < markSum; i++) {
-			tempEqualAdpiece = equaladPieceArr.get(j);
+			tempEqualAdpiece = equalAdPieceArr.get(j);
 			tempMark = tempEqualAdpiece.getMark();
 			intRandArr.add(j);
 			count++;
+			System.out.println(j);
 			if (tempMark * gravity == count){
 				count = 0;
 				j++;
 			}
 		}
 		
-		return equaladPieceArr.get((int)intRandArr.get(rand.nextInt(intRandArr.size())));
+		return equalAdPieceArr.get((int)intRandArr.get(rand.nextInt(intRandArr.size())));
 	}
 	
 	private boolean isExist(int mark, ArrayList<EqualAdjacentPiece> equalAdPieceArr){
