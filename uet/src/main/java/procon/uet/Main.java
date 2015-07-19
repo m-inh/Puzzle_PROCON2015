@@ -21,9 +21,9 @@ public class Main
 		System.out.println("-------------------------");
 		
 //		execute(1,10);
-		execute(3, 10);
+//		execute(3, 10);
 //		execute(4,10);
-//		execute(5,10);
+		execute(5,10);
     }
     
     // Execute nhan 2 tham so truyen vao: ten brain thuc thi va so lan thuc thi
