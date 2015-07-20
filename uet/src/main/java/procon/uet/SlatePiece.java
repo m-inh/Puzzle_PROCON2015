@@ -239,4 +239,13 @@ public class SlatePiece {
 //		CommonVL.STRING_ANSWER_LENGTH = answer.length();
 		return answer;
 	}
+	
+	public static int blocksOfAllPieces(SlatePiece[] pieces, int begin, int end){
+		int sum = 0;
+		for (int i = begin; i <= end; i++){
+			sum += pieces[i].core.size();
+		}
+		
+		return sum;
+	}
 }

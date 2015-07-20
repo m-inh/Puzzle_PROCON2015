@@ -30,9 +30,9 @@ public class FourthBrain extends ThirdBrain{
 		return new Brain.Place();
 	}
 	
-//	protected ArrayList<EqualAdjacentPiece> arrayOfEqualAjacentPieces(TargetArea area, SlatePiece piece){
+//	public ArrayList<EqualAdjacentPiece> arrayOfEqualAjacentPieces(TargetArea area, SlatePiece piece){
 //		ArrayList<EqualAdjacentPiece> equalPieceArr = super.arrayOfEqualAjacentPieces(area, piece);
-//		Collections.sort(equalPieceArr);		
+//		Collections.sort(equalPieceArr);	
 //		return equalPieceArr;
 //	}
 	
