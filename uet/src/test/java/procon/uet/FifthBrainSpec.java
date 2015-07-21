@@ -22,14 +22,4 @@ public class FifthBrainSpec {
 		brain = new FifthBrain();
 		target11.commit();
 	}
-	
-	@Test
-	public void testOnlyOneWayToPlace(){
-		ArrayList<EqualAdjacentPiece> theFirstArr = brain.arrayOfEqualAjacentPieces(target11, pieces[0]);
-		SlatePiece piece = theFirstArr.get(0).getEqualPieceArr().get(1);
-		assertEquals(TargetArea.PLACE_OK ,target11.place(piece, piece.getLocation().x, piece.getLocation().y));
-		target11.commit();
-		
-		assertTrue(brain.onlyOneWayToPlaceTheFollowingPieces(target11, 0, pieces));
-	}
 }

@@ -17,5 +17,4 @@ public interface Brain {
 		}
 	}
 	public Brain.Place bestPlace(TargetArea area, SlatePiece piece);
-	public Brain.Place bestPlace(TargetArea area, int i, SlatePiece[] pieces);
 }

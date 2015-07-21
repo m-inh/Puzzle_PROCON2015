@@ -2,66 +2,14 @@ package procon.uet;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Queue;
 
-public class FifthBrain extends ThirdBrain{
-	public Place bestPlace(TargetArea area, int i, SlatePiece[] pieces){
-		ArrayList<EqualAdjacentPiece> equalPieceArr = arrayOfEqualAjacentPieces(area, pieces[i]);
-		SlatePiece bestPiece = null;
+public class FifthBrain extends ThirdBrain{	
+	public int bestPlace(TargetArea area, SlatePiece pieces[], ArrayList<Integer> index){
+		int bestMark = 1024;
+		SlatePiece piece = null;
+		Collections.sort(index);
 		
-		if ( i >= pieces.length - 1 ){
-			if (equalPieceArr.size() > 0)
-				bestPiece = equalPieceArr.get(0).chooseRandomPiece();
-		}
-		else{
-			if (i == 0 && equalPieceArr.get(0).getMark() >= pieces[i].getEdges() - 1)
-				bestPiece = equalPieceArr.get(1).chooseRandomPiece();
-			SlatePiece curPiece = null;
-			TargetArea areaClone = new TargetArea();
-			areaClone.copy(area);
-			
-			if (equalPieceArr.size() > 0){
-				curPiece = equalPieceArr.get(0).chooseRandomPiece();
-				areaClone.place(curPiece, curPiece.getLocation().x, curPiece.getLocation().y);
-				areaClone.commit();
-			}
-			ArrayList<EqualAdjacentPiece> nextEqualPieceArr = arrayOfEqualAjacentPieces(areaClone, pieces[i+1]);
-			if (nextEqualPieceArr.size() > 0 && nextEqualPieceArr.get(0).getMark() >= pieces[i+1].getEdges() - 1)
-				bestPiece = curPiece;
-			else
-				if (nextEqualPieceArr.size() > 1)
-					bestPiece = equalPieceArr.get(1).chooseRandomPiece();
-		}
-//		bestPiece = equalAdPiece.chooseRandomPiece();
-		if (bestPiece != null) {
-			return new Brain.Place(bestPiece.getReferenceCell().getX(), bestPiece.getReferenceCell().getY(), bestPiece);
-		}
-		
-		return new Place();
+		return bestMark;
 	}
-	
-	public boolean onlyOneWayToPlaceTheFollowingPieces(TargetArea area, int i, SlatePiece[] pieces){
-		if (i >= pieces.length - 1){
-			return true;
-		}
-		while (i < pieces.length - 1){
-			ArrayList<EqualAdjacentPiece> equalPieceArr = arrayOfEqualAjacentPieces(area, pieces[i+1]);
-			if (equalPieceArr.size() <= 1 ){
-				if (equalPieceArr.size() > 0 && equalPieceArr.get(0).getMark() >= pieces[i+1].getEdges() - 1){
-					SlatePiece piece = equalPieceArr.get(0).getEqualPieceArr().get(0);
-					area.place(piece, piece.getLocation().x, piece.getLocation().y);
-					area.commit();
-				}
-			}
-			else
-				return false;
-			i++;
-		}
-		return (i >= pieces.length - 1);
-	}
-	
-//	public ArrayList<EqualAdjacentPiece> arrayOfEqualAjacentPieces(TargetArea area, SlatePiece piece){
-//		ArrayList<EqualAdjacentPiece> equalPieceArr = super.arrayOfEqualAjacentPieces(area, piece);
-//		Collections.sort(equalPieceArr);
-//		return equalPieceArr;
-//	}
 }

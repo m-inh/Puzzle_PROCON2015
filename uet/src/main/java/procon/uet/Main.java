@@ -22,7 +22,7 @@ public class Main
 		
 //		execute(1,10);
 //		execute(3, 10);
-		execute(4,10);
+		execute(4,20);
 //		execute(5,10);
     }
     
@@ -78,22 +78,9 @@ public class Main
 					}
 					tempAnswer += ";";
 				}
-			else
-				for (int i = 0; i < pieceArr.length; i++){
-					bestPlace = brain.bestPlace(area, i, pieceArr);
-					if (bestPlace.piece != null) 
-					{
-						area.place(bestPlace.piece, bestPlace.rX, bestPlace.rY);
-						area.commit();
-						tempAnswer += bestPlace.piece.toString();
-						noSlatePiecesUsedCurrent++;
-	//					System.out.println(bestPlace.piece.toString());
-	//					area.print();
-					} else{
-	//					System.out.println("Skip this slate piece");
-					}
-					tempAnswer += ";";
-				}
+			else{
+				
+			}
 			int currentMark = 0;
 			currentMark = area.countEmptyCells();
 			System.out.println("Current mark: "+currentMark);
