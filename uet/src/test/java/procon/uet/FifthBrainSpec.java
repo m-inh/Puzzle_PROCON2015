@@ -22,4 +22,9 @@ public class FifthBrainSpec {
 		brain = new FifthBrain();
 		target11.commit();
 	}
+	
+	@Test
+	public void testBestPlace(){
+		
+	}
 }
