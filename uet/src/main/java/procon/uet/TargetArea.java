@@ -143,6 +143,20 @@ public class TargetArea {
 		}
 	}
 	
+	public void placeWithoutChecking(SlatePiece piece){
+		committed = false;
+		
+		int x = piece.getLocation().x;
+		int y = piece.getLocation().y;
+		for (int i = 0; i < piece.getSize(); i++){
+			int newX = x + piece.getCore().get(i).x;
+            int newY = y + piece.getCore().get(i).y;
+            
+            grid[newX][newY] = CommonVL.BLOCK;
+		}
+		noPieces ++;
+	}
+	
 	public int countEmptyCells(){
 //		return emptyCells;
 		int count = 0;

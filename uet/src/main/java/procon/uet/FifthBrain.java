@@ -21,7 +21,7 @@ public class FifthBrain extends ThirdBrain{
 			for (int j = 0; j < goodPieces.size(); j++){
 				TargetArea otherArea = area.clone();
 				ArrayList<SlatePiece> otherSelectedPieces = (ArrayList<SlatePiece>) primeSelectedPiece.clone();
-				otherArea.place(goodPieces.get(j), goodPieces.get(j).getLocation().x, goodPieces.get(j).getLocation().y);
+				otherArea.placeWithoutChecking(goodPieces.get(j));
 				otherArea.commit();
 				otherSelectedPieces.add(goodPieces.get(j));
 				int current = bestPlace(otherArea, pieces, i+1, index, otherSelectedPieces);

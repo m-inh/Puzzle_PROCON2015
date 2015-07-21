@@ -33,17 +33,26 @@ public class FifthBrainSpec {
 			add(3);
 			add(4);
 			add(5);
-//			add(6);
-//			add(7);
-//			add(8);
-//			add(9);
-//			add(10);
+			add(6);
+			add(7);
+			add(8);
+			add(9);
+			add(10);
+//			add(11);
+//			add(12);
+//			add(13);
+//			add(14);
 		}};
 		
 		System.out.println(SlatePiece.blocksOfAllPieces(pieces, index));
 		System.out.println(brain.bestPlace(target11, pieces, 0, index, selectedPiece));
 		System.out.println();
 		System.out.println(selectedPiece);
-		target11.print();
+		for (int i = 0; i < selectedPiece.size(); i++){
+			assertEquals(TargetArea.PLACE_OK, target11.place(selectedPiece.get(i), selectedPiece.get(i).getLocation().x, selectedPiece.get(i).getLocation().y));
+			target11.commit();
+			target11.print();
+		}
+		
 	}
 }
