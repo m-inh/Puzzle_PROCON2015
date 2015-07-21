@@ -39,8 +39,10 @@ public class FifthBrain extends ThirdBrain{
 		}
 		else{
 			ArrayList<SlatePiece> goodPieces = mostAdjacentPieces(area, pieces[index.get(i)]);
-			if (goodPieces.size() > 0)
+			if (goodPieces.size() > 0){
+				selectedPiece.add(goodPieces.get(0));
 				return area.countEmptyCells() - pieces[index.get(i)].getSize();
+			}
 			else
 				return area.countEmptyCells();
 		}
