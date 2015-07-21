@@ -32,7 +32,7 @@ public class SecondBrain extends FirstBrain{
 				System.out.println("i = " + i + " j = " + j + " currentMark: " + currentMark + " bestMark: " + bestMark.best);
 				if (currentMark < bestMark.best && currentMark >= 0){
 					System.out.println("i = " + i + " j = " + j + " blocks: " + blocks);
-					area.copy(areaClone);
+//					area.copy(areaClone);
 					chosenPiece.clear();
 					for (int k = 0; k < chosenPieceClone.size(); k++){
 						chosenPiece.add(chosenPieceClone.get(k));
