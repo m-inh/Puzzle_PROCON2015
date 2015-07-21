@@ -28,11 +28,16 @@ public class FifthBrainSpec {
 		ArrayList<SlatePiece> selectedPiece = new ArrayList<SlatePiece>();
 		ArrayList<Integer> index = new ArrayList<Integer>(){{
 			add(0);
-//			add(1);
-//			add(2);
-//			add(3);
-//			add(4);
-//			add(5);
+			add(1);
+			add(2);
+			add(3);
+			add(4);
+			add(5);
+//			add(6);
+//			add(7);
+//			add(8);
+//			add(9);
+//			add(10);
 		}};
 		
 		System.out.println(SlatePiece.blocksOfAllPieces(pieces, index));

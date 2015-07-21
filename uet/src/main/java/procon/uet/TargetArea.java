@@ -241,12 +241,4 @@ public class TargetArea {
 		
 		return newArea;
 	}
-	
-	public void copy(TargetArea other){
-		grid = other.grid.clone();
-		gridBackup = other.gridBackup.clone();
-		committed = other.committed;
-		noPieces = other.noPieces;
-		noPiecesBackup = other.noPiecesBackup;
-	}
 }
