@@ -227,8 +227,14 @@ public class TargetArea {
 	
 	public TargetArea clone(){
 		TargetArea newArea = new TargetArea();
-		newArea.grid = grid;
-		newArea.gridBackup = gridBackup;
+		newArea.grid = new int[CommonVL.SIZE_TARGET_AREA][CommonVL.SIZE_TARGET_AREA];
+		for (int i=0; i < CommonVL.SIZE_TARGET_AREA; i++)
+			System.arraycopy(grid[i], 0, newArea.grid[i], 0, CommonVL.SIZE_TARGET_AREA);
+		
+		newArea.gridBackup = new int[CommonVL.SIZE_TARGET_AREA][CommonVL.SIZE_TARGET_AREA];
+		for (int i=0; i < CommonVL.SIZE_TARGET_AREA; i++)
+			System.arraycopy(gridBackup[i], 0, newArea.gridBackup[i], 0, CommonVL.SIZE_TARGET_AREA);
+		
 		newArea.committed = true;
 		newArea.noPieces = noPieces;
 		newArea.noPiecesBackup = noPiecesBackup;

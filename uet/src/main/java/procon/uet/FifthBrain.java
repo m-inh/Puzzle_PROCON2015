@@ -16,10 +16,10 @@ public class FifthBrain extends ThirdBrain{
 				return bestPlace(area, pieces, i+1, index, selectedPiece);
 			}
 			ArrayList<SlatePiece> primeSelectedPiece = (ArrayList<SlatePiece>) selectedPiece.clone();
-			TargetArea primeArea = area.clone();
-			
+			System.out.println("before:");
+			area.print();
 			for (int j = 0; j < goodPieces.size(); j++){
-				TargetArea otherArea = primeArea.clone();
+				TargetArea otherArea = area.clone();
 				ArrayList<SlatePiece> otherSelectedPieces = (ArrayList<SlatePiece>) primeSelectedPiece.clone();
 				otherArea.place(goodPieces.get(j), goodPieces.get(j).getLocation().x, goodPieces.get(j).getLocation().y);
 				otherArea.commit();
@@ -29,14 +29,14 @@ public class FifthBrain extends ThirdBrain{
 				System.out.println("i = " + i + " j = " + j + " current = " + current + " other selected: " + otherSelectedPieces);
 				if (best > current){
 					best = current;
-					area.copy(otherArea);
-					selectedPiece.removeAll(selectedPiece);
+					selectedPiece.clear();
 					for (int k = 0; k < otherSelectedPieces.size(); k++)
 						selectedPiece.add(otherSelectedPieces.get(k));
 				}
 			}
-//			area.print();
-			System.out.println("selected: " + selectedPiece);
+			System.out.println("after:");
+			area.print();
+//			System.out.println("selected: " + selectedPiece);
 			
 			return best;
 		}
