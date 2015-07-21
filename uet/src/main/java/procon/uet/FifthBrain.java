@@ -1,13 +1,10 @@
 package procon.uet;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Queue;
 
 public class FifthBrain extends ThirdBrain{	
 	public int bestPlace(TargetArea area, SlatePiece pieces[], int i, ArrayList<Integer> index, ArrayList<SlatePiece> selectedPiece){
-		if (i < index.size()){
+		if (i < index.size() - 1){
 			int best = 1024;
 			ArrayList<SlatePiece> goodPieces = mostAdjacentPieces(area, pieces[index.get(i)]);
 //			System.out.println("i = " + i + " good piece: " + goodPieces);
@@ -40,7 +37,12 @@ public class FifthBrain extends ThirdBrain{
 			
 			return best;
 		}
-		else
-			return area.countEmptyCells();
+		else{
+			ArrayList<SlatePiece> goodPieces = mostAdjacentPieces(area, pieces[index.get(i)]);
+			if (goodPieces.size() > 0)
+				return area.countEmptyCells() - pieces[index.get(i)].getSize();
+			else
+				return area.countEmptyCells();
+		}
 	}
 }
