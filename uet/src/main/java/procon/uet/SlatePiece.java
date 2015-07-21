@@ -240,10 +240,10 @@ public class SlatePiece {
 		return answer;
 	}
 	
-	public static int blocksOfAllPieces(SlatePiece[] pieces, int begin, int end){
+	public static int blocksOfAllPieces(SlatePiece[] pieces, ArrayList<Integer> index){
 		int sum = 0;
-		for (int i = begin; i <= end; i++){
-			sum += pieces[i].core.size();
+		for (int i = 0; i < index.size(); i++){
+			sum += pieces[index.get(i)].core.size();
 		}
 		
 		return sum;
