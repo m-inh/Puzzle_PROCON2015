@@ -143,6 +143,20 @@ public class TargetArea {
 		}
 	}
 	
+	public void placeWithoutChecking(SlatePiece piece){
+		committed = false;
+		
+		int x = piece.getLocation().x;
+		int y = piece.getLocation().y;
+		for (int i = 0; i < piece.getSize(); i++){
+			int newX = x + piece.getCore().get(i).x;
+            int newY = y + piece.getCore().get(i).y;
+            
+            grid[newX][newY] = CommonVL.BLOCK;
+		}
+		noPieces ++;
+	}
+	
 	public int countEmptyCells(){
 //		return emptyCells;
 		int count = 0;
@@ -227,20 +241,18 @@ public class TargetArea {
 	
 	public TargetArea clone(){
 		TargetArea newArea = new TargetArea();
-		newArea.grid = grid;
-		newArea.gridBackup = gridBackup;
+		newArea.grid = new int[CommonVL.SIZE_TARGET_AREA][CommonVL.SIZE_TARGET_AREA];
+		for (int i=0; i < CommonVL.SIZE_TARGET_AREA; i++)
+			System.arraycopy(grid[i], 0, newArea.grid[i], 0, CommonVL.SIZE_TARGET_AREA);
+		
+		newArea.gridBackup = new int[CommonVL.SIZE_TARGET_AREA][CommonVL.SIZE_TARGET_AREA];
+		for (int i=0; i < CommonVL.SIZE_TARGET_AREA; i++)
+			System.arraycopy(gridBackup[i], 0, newArea.gridBackup[i], 0, CommonVL.SIZE_TARGET_AREA);
+		
 		newArea.committed = true;
 		newArea.noPieces = noPieces;
 		newArea.noPiecesBackup = noPiecesBackup;
 		
 		return newArea;
-	}
-	
-	public void copy(TargetArea other){
-		grid = other.grid.clone();
-		gridBackup = other.gridBackup.clone();
-		committed = other.committed;
-		noPieces = other.noPieces;
-		noPiecesBackup = other.noPiecesBackup;
 	}
 }
