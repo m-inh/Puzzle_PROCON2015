@@ -175,26 +175,35 @@ public class FifthBrain extends ThirdBrain{
 
 	public ArrayList<ArrayList<Integer> > allSetsOfPiecesHaveNumberOfBlocksNotGetOverEmptyCells(TargetArea area, SlatePiece pieces[]) {
 		ArrayList<ArrayList<Integer> > indexArr = new ArrayList<ArrayList<Integer> >();
-		int totalEmptyBlock = area.countEmptyCells(); 
+		int totalEmptyBlock = area.countEmptyCells();
+		
 		int length = pieces.length;
+		int tmpCount = pieces[length - 1].getSize();
+		while (tmpCount < totalEmptyBlock){
+			length --;
+			tmpCount +=  pieces[length - 1].getSize();
+		}
 		
 		for (int i = 0; i < length; i++) {
+//			System.out.println("running for-loop with i = " + i);
 			int j = 0;
 			int countBlock = 0;
 			int increase = 0;
 			ArrayList<Integer> indexSelected = new ArrayList<Integer>();
 			while (i + increase < length){
+//				System.out.println("running outer while-loop with increase = " + increase);
 				int up = i + increase + 1;
 				countBlock = pieces[i].getSize();
 				indexSelected.add(i);
 				while (up < length && countBlock + pieces[up].getSize() < totalEmptyBlock){
+//					System.out.println("running inner while-loop");
 					countBlock += pieces[up].getSize();
 					indexSelected.add(up);
 					up++;
 				}
 				increase ++;
 			
-				Collections.sort(indexSelected);
+//				Collections.sort(indexSelected);
 				for (j = 0; j < indexArr.size(); j++){
 					if (indexArr.get(j).containsAll(indexSelected))
 						break;

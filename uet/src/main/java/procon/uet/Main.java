@@ -26,7 +26,7 @@ public class Main
 //		execute(1,10);
 //		execute(3, 10);
 //		execute(4,20);
-//		execute(5,10);
+		execute(5,1);
     }
     
     // Execute nhan 2 tham so truyen vao: ten brain thuc thi va so lan thuc thi
@@ -65,7 +65,7 @@ public class Main
 			area.commit();
 			int noSlatePiecesUsedCurrent = 0;
 			String tempAnswer = "";
-			if (noBrain != 5)
+			if (noBrain != 5){
 				for (int i = 0; i < pieceArr.length; i++){
 					bestPlace = brain.bestPlace(area, pieceArr[i]);
 					if (bestPlace.piece != null) 
@@ -81,20 +81,36 @@ public class Main
 					}
 					tempAnswer += ";";
 				}
+				
+			}
 			else {
 				ArrayList<ArrayList<Integer> > indexArr = new ArrayList<ArrayList<Integer> >();
 				indexArr = ((FifthBrain) brain).allSetsOfPiecesHaveNumberOfBlocksNotGetOverEmptyCells(area,pieceArr);
-				ArrayList<SlatePiece> piecesSelected = new ArrayList<SlatePiece>();
+				ArrayList<SlatePiece> selectedPieces = new ArrayList<SlatePiece>();
+				ArrayList<Integer> selectedIndex = new ArrayList<Integer>();
+				System.out.println(indexArr.size());
 				for (int i = 0; i < indexArr.size(); i++) {
-//					FifthBrain.IndexSlatePieceSelected tempIndexSelected = indexArr.get(i);
 					ArrayList<Integer> tempIntArr = indexArr.get(i);
-//					for (int j = 0; j < tempIntArr.size(); j++) {
-//						bestPlace = ((FifthBrain) brain).bestPlace(area, pieceArr, 0, tempIntArr, piecesSelected);
-//						if (bestPlace.piece != null){
-//							
-//						}
-//					}
+					ArrayList<SlatePiece> tempPieces = new ArrayList<SlatePiece>();
+					int currentMark = ((FifthBrain) brain).bestPlace(area, pieceArr, tempIntArr, tempPieces);
+					if (bestMark < currentMark){
+						selectedIndex = tempIntArr;
+						selectedPieces = tempPieces;
+					}
 				}
+				int j = 0;
+				for (int i = 0; i < selectedIndex.size(); i++){
+					while (j < selectedIndex.get(i)){
+						j++;
+						tempAnswer += ";";
+					}
+					if (selectedPieces.get(i) != null){
+						tempAnswer += selectedPieces.get(i).toString();
+						area.placeWithoutChecking(selectedPieces.get(i));
+					}
+					tempAnswer += ";";
+				}
+				noSlatePiecesUsedCurrent = selectedIndex.size();
 			}
 			int currentMark = 0;
 			currentMark = area.countEmptyCells();
