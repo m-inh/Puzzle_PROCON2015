@@ -11,7 +11,7 @@ public class FifthBrain extends ThirdBrain{
 //			System.out.println("i = " + i + " good piece: " + goodPieces);
 			if (goodPieces.size() == 0){
 				selectedPiece.add(null);
-				return bestPlace(area, pieces, i+1, index, selectedPiece);
+				return bestPlace(area, pieces, i + 1, index, selectedPiece);
 			}
 			ArrayList<SlatePiece> primeSelectedPiece = (ArrayList<SlatePiece>) selectedPiece.clone();
 //			System.out.println("before:");
@@ -135,5 +135,35 @@ public class FifthBrain extends ThirdBrain{
 		}
 		
 		return bestMark;
+	}
+
+	public class IndexSlatePieceSelected {
+		private ArrayList<Integer> intArr;
+
+		public IndexSlatePieceSelected() {
+			intArr = new ArrayList<Integer>();
+		}
+		public void add(int index) {
+			intArr.add(index);
+		}
+		public ArrayList<Integer> getIntArr() {
+			return intArr;
+		}
+	}
+
+	public ArrayList<FifthBrain.IndexSlatePieceSelected> getIndexSlatePieceSelectedArr(TargetArea noPieceArea, SlatePiece SlatePieceArr[]) {
+		ArrayList<IndexSlatePieceSelected> indexArr = new ArrayList<FifthBrain.IndexSlatePieceSelected>();
+		IndexSlatePieceSelected indexSelected = new IndexSlatePieceSelected();
+		int totalEmptyBlock = noPieceArea.countEmptyCells(); 
+		int countBlock = 0;
+		for (int i = 0; i < SlatePieceArr.length; i++) {
+			if (countBlock+SlatePieceArr[i].getSize() <= totalEmptyBlock){
+				indexSelected.add(i);
+				countBlock += SlatePieceArr[i].getSize();
+			}
+		}
+		
+		indexArr.add(indexSelected);
+		return indexArr;
 	}
 }

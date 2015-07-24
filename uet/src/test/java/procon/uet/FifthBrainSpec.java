@@ -40,6 +40,8 @@ public class FifthBrainSpec {
 		
 		System.out.println(SlatePiece.blocksOfAllPieces(pieces, index));
 		System.out.println(brain.bestPlace(target11, pieces, index, selectedPiece));
+		System.out.println("Block of all pieces: "+SlatePiece.blocksOfAllPieces(pieces, index));
+//		System.out.println(brain.bestPlace(target11, pieces, 0, index, selectedPiece));
 		System.out.println();
 		System.out.println(selectedPiece);
 		for (int i = 0; i < selectedPiece.size(); i++){
@@ -47,5 +49,7 @@ public class FifthBrainSpec {
 			System.out.println();
 			target11.print();
 		}
+		
+//		System.out.println("Mark: "+target11.countEmptyCells());
 	}
 }

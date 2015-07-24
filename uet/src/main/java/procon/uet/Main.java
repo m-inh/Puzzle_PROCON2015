@@ -1,6 +1,10 @@
 package procon.uet;
 
+import procon.uet.FifthBrain.IndexSlatePieceSelected;
 import procon.uet.SlatePiece;
+
+import java.util.ArrayList;
+
 import procon.uet.FileManager;
 
 public class Main 
@@ -22,7 +26,7 @@ public class Main
 		
 //		execute(1,10);
 //		execute(3, 10);
-		execute(4,20);
+//		execute(4,20);
 //		execute(5,10);
     }
     
@@ -43,7 +47,7 @@ public class Main
 			brain = new SecondBrain();
 			break;
 		case 3:
-			brain = (ThirdBrain) new ThirdBrain();
+			brain = new ThirdBrain();
 			break;
 		case 4:
 			brain = new FourthBrain();
@@ -78,8 +82,20 @@ public class Main
 					}
 					tempAnswer += ";";
 				}
-			else{
-				
+			else {
+				ArrayList<IndexSlatePieceSelected> indexArr = new ArrayList<IndexSlatePieceSelected>();
+				indexArr = ((FifthBrain) brain).getIndexSlatePieceSelectedArr(area,pieceArr);
+				ArrayList<SlatePiece> piecesSelected = new ArrayList<SlatePiece>();
+				for (int i = 0; i < indexArr.size(); i++) {
+//					FifthBrain.IndexSlatePieceSelected tempIndexSelected = indexArr.get(i);
+					ArrayList<Integer> tempIntArr = indexArr.get(i).getIntArr();
+//					for (int j = 0; j < tempIntArr.size(); j++) {
+//						bestPlace = ((FifthBrain) brain).bestPlace(area, pieceArr, 0, tempIntArr, piecesSelected);
+//						if (bestPlace.piece != null){
+//							
+//						}
+//					}
+				}
 			}
 			int currentMark = 0;
 			currentMark = area.countEmptyCells();
