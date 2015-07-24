@@ -1,7 +1,6 @@
 package procon.uet;
 
 import java.util.ArrayList;
-import java.util.Collections;
 
 public class FourthBrain extends ThirdBrain{
 	

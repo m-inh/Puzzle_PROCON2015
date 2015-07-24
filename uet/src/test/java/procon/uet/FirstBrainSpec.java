@@ -3,8 +3,6 @@ import static org.junit.Assert.*;
 
 import org.junit.*;
 
-import procon.uet.Brain.Place;
-
 public class FirstBrainSpec {
 	private static TargetArea targetArea1;
 	private static TargetArea targetArea2;

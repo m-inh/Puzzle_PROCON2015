@@ -1,11 +1,6 @@
 package procon.uet;
 
-import static org.junit.Assert.*;
-
 import java.util.ArrayList;
-
-import org.junit.Before;
-import org.junit.Test;
 
 public class FifthBrainSpec {
 	private static FileManager fileMgr;
@@ -13,8 +8,7 @@ public class FifthBrainSpec {
 	private static SlatePiece[] pieces;
 	private static FifthBrain brain;
 	
-	@Before
-	public void setup(){
+	public static void setup(){
 		fileMgr = new FileManager("test.txt");
 		fileMgr.readFile();
 		target11 = new TargetArea(fileMgr.getAreaString());
@@ -23,21 +17,21 @@ public class FifthBrainSpec {
 		target11.commit();
 	}
 	
-	@Test
-	public void testBestPlace(){
+	public static void main(String[] args){
+		setup();
 		ArrayList<SlatePiece> selectedPiece = new ArrayList<SlatePiece>();
 		ArrayList<Integer> index = new ArrayList<Integer>(){{
 			add(0);
 			add(1);
 			add(2);
 			add(3);
-			add(4);
-			add(5);
-			add(6);
-			add(7);
-			add(8);
-			add(9);
-			add(10);
+//			add(4);
+//			add(5);
+//			add(6);
+//			add(7);
+//			add(8);
+//			add(9);
+//			add(10);
 //			add(11);
 //			add(12);
 //			add(13);
@@ -45,14 +39,13 @@ public class FifthBrainSpec {
 		}};
 		
 		System.out.println(SlatePiece.blocksOfAllPieces(pieces, index));
-		System.out.println(brain.bestPlace(target11, pieces, 0, index, selectedPiece));
+		System.out.println(brain.bestPlace(target11, pieces, index, selectedPiece));
 		System.out.println();
 		System.out.println(selectedPiece);
 		for (int i = 0; i < selectedPiece.size(); i++){
-			assertEquals(TargetArea.PLACE_OK, target11.place(selectedPiece.get(i), selectedPiece.get(i).getLocation().x, selectedPiece.get(i).getLocation().y));
-			target11.commit();
+			target11.placeWithoutChecking(selectedPiece.get(i));
+			System.out.println();
 			target11.print();
 		}
-		
 	}
 }

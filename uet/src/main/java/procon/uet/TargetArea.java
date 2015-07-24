@@ -144,8 +144,7 @@ public class TargetArea {
 	}
 	
 	public void placeWithoutChecking(SlatePiece piece){
-		committed = false;
-		
+		committed = true;
 		int x = piece.getLocation().x;
 		int y = piece.getLocation().y;
 		for (int i = 0; i < piece.getSize(); i++){

@@ -1,6 +1,7 @@
 package procon.uet;
 
 import java.util.ArrayList;
+import java.util.Stack;
 
 public class FifthBrain extends ThirdBrain{	
 	public int bestPlace(TargetArea area, SlatePiece pieces[], int i, ArrayList<Integer> index, ArrayList<SlatePiece> selectedPiece){
@@ -46,5 +47,93 @@ public class FifthBrain extends ThirdBrain{
 			else
 				return area.countEmptyCells();
 		}
+	}
+	
+	public int bestPlace(TargetArea area, SlatePiece[] pieces, ArrayList<Integer> index, ArrayList<SlatePiece> selectedPiece){
+		int bestMark = 1024;
+		ArrayList<SlatePiece> nextPieces[] = new ArrayList[index.size()];
+		ArrayList<EqualAdjacentPiece> theFirst = arrayOfEqualAjacentPieces(area, pieces[index.get(0)]);
+		
+		int up = 1;
+		int down = index.size() - 1;
+		
+		for (int i = 0; i < 2; i++){
+			nextPieces[0] = theFirst.get(i).getEqualPieceArr();
+			ArrayList<SlatePiece> otherSelectedPieces = new ArrayList<SlatePiece>();
+			TargetArea otherArea = area.clone();
+			for (int j = 0; j < nextPieces[0].size(); j++){
+				otherSelectedPieces.add(nextPieces[0].get(j));
+				otherArea.placeWithoutChecking(nextPieces[0].get(j));
+
+				int[] cases = new int[index.size()];
+				int emptyCells = 1024;
+				while (up < index.size()){
+					nextPieces[up] = mostAdjacentPieces(otherArea, pieces[index.get(up)]);
+					if (up < down){ //up < index.size() - 1
+						otherSelectedPieces.add(nextPieces[up].get(cases[up]));
+						otherArea.placeWithoutChecking(nextPieces[up].get(cases[up]));
+					}
+					
+					System.out.println("nextPieces[" + up +"].size = " + nextPieces[up].size());
+					
+					up++;
+				}
+				System.out.println();
+				while (down > 0){
+					while (up < index.size()){
+						if (cases[down] > 0)
+							otherArea.remove(nextPieces[down].get(cases[down] - 1));
+						otherSelectedPieces.add(nextPieces[down].get(cases[down]));
+						otherArea.placeWithoutChecking(nextPieces[down].get(cases[down]));
+						
+						nextPieces[up] = mostAdjacentPieces(otherArea, pieces[index.get(up)]);
+						
+						System.out.println("nextPieces[" + up +"].size = " + nextPieces[up].size());
+						
+						up++;
+						down++;
+					}
+					
+					System.out.print("cases: ");
+					for (int k = 0; k < cases.length; k++) {
+						System.out.print(cases[k] + " ");
+					}
+					System.out.println();
+					
+					if (nextPieces[down].size() > 0){
+						otherSelectedPieces.add(nextPieces[down].get(0));
+						emptyCells = otherArea.countEmptyCells() - pieces[index.get(down)].getSize();
+					}
+					else{
+						otherSelectedPieces.add(null);
+						emptyCells = otherArea.countEmptyCells();
+					}
+					
+					if (bestMark > emptyCells){
+						bestMark = emptyCells;
+						selectedPiece.clear();
+						for (int k = 0; k < otherSelectedPieces.size(); k++){
+							selectedPiece.add(otherSelectedPieces.get(k));
+						}
+					}
+					otherSelectedPieces.remove(otherSelectedPieces.size() - 1);
+					down--;
+					
+					cases[down]++;
+					up--;
+					
+					if (cases[down] >= nextPieces[down].size()){
+						otherArea.remove(nextPieces[down].get(cases[down] - 1));
+						otherSelectedPieces.remove(otherSelectedPieces.size() - 1);
+						cases[down] = 0;
+						down--;
+						cases[down]++;
+						up--;
+					}
+				}
+			}
+		}
+		
+		return bestMark;
 	}
 }
