@@ -1,6 +1,7 @@
 package procon.uet;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class FifthBrain extends ThirdBrain{	
 	public int bestPlace(TargetArea area, SlatePiece pieces[], int i, ArrayList<Integer> index, ArrayList<SlatePiece> selectedPiece){
@@ -50,7 +51,7 @@ public class FifthBrain extends ThirdBrain{
 		
 		for (int i = 0; i < 2; i++){
 			nextPieces[0] = theFirst.get(i).getEqualPieceArr();
-			for (int j = 0; j < nextPieces[0].size(); j++){//checking
+			for (int j = 0; j < nextPieces[0].size(); j++){
 				ArrayList<SlatePiece> otherSelectedPieces = new ArrayList<SlatePiece>();
 				TargetArea otherArea = area.clone();
 				int up = 1;
@@ -117,7 +118,7 @@ public class FifthBrain extends ThirdBrain{
 					up--;
 
 					while (cases[down] >= nextPieces[down].size()){
-						if (cases[down] > 0)
+						if (nextPieces[down].size() > 0)
 							otherArea.remove(nextPieces[down].get(cases[down] - 1));
 
 						otherSelectedPieces.remove(otherSelectedPieces.size() - 1);
@@ -133,33 +134,38 @@ public class FifthBrain extends ThirdBrain{
 		return bestMark;
 	}
 
-	public class IndexSlatePieceSelected {
-		private ArrayList<Integer> intArr;
-
-		public IndexSlatePieceSelected() {
-			intArr = new ArrayList<Integer>();
-		}
-		public void add(int index) {
-			intArr.add(index);
-		}
-		public ArrayList<Integer> getIntArr() {
-			return intArr;
-		}
-	}
-
-	public ArrayList<FifthBrain.IndexSlatePieceSelected> getIndexSlatePieceSelectedArr(TargetArea noPieceArea, SlatePiece SlatePieceArr[]) {
-		ArrayList<IndexSlatePieceSelected> indexArr = new ArrayList<FifthBrain.IndexSlatePieceSelected>();
-		IndexSlatePieceSelected indexSelected = new IndexSlatePieceSelected();
-		int totalEmptyBlock = noPieceArea.countEmptyCells(); 
-		int countBlock = 0;
-		for (int i = 0; i < SlatePieceArr.length; i++) {
-			if (countBlock+SlatePieceArr[i].getSize() <= totalEmptyBlock){
+	public ArrayList<ArrayList<Integer> > allSetsOfPiecesHaveNumberOfBlocksNotGetOverEmptyCells(TargetArea area, SlatePiece pieces[]) {
+		ArrayList<ArrayList<Integer> > indexArr = new ArrayList<ArrayList<Integer> >();
+		int totalEmptyBlock = area.countEmptyCells(); 
+		int length = pieces.length;
+		
+		for (int i = 0; i < length; i++) {
+			int j = 0;
+			int countBlock = 0;
+			int increase = 0;
+			ArrayList<Integer> indexSelected = new ArrayList<Integer>();
+			while (i + increase < length){
+				int up = i + increase + 1;
+				countBlock = pieces[i].getSize();
 				indexSelected.add(i);
-				countBlock += SlatePieceArr[i].getSize();
+				while (up < length && countBlock + pieces[up].getSize() < totalEmptyBlock){
+					countBlock += pieces[up].getSize();
+					indexSelected.add(up);
+					up++;
+				}
+				increase ++;
+			
+				Collections.sort(indexSelected);
+				for (j = 0; j < indexArr.size(); j++){
+					if (indexArr.get(j).containsAll(indexSelected))
+						break;
+				}
+				if (j >= indexArr.size())
+					indexArr.add(indexSelected);
+				indexSelected = new ArrayList<Integer>();
 			}
 		}
 		
-		indexArr.add(indexSelected);
 		return indexArr;
 	}
 }

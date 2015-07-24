@@ -1,6 +1,5 @@
 package procon.uet;
 
-import procon.uet.FifthBrain.IndexSlatePieceSelected;
 import procon.uet.SlatePiece;
 
 import java.util.ArrayList;
@@ -83,12 +82,12 @@ public class Main
 					tempAnswer += ";";
 				}
 			else {
-				ArrayList<IndexSlatePieceSelected> indexArr = new ArrayList<IndexSlatePieceSelected>();
-				indexArr = ((FifthBrain) brain).getIndexSlatePieceSelectedArr(area,pieceArr);
+				ArrayList<ArrayList<Integer> > indexArr = new ArrayList<ArrayList<Integer> >();
+				indexArr = ((FifthBrain) brain).allSetsOfPiecesHaveNumberOfBlocksNotGetOverEmptyCells(area,pieceArr);
 				ArrayList<SlatePiece> piecesSelected = new ArrayList<SlatePiece>();
 				for (int i = 0; i < indexArr.size(); i++) {
 //					FifthBrain.IndexSlatePieceSelected tempIndexSelected = indexArr.get(i);
-					ArrayList<Integer> tempIntArr = indexArr.get(i).getIntArr();
+					ArrayList<Integer> tempIntArr = indexArr.get(i);
 //					for (int j = 0; j < tempIntArr.size(); j++) {
 //						bestPlace = ((FifthBrain) brain).bestPlace(area, pieceArr, 0, tempIntArr, piecesSelected);
 //						if (bestPlace.piece != null){
