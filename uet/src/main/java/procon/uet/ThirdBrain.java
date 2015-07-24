@@ -74,18 +74,16 @@ public class ThirdBrain extends FirstBrain{
 			}
 			tempPiece = tempPiece.fastRotation();
 		}
+		for (EqualAdjacentPiece equalAdjacentPiece : equalPieceArr) {
+			equalAdjacentPiece.simplify(area);
+		}
 		Collections.sort(equalPieceArr);
-		// test sort()
-//		System.out.println("------------------------");
-//		for (int i = 0; i < equalPieceArr.size(); i++) {
-//			System.out.println(equalPieceArr.get(i).getMark()+"");
-//		}
+		
 		return equalPieceArr;
 	}
 	
 	protected EqualAdjacentPiece chooseEqualAdjacentPiece(ArrayList<EqualAdjacentPiece> equalAdPieceArr){
 		if (equalAdPieceArr.size() == 0){
-//			System.out.println("equalAdPieceArr null");
 			return null;
 		}
 		
@@ -149,11 +147,4 @@ public class ThirdBrain extends FirstBrain{
 		return -1;
 	}
 }
-
-
-
-
-
-
-
 

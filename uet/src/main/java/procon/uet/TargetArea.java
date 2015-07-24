@@ -238,6 +238,24 @@ public class TargetArea {
 		return noPieces;
 	}
 	
+	public boolean equals(Object obj){
+		if (this == obj)
+			return true;
+		
+		if (!(obj instanceof TargetArea))
+			return false;
+		
+		TargetArea other = (TargetArea) obj;
+		for (int i = 0; i < CommonVL.SIZE_TARGET_AREA; i++){
+			for (int j = 0; j < CommonVL.SIZE_TARGET_AREA; j++){
+				if (grid[i][j] != other.grid[i][j])
+					return false;
+			}
+		}
+		
+		return true;
+	}
+	
 	public TargetArea clone(){
 		TargetArea newArea = new TargetArea();
 		newArea.grid = new int[CommonVL.SIZE_TARGET_AREA][CommonVL.SIZE_TARGET_AREA];

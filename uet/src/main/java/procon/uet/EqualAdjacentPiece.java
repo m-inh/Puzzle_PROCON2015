@@ -61,4 +61,18 @@ public class EqualAdjacentPiece implements Comparable{
 			else
 				return 0;
 	}
+	
+	public void simplify(TargetArea area){
+		for (int i = 0; i < equalPieceArr.size(); i++){
+			TargetArea areaI = area.clone();
+			areaI.placeWithoutChecking(equalPieceArr.get(i));
+			for (int j = i + 1; j < equalPieceArr.size(); j++){
+				TargetArea areaJ = area.clone();
+				areaJ.placeWithoutChecking(equalPieceArr.get(j));
+				if (areaI.equals(areaJ)){
+					equalPieceArr.remove(j);
+				}
+			}
+		}
+	}
 }

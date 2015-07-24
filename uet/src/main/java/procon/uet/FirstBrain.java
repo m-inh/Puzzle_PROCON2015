@@ -72,6 +72,18 @@ public class FirstBrain implements Brain {
 			tempPiece = tempPiece.fastRotation();
 		}
 		
+		for (int i = 0; i < pieceArr.size(); i++){
+			TargetArea areaI = area.clone();
+			areaI.placeWithoutChecking(pieceArr.get(i));
+			for (int j = i + 1; j < pieceArr.size(); j++){
+				TargetArea areaJ = area.clone();
+				areaJ.placeWithoutChecking(pieceArr.get(j));
+				if (areaI.equals(areaJ)){
+					pieceArr.remove(j);
+				}
+			}
+		}
+		
 		return pieceArr;
 	}
 
