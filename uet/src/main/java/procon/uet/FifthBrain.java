@@ -4,14 +4,14 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public class FifthBrain extends ThirdBrain{	
-	public int bestPlace(TargetArea area, SlatePiece pieces[], int i, ArrayList<Integer> index, ArrayList<SlatePiece> selectedPiece){
+	public int bestPlaceInAllCases(TargetArea area, SlatePiece pieces[], int i, ArrayList<Integer> index, ArrayList<SlatePiece> selectedPiece){
 		if (i < index.size() - 1){
 			int best = 1024;
 			ArrayList<SlatePiece> goodPieces = mostAdjacentPieces(area, pieces[index.get(i)]);
 
 			if (goodPieces.size() == 0){
 				selectedPiece.add(null);
-				return bestPlace(area, pieces, i + 1, index, selectedPiece);
+				return bestPlaceInAllCases(area, pieces, i + 1, index, selectedPiece);
 			}
 			ArrayList<SlatePiece> primeSelectedPiece = (ArrayList<SlatePiece>) selectedPiece.clone();
 			
@@ -21,7 +21,7 @@ public class FifthBrain extends ThirdBrain{
 				otherArea.placeWithoutChecking(goodPieces.get(j));
 				otherArea.commit();
 				otherSelectedPieces.add(goodPieces.get(j));
-				int current = bestPlace(otherArea, pieces, i+1, index, otherSelectedPieces);
+				int current = bestPlaceInAllCases(otherArea, pieces, i+1, index, otherSelectedPieces);
 				
 				if (best > current){
 					best = current;
@@ -44,7 +44,7 @@ public class FifthBrain extends ThirdBrain{
 		}
 	}
 	
-	public int bestPlace(TargetArea area, SlatePiece[] pieces, ArrayList<Integer> index, ArrayList<SlatePiece> selectedPiece) {
+	public int bestPlaceInAllCases(TargetArea area, SlatePiece[] pieces, ArrayList<Integer> index, ArrayList<SlatePiece> selectedPiece) {
 		int bestMark = 1024;
 		ArrayList<SlatePiece> nextPieces[] = new ArrayList[index.size()];
 		ArrayList<EqualAdjacentPiece> theFirst = arrayOfEqualAjacentPieces(area, pieces[index.get(0)]);
@@ -128,6 +128,45 @@ public class FifthBrain extends ThirdBrain{
 						up--;
 					}
 				}
+			}
+		}
+		
+		return bestMark;
+	}
+	
+	public int bestPlace(TargetArea area, SlatePiece pieces[], ArrayList<Integer> index, ArrayList<SlatePiece> selectedPieces){
+		int bestMark = 1024;
+		int begin = 0;
+		ArrayList<EqualAdjacentPiece> theFirst = arrayOfEqualAjacentPieces(area, pieces[index.get(0)]);
+		while (theFirst.isEmpty()){
+			begin++;
+			theFirst = arrayOfEqualAjacentPieces(area, pieces[index.get(begin)]);
+		}
+		TargetArea otherArea = area.clone();
+		ArrayList<SlatePiece> otherSelectedPieces = new ArrayList<SlatePiece>();
+		int length = (theFirst.size() > 2) ? 2 : theFirst.size();
+		
+		for (int i = 0; i < length; i++) {
+			for (int l = 0; l < theFirst.get(i).size(); l++) {
+				SlatePiece theFirstPiece = theFirst.get(i).getEqualPieceArr().get(l);
+				otherSelectedPieces.add(theFirstPiece);
+				otherArea.placeWithoutChecking(theFirstPiece);
+				for (int j = begin + 1; j < index.size(); j++) {
+					ArrayList<SlatePiece> pieceArr = mostAdjacentPieces(otherArea, pieces[index.get(j)]);
+					SlatePiece nextPiece = randomChoosePiece(pieceArr);
+					otherSelectedPieces.add(nextPiece);
+					if (nextPiece != null)
+						otherArea.placeWithoutChecking(nextPiece);
+				}
+				if (bestMark > otherArea.countEmptyCells()){
+					bestMark = otherArea.countEmptyCells();
+					selectedPieces.clear();
+					for (int k = 0; k < otherSelectedPieces.size(); k++){
+						selectedPieces.add(otherSelectedPieces.get(k));
+					}
+				}
+				otherSelectedPieces = new ArrayList<SlatePiece>();
+				otherArea = area.clone();
 			}
 		}
 		

@@ -118,7 +118,7 @@ public class FirstBrain implements Brain {
 		return count;
 	}
 
-	private SlatePiece randomChoosePiece(ArrayList<SlatePiece> pieceArr) {
+	protected SlatePiece randomChoosePiece(ArrayList<SlatePiece> pieceArr) {
 		Random rand = new Random();
 		if (pieceArr.size() == 0) {
 			return null;
