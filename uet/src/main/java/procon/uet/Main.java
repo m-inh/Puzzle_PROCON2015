@@ -90,6 +90,7 @@ public class Main
 				ArrayList<Integer> selectedIndex = new ArrayList<Integer>();
 				System.out.println(indexArr.size());
 				for (int i = 0; i < indexArr.size(); i++) {
+					System.out.println(i + "------------------------");
 					ArrayList<Integer> tempIntArr = indexArr.get(i);
 					ArrayList<SlatePiece> tempPieces = new ArrayList<SlatePiece>();
 					int currentMark = ((FifthBrain) brain).bestPlace(area, pieceArr, tempIntArr, tempPieces);

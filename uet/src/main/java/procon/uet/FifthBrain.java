@@ -147,8 +147,12 @@ public class FifthBrain extends ThirdBrain{
 		int length = (theFirst.size() > 2) ? 2 : theFirst.size();
 		
 		for (int i = 0; i < length; i++) {
-			for (int l = 0; l < theFirst.get(i).size(); l++) {
-				SlatePiece theFirstPiece = theFirst.get(i).getEqualPieceArr().get(l);
+			EqualAdjacentPiece equalAdPieces = theFirst.get(i);
+			equalAdPieces.simplify(otherArea);
+			SlatePiece theFirstPiece;
+			if (i > 0){
+				
+				theFirstPiece = equalAdPieces.getEqualPieceArr().get(equalAdPieces.size()/2);
 				otherSelectedPieces.add(theFirstPiece);
 				otherArea.placeWithoutChecking(theFirstPiece);
 				for (int j = begin + 1; j < index.size(); j++) {
@@ -165,8 +169,29 @@ public class FifthBrain extends ThirdBrain{
 						selectedPieces.add(otherSelectedPieces.get(k));
 					}
 				}
-				otherSelectedPieces = new ArrayList<SlatePiece>();
-				otherArea = area.clone();
+			}
+			else {
+				for (int l = 0; l < equalAdPieces.size(); l++) {
+					theFirstPiece = equalAdPieces.getEqualPieceArr().get(l);
+					otherSelectedPieces.add(theFirstPiece);
+					otherArea.placeWithoutChecking(theFirstPiece);
+					for (int j = begin + 1; j < index.size(); j++) {
+						ArrayList<SlatePiece> pieceArr = mostAdjacentPieces(otherArea, pieces[index.get(j)]);
+						SlatePiece nextPiece = randomChoosePiece(pieceArr);
+						otherSelectedPieces.add(nextPiece);
+						if (nextPiece != null)
+							otherArea.placeWithoutChecking(nextPiece);
+					}
+					if (bestMark > otherArea.countEmptyCells()){
+						bestMark = otherArea.countEmptyCells();
+						selectedPieces.clear();
+						for (int k = 0; k < otherSelectedPieces.size(); k++){
+							selectedPieces.add(otherSelectedPieces.get(k));
+						}
+					}
+					otherSelectedPieces = new ArrayList<SlatePiece>();
+					otherArea = area.clone();
+				}
 			}
 		}
 		
