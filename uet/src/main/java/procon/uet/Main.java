@@ -26,7 +26,8 @@ public class Main
 //		execute(1,10);
 //		execute(3, 10);
 //		execute(4,20);
-		execute(5,1);
+//		execute(5,1);
+		execute(6, 10);
     }
     
     // Execute nhan 2 tham so truyen vao: ten brain thuc thi va so lan thuc thi
@@ -41,10 +42,10 @@ public class Main
 		case 1:
 			brain = new FirstBrain();
 			break;
-		case 2:
-			// use for 2nd Brain :v
-			brain = new SecondBrain();
-			break;
+//		case 2:
+//			// use for 2nd Brain :v
+//			brain = new SecondBrain();
+//			break;
 		case 3:
 			brain = new ThirdBrain();
 			break;
@@ -53,6 +54,10 @@ public class Main
 			break;
 		case 5:
 			brain = new FifthBrain();
+			break;
+		case 6:
+			brain = new SixthBrain();
+			brain.prepare(pieceArr);
 			break;
 		default:
 			break;
@@ -70,8 +75,8 @@ public class Main
 					bestPlace = brain.bestPlace(area, pieceArr[i]);
 					if (bestPlace.piece != null) 
 					{
-						area.place(bestPlace.piece, bestPlace.rX, bestPlace.rY);
-						area.commit();
+						area.placeWithoutChecking(bestPlace.piece);
+//						area.commit();
 						tempAnswer += bestPlace.piece.toString();
 						noSlatePiecesUsedCurrent++;
 	//					System.out.println(bestPlace.piece.toString());

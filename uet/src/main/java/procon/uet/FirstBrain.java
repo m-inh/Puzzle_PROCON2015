@@ -129,4 +129,6 @@ public class FirstBrain implements Brain {
 		}
 		return pieceArr.get(rand.nextInt(pieceArr.size()));
 	}
+
+	public void prepare(SlatePiece[] pieceArr) {}
 }
