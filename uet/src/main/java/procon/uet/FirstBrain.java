@@ -103,16 +103,16 @@ public class FirstBrain implements Brain {
 				count++;
 			if (pY == 0 || pY == CommonVL.HEIGHT_TARGET_AREA - 1)
 				count++;
-			if (pY >= 0 && pX > 0 && area.getValue(pX - 1, pY) != CommonVL.SPACE)
+			if (pY >= 0 && pX > 0 && area.getGrid(pX - 1, pY) != CommonVL.SPACE)
 				count++;
 
-			if (pX >= 0 && pY > 0 && area.getValue(pX, pY - 1) != CommonVL.SPACE)
+			if (pX >= 0 && pY > 0 && area.getGrid(pX, pY - 1) != CommonVL.SPACE)
 				count++;
 
-			if (pY >= 0 && pX >= 0 && pX < CommonVL.WIDTH_TARGET_AREA - 1 && area.getValue(pX + 1, pY) != CommonVL.SPACE)
+			if (pY >= 0 && pX >= 0 && pX < CommonVL.WIDTH_TARGET_AREA - 1 && area.getGrid(pX + 1, pY) != CommonVL.SPACE)
 				count++;
 
-			if (pX >= 0 && pY >= 0 && pY < CommonVL.HEIGHT_TARGET_AREA - 1 && area.getValue(pX, pY + 1) != CommonVL.SPACE)
+			if (pX >= 0 && pY >= 0 && pY < CommonVL.HEIGHT_TARGET_AREA - 1 && area.getGrid(pX, pY + 1) != CommonVL.SPACE)
 				count++;
 		}
 		return count;
@@ -130,5 +130,5 @@ public class FirstBrain implements Brain {
 		return pieceArr.get(rand.nextInt(pieceArr.size()));
 	}
 
-	public void prepare(SlatePiece[] pieceArr) {}
+	public void prepare(SlatePiece[] pieceArr, int index) {}
 }

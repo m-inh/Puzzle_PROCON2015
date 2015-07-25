@@ -8,23 +8,42 @@ public class SixthBrain extends ThirdBrain{
 	private int maxSizeOfPieces = 1;
 	
 	public Place bestPlace(TargetArea area, SlatePiece piece){
-		ArrayList<EqualAdjacentPiece> equalAdPieces = arrayOfEqualAjacentPieces(area, piece);
 		SlatePiece bestPiece = null;
-		for (int i = 0; i < equalAdPieces.size(); i++){
-			ArrayList<SlatePiece> equalPieceArr = equalAdPieces.get(i).getEqualPieceArr();
-			int j = 0;
-			for (j = 0; j < equalPieceArr.size(); j++) {
-				int hole = rateHole(area.clone(), equalPieceArr.get(j));
-				if (hole == 0 || (hole < maxSizeOfPieces && hole > minSizeOfPieces)){
-					if (hole == 0)
-						bestPiece = equalPieceArr.get(j);
-					else
-						bestPiece = decideChooseRandomize(equalPieceArr.get(j));
-					break;
+		ArrayList<SlatePiece> goodPieces = new ArrayList<SlatePiece>();
+		ArrayList<SlatePiece> select = new ArrayList<SlatePiece>();
+//		int length = (equalAdPieces.size() > 2) ? 2 : equalAdPieces.size();
+		
+		if (area.getNoPieces() == 0){
+			ArrayList<EqualAdjacentPiece> equalAdPieces = arrayOfEqualAjacentPieces(area, piece);
+			if (!equalAdPieces.isEmpty()){
+				EqualAdjacentPiece equalPieceArr = equalAdPieces.get(0);
+				if (equalAdPieces.size() > 1){
+					if (equalPieceArr.getMark() >= piece.getEdges() - 1){
+						equalPieceArr = equalAdPieces.get(1);
+					}
 				}
+				select = equalPieceArr.getEqualPieceArr();
 			}
-			if (j < equalAdPieces.size())
+		}
+		else{
+			select = mostAdjacentPieces(area, piece);
+		}
+		
+		for (int j = 0; j < select.size(); j++) {
+			int hole = rateHole(area.clone(), select.get(j));
+			if (hole == 0){
+				bestPiece = select.get(j);
 				break;
+			}
+			else{
+				if ((double)hole/(hole + select.get(j).getSize()) > (double)0.7)
+					if (hole >= minSizeOfPieces)
+						goodPieces.add(select.get(j));
+			}
+		}
+		
+		if (bestPiece == null){
+			bestPiece = randomChoosePiece(goodPieces);
 		}
 		
 		if (bestPiece != null){
@@ -34,8 +53,8 @@ public class SixthBrain extends ThirdBrain{
 			return new Place();
 	}
 	
-	public void prepare(SlatePiece[] pieces){
-		for (int i = 0; i < pieces.length; i++){
+	public void prepare(SlatePiece[] pieces, int index){
+		for (int i = index; i < pieces.length; i++){
 			if (minSizeOfPieces > pieces[i].getSize())
 				minSizeOfPieces = pieces[i].getSize();
 			if (maxSizeOfPieces < pieces[i].getSize())
@@ -50,21 +69,29 @@ public class SixthBrain extends ThirdBrain{
 		int maxX = piece.getLocation().x + piece.getMaxX();
 		int maxY = piece.getLocation().y + piece.getMaxY();
 		area.placeWithoutChecking(piece);
+//		boolean upperBound = minY == 0;
+//		boolean lowerBound = maxY == CommonVL.HEIGHT_TARGET_AREA - 1;
+//		boolean leftBound = minX == 0;
+//		boolean rightBound = maxX == CommonVL.WIDTH_TARGET_AREA - 1;
 		for (int i = minY; i <= maxY; i++){
 			for (int j = minX; j <= maxX; j++){
-				
+				if  (area.getGrid(i, j) == CommonVL.SPACE)
+					count++;
 			}
 		}
 		
 		return count;
 	}
 	
-	private SlatePiece decideChooseRandomize(SlatePiece piece){
+	protected SlatePiece randomChoosePiece(ArrayList<SlatePiece> pieceArr) {
 		Random rand = new Random();
-		
-		if (rand.nextInt(100)%100 > 90)
-			return piece;
-		else
+		if (pieceArr.size() == 0) {
 			return null;
+		}
+		// random choose the this piece
+		if (rand.nextInt(100)%100 > 70){
+			return null;
+		}
+		return pieceArr.get(rand.nextInt(pieceArr.size()));
 	}
 }

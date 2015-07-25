@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 public class SlatePiece {	
 	private ArrayList<Point> core;
-	private int heightCore, widthCore;
 	//the location of the block nearest reference cell
 	private int minX, minY;
 	//the location of the block farest reference cell
@@ -60,8 +59,6 @@ public class SlatePiece {
 			if (maxWidth < core.get(i).x)
 				maxWidth = core.get(i).x;
 		}
-		heightCore = maxHeight - minHeight + 1;
-		widthCore = maxWidth - minWidth + 1;
 		minX = minWidth;
 		minY = minHeight;
 		maxX = maxWidth;
@@ -200,12 +197,6 @@ public class SlatePiece {
 	}
 	public ArrayList<Point> getCore(){
 		return core;
-	}
-	public int getHeightCore(){
-		return heightCore;
-	}
-	public int getWidthCore(){
-		return widthCore;
 	}
 	public int getMaxX() {
 		return maxX;

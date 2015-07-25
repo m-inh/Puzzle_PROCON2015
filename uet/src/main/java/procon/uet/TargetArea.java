@@ -227,10 +227,10 @@ public class TargetArea {
 		}
 	}
 	// Return the value of grid
-	public int getValue(int x, int y){
+	public int getGrid(int x, int y){
 		return grid[x][y];
 	}
-	public int getValue(Point p){
+	public int getGrid(Point p){
 		return grid[p.getX()][p.getY()];
 	}
 	//return the number of pieces

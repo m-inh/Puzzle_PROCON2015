@@ -74,9 +74,9 @@ public class ThirdBrain extends FirstBrain{
 			}
 			tempPiece = tempPiece.fastRotation();
 		}
-		for (EqualAdjacentPiece equalAdjacentPiece : equalPieceArr) {
-			equalAdjacentPiece.simplify(area);
-		}
+//		for (EqualAdjacentPiece equalAdjacentPiece : equalPieceArr) {
+//			equalAdjacentPiece.simplify(area);
+//		}
 		Collections.sort(equalPieceArr);
 		
 		return equalPieceArr;
