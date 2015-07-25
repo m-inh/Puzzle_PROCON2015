@@ -108,6 +108,7 @@ public class Main
 						tempAnswer += selectedPieces.get(i).toString();
 						area.placeWithoutChecking(selectedPieces.get(i));
 					}
+					j++;
 					tempAnswer += ";";
 				}
 				noSlatePiecesUsedCurrent = selectedIndex.size();
