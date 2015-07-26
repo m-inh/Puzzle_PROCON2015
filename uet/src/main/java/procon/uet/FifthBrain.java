@@ -239,6 +239,7 @@ public class FifthBrain extends ThirdBrain{
 			maxI --;
 			tmpCount +=  pieces[length - 1].getSize();
 		}
+		int best = 0;
 		
 		for (int i = 0; i < maxI; i++) {
 //			System.out.println("running for-loop with i = " + i);
@@ -259,30 +260,39 @@ public class FifthBrain extends ThirdBrain{
 					up++;
 				}
 				increase ++;
-			
-//				Collections.sort(indexSelected);
-				for (j = 0; j < indexArr.size(); j++){
-					if (indexArr.get(j).indexArr.containsAll(indexSelected))
-						break;
-				}
-				if (j >= indexArr.size())
+				if (best < countBlock){
+					best = countBlock;
+					indexArr = new ArrayList<Indexes>();
 					indexArr.add(new Indexes(indexSelected));
+				}
+				else{
+					if (best == countBlock){
+						for (j = 0; j < indexArr.size(); j++){
+							if (indexArr.get(j).indexArr.containsAll(indexSelected))
+								break;
+						}
+						if (j >= indexArr.size())
+							indexArr.add(new Indexes(indexSelected));
+					}
+				}
+				
+//				Collections.sort(indexSelected);
 			}
 		}
 		for (int i = 0; i< indexArr.size(); i++) {
 			indexArr.get(i).calculateNumberOfBlocks(pieces);
 		}
 		
-		Collections.sort(indexArr);
-		int best = indexArr.get(0).numberOfBlocks;
+//		Collections.sort(indexArr);
+//		best = indexArr.get(0).numberOfBlocks;
 		System.out.println(best);
-		for (int i = 1; i < indexArr.size();){
-			if (indexArr.get(i).numberOfBlocks < best){
-				indexArr.remove(i);
-			}
-			else
-				i++;
-		}
+//		for (int i = 1; i < indexArr.size();){
+//			if (indexArr.get(i).numberOfBlocks < best){
+//				indexArr.remove(i);
+//			}
+//			else
+//				i++;
+//		}
 		
 		return indexArr;
 	}
