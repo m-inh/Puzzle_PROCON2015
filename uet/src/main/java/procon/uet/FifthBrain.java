@@ -197,9 +197,39 @@ public class FifthBrain extends ThirdBrain{
 		
 		return bestMark;
 	}
+	
+	public class Indexes implements Comparable{
+		public ArrayList<Integer> indexArr;
+		private int numberOfBlocks = 0;
+		
+		public Indexes(ArrayList<Integer> _indexArr){
+			indexArr = _indexArr;
+		}
+		
+		public void calculateNumberOfBlocks(SlatePiece[] pieces){
+			for (int i = 0; i < indexArr.size(); i++){
+				numberOfBlocks += pieces[indexArr.get(i)].getSize();
+			}
+		}
+		
+		public int getBlocks(){
+			return numberOfBlocks;
+		}
+		
+		public int compareTo(Object obj) {
+			Indexes other = (Indexes) obj;
+			if (numberOfBlocks < other.numberOfBlocks)
+				return 1;
+			else
+				if (numberOfBlocks > other.numberOfBlocks)
+					return -1;
+				else
+					return 0;
+		}
+	}
 
-	public ArrayList<ArrayList<Integer> > allSetsOfPiecesHaveNumberOfBlocksNotGetOverEmptyCells(TargetArea area, SlatePiece pieces[]) {
-		ArrayList<ArrayList<Integer> > indexArr = new ArrayList<ArrayList<Integer> >();
+	public ArrayList<Indexes> allSetsOfPiecesHaveNumberOfBlocksNotGetOverEmptyCells(TargetArea area, SlatePiece pieces[]) {
+		ArrayList<Indexes> indexArr = new ArrayList<Indexes>();
 		int totalEmptyBlock = area.countEmptyCells();
 		
 		int length = pieces.length;
@@ -230,12 +260,23 @@ public class FifthBrain extends ThirdBrain{
 			
 //				Collections.sort(indexSelected);
 				for (j = 0; j < indexArr.size(); j++){
-					if (indexArr.get(j).containsAll(indexSelected))
+					if (indexArr.get(j).indexArr.containsAll(indexSelected))
 						break;
 				}
 				if (j >= indexArr.size())
-					indexArr.add(indexSelected);
+					indexArr.add(new Indexes(indexSelected));
 				indexSelected = new ArrayList<Integer>();
+			}
+		}
+		for (Indexes indexes : indexArr) {
+			indexes.calculateNumberOfBlocks(pieces);
+		}
+		
+		Collections.sort(indexArr);
+		int best = indexArr.get(0).numberOfBlocks;
+		for (int i = 1; i < indexArr.size(); i++){
+			if (indexArr.get(i).numberOfBlocks < best){
+				indexArr.remove(i);
 			}
 		}
 		

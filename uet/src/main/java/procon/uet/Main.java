@@ -1,5 +1,6 @@
 package procon.uet;
 
+import procon.uet.FifthBrain.Indexes;
 import procon.uet.SlatePiece;
 
 import java.util.ArrayList;
@@ -26,8 +27,8 @@ public class Main
 //		execute(1,10);
 //		execute(3, 10);
 //		execute(4,20);
-//		execute(5,1);
-		execute(6, 20);
+		execute(5,1);
+//		execute(6, 20);
     }
     
     // Execute nhan 2 tham so truyen vao: ten brain thuc thi va so lan thuc thi
@@ -88,14 +89,13 @@ public class Main
 				}
 			}
 			else {
-				ArrayList<ArrayList<Integer> > indexArr = new ArrayList<ArrayList<Integer> >();
+				ArrayList<Indexes> indexArr = new ArrayList<Indexes>();
 				indexArr = ((FifthBrain) brain).allSetsOfPiecesHaveNumberOfBlocksNotGetOverEmptyCells(area,pieceArr);
 				ArrayList<SlatePiece> selectedPieces = new ArrayList<SlatePiece>();
 				ArrayList<Integer> selectedIndex = new ArrayList<Integer>();
 				System.out.println(indexArr.size());
 				for (int i = 0; i < indexArr.size(); i++) {
-					System.out.println(i + "------------------------");
-					ArrayList<Integer> tempIntArr = indexArr.get(i);
+					ArrayList<Integer> tempIntArr = indexArr.get(i).indexArr;
 					ArrayList<SlatePiece> tempPieces = new ArrayList<SlatePiece>();
 					int currentMark = ((FifthBrain) brain).bestPlace(area, pieceArr, tempIntArr, tempPieces);
 					if (bestMark < currentMark){

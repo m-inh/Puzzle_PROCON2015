@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import org.junit.Before;
 import org.junit.Test;
 
+import procon.uet.FifthBrain.Indexes;
+
 public class FifthBrainSpec {
 	private static FileManager fileMgr;
 	private static TargetArea target11;
@@ -15,7 +17,7 @@ public class FifthBrainSpec {
 	
 	@Before
 	public void setup(){
-		fileMgr = new FileManager("9.txt");
+		fileMgr = new FileManager("test.txt");
 		fileMgr.readFile();
 		target11 = new TargetArea(fileMgr.getAreaString());
 		pieces = fileMgr.getPieceArr();
@@ -71,11 +73,11 @@ public class FifthBrainSpec {
 			System.out.print(pieces[i].getSize() + " ");
 		}
 		System.out.println();
-		ArrayList<ArrayList<Integer> > res = brain.allSetsOfPiecesHaveNumberOfBlocksNotGetOverEmptyCells(target11, pieces);
-		for (ArrayList<Integer> arrayList : res) {
+		ArrayList<Indexes> res = brain.allSetsOfPiecesHaveNumberOfBlocksNotGetOverEmptyCells(target11, pieces);
+		for (Indexes arrayList : res) {
 			System.out.print(arrayList);
 			System.out.print(" sum = ");
-			System.out.print(SlatePiece.blocksOfAllPieces(pieces, arrayList));
+			System.out.print(arrayList.getBlocks());
 			System.out.println();
 		}
 	}
