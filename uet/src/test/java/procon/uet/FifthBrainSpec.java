@@ -17,7 +17,7 @@ public class FifthBrainSpec {
 	
 	@Before
 	public void setup(){
-		fileMgr = new FileManager("test.txt");
+		fileMgr = new FileManager("9.txt");
 		fileMgr.readFile();
 		target11 = new TargetArea(fileMgr.getAreaString());
 		pieces = fileMgr.getPieceArr();

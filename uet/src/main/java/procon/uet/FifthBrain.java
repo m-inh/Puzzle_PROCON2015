@@ -237,7 +237,7 @@ public class FifthBrain extends ThirdBrain{
 		int tmpCount = pieces[length - 1].getSize();
 		while (tmpCount < totalEmptyBlock){
 			maxI --;
-			tmpCount +=  pieces[length - 1].getSize();
+			tmpCount +=  pieces[maxI - 1].getSize();
 		}
 		int best = 0;
 		
@@ -253,7 +253,7 @@ public class FifthBrain extends ThirdBrain{
 				int up = i + increase + 1;
 				countBlock = pieces[i].getSize();
 				indexSelected.add(i);
-				while (up < length && countBlock + pieces[up].getSize() < totalEmptyBlock){
+				while (up < length && countBlock + pieces[up].getSize() <= totalEmptyBlock){
 //					System.out.println("running inner while-loop");
 					countBlock += pieces[up].getSize();
 					indexSelected.add(up);
