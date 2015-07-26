@@ -75,7 +75,7 @@ public class FifthBrainSpec {
 		System.out.println();
 		ArrayList<Indexes> res = brain.allSetsOfPiecesHaveNumberOfBlocksNotGetOverEmptyCells(target11, pieces);
 		for (Indexes arrayList : res) {
-			System.out.print(arrayList);
+			System.out.print(arrayList.indexArr);
 			System.out.print(" sum = ");
 			System.out.print(arrayList.getBlocks());
 			System.out.println();

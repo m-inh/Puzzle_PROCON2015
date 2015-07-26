@@ -233,20 +233,22 @@ public class FifthBrain extends ThirdBrain{
 		int totalEmptyBlock = area.countEmptyCells();
 		
 		int length = pieces.length;
+		int maxI = length;
 		int tmpCount = pieces[length - 1].getSize();
 		while (tmpCount < totalEmptyBlock){
-			length --;
+			maxI --;
 			tmpCount +=  pieces[length - 1].getSize();
 		}
 		
-		for (int i = 0; i < length; i++) {
+		for (int i = 0; i < maxI; i++) {
 //			System.out.println("running for-loop with i = " + i);
 			int j = 0;
 			int countBlock = 0;
 			int increase = 0;
-			ArrayList<Integer> indexSelected = new ArrayList<Integer>();
+			
 			while (i + increase < length){
 //				System.out.println("running outer while-loop with increase = " + increase);
+				ArrayList<Integer> indexSelected = new ArrayList<Integer>();
 				int up = i + increase + 1;
 				countBlock = pieces[i].getSize();
 				indexSelected.add(i);
@@ -265,19 +267,21 @@ public class FifthBrain extends ThirdBrain{
 				}
 				if (j >= indexArr.size())
 					indexArr.add(new Indexes(indexSelected));
-				indexSelected = new ArrayList<Integer>();
 			}
 		}
-		for (Indexes indexes : indexArr) {
-			indexes.calculateNumberOfBlocks(pieces);
+		for (int i = 0; i< indexArr.size(); i++) {
+			indexArr.get(i).calculateNumberOfBlocks(pieces);
 		}
 		
 		Collections.sort(indexArr);
 		int best = indexArr.get(0).numberOfBlocks;
-		for (int i = 1; i < indexArr.size(); i++){
+		System.out.println(best);
+		for (int i = 1; i < indexArr.size();){
 			if (indexArr.get(i).numberOfBlocks < best){
 				indexArr.remove(i);
 			}
+			else
+				i++;
 		}
 		
 		return indexArr;
