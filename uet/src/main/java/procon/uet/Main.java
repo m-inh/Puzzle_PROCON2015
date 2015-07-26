@@ -27,7 +27,7 @@ public class Main
 //		execute(3, 10);
 //		execute(4,20);
 //		execute(5,1);
-		execute(6, 1);
+		execute(6, 20);
     }
     
     // Execute nhan 2 tham so truyen vao: ten brain thuc thi va so lan thuc thi
@@ -74,7 +74,7 @@ public class Main
 					bestPlace = brain.bestPlace(area, pieceArr[i]);
 					if (bestPlace.piece != null) 
 					{
-						brain.prepare(pieceArr, i);
+//						brain.prepare(pieceArr, i);
 						area.placeWithoutChecking(bestPlace.piece);
 //						area.commit();
 						tempAnswer += bestPlace.piece.toString();
@@ -85,7 +85,6 @@ public class Main
 	//					System.out.println("Skip this slate piece");
 					}
 					tempAnswer += ";";
-					System.out.println("i = " + i);
 				}
 			}
 			else {

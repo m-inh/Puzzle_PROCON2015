@@ -167,6 +167,9 @@ public class SlatePiece {
 			core.get(i).print();
 		}
 	}
+	public int needToFill(){
+		return (maxX - minX + 1)*(maxY - minY + 1) - core.size();
+	}
 	//return number of core's block
 	public int getSize() {
 		return core.size();

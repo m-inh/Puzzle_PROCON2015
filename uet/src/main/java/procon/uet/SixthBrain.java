@@ -1,5 +1,6 @@
 package procon.uet;
 
+import java.awt.color.CMMException;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -17,12 +18,14 @@ public class SixthBrain extends ThirdBrain{
 			ArrayList<EqualAdjacentPiece> equalAdPieces = arrayOfEqualAjacentPieces(area, piece);
 			if (!equalAdPieces.isEmpty()){
 				EqualAdjacentPiece equalPieceArr = equalAdPieces.get(0);
+				select = equalPieceArr.getEqualPieceArr();
 				if (equalAdPieces.size() > 1){
 					if (equalPieceArr.getMark() >= piece.getEdges() - 1){
 						equalPieceArr = equalAdPieces.get(1);
+						select.addAll(equalPieceArr.getEqualPieceArr());
 					}
 				}
-				select = equalPieceArr.getEqualPieceArr();
+				
 			}
 		}
 		else{
@@ -36,8 +39,8 @@ public class SixthBrain extends ThirdBrain{
 				break;
 			}
 			else{
-				if ((double)hole/(hole + select.get(j).getSize()) > (double)0.7)
-					if (hole >= minSizeOfPieces)
+//				if ((double)hole/(hole + select.get(j).getSize()) >= (double)0.2)
+//					if (hole >= minSizeOfPieces)
 						goodPieces.add(select.get(j));
 			}
 		}
@@ -54,6 +57,8 @@ public class SixthBrain extends ThirdBrain{
 	}
 	
 	public void prepare(SlatePiece[] pieces, int index){
+		minSizeOfPieces = 1;
+		maxSizeOfPieces = 16;
 		for (int i = index; i < pieces.length; i++){
 			if (minSizeOfPieces > pieces[i].getSize())
 				minSizeOfPieces = pieces[i].getSize();
@@ -69,13 +74,15 @@ public class SixthBrain extends ThirdBrain{
 		int maxX = piece.getLocation().x + piece.getMaxX();
 		int maxY = piece.getLocation().y + piece.getMaxY();
 		area.placeWithoutChecking(piece);
+		
 //		boolean upperBound = minY == 0;
 //		boolean lowerBound = maxY == CommonVL.HEIGHT_TARGET_AREA - 1;
 //		boolean leftBound = minX == 0;
 //		boolean rightBound = maxX == CommonVL.WIDTH_TARGET_AREA - 1;
-		for (int i = minY; i <= maxY; i++){
-			for (int j = minX; j <= maxX; j++){
-				if  (area.getGrid(i, j) == CommonVL.SPACE)
+		
+		for (int i = minX; i <= maxX; i++){
+			for (int j = minY; j <= maxY; j++){
+				if (area.getGrid(i, j) == CommonVL.SPACE)
 					count++;
 			}
 		}
@@ -89,7 +96,7 @@ public class SixthBrain extends ThirdBrain{
 			return null;
 		}
 		// random choose the this piece
-		if (rand.nextInt(100)%100 > 70){
+		if (rand.nextInt(100)%100 > 90){
 			return null;
 		}
 		return pieceArr.get(rand.nextInt(pieceArr.size()));
