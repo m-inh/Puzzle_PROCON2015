@@ -1,7 +1,10 @@
 package procon.uet;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
+
+import procon.uet.Brain.Place;
 
 public class FifthBrain extends ThirdBrain{	
 	public int bestPlaceInAllCases(TargetArea area, SlatePiece pieces[], int i, ArrayList<Integer> index, ArrayList<SlatePiece> selectedPiece){
@@ -142,16 +145,15 @@ public class FifthBrain extends ThirdBrain{
 			begin++;
 			theFirst = arrayOfEqualAjacentPieces(area, pieces[index.get(begin)]);
 		}
-		TargetArea otherArea = area.clone();
-		ArrayList<SlatePiece> otherSelectedPieces = new ArrayList<SlatePiece>();
 		int length = (theFirst.size() > 2) ? 2 : theFirst.size();
 		
 		for (int i = 0; i < length; i++) {
+			ArrayList<SlatePiece> otherSelectedPieces = new ArrayList<SlatePiece>();
+			TargetArea otherArea = area.clone();
 			EqualAdjacentPiece equalAdPieces = theFirst.get(i);
 			equalAdPieces.simplify(otherArea);
 			SlatePiece theFirstPiece;
 			if (i > 0){
-				
 				theFirstPiece = equalAdPieces.getEqualPieceArr().get(equalAdPieces.size()/2);
 				otherSelectedPieces.add(theFirstPiece);
 				otherArea.placeWithoutChecking(theFirstPiece);
@@ -189,8 +191,6 @@ public class FifthBrain extends ThirdBrain{
 							selectedPieces.add(otherSelectedPieces.get(k));
 						}
 					}
-					otherSelectedPieces = new ArrayList<SlatePiece>();
-					otherArea = area.clone();
 				}
 			}
 		}
@@ -285,7 +285,7 @@ public class FifthBrain extends ThirdBrain{
 		
 //		Collections.sort(indexArr);
 //		best = indexArr.get(0).numberOfBlocks;
-		System.out.println(best);
+//		System.out.println(best);
 //		for (int i = 1; i < indexArr.size();){
 //			if (indexArr.get(i).numberOfBlocks < best){
 //				indexArr.remove(i);

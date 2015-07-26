@@ -20,15 +20,16 @@ public class Main
 	
     public static void main( String[] args )
     {
-    	fileMgr = new FileManager("9.txt");
+    	fileMgr = new FileManager("1.txt");
 		fileMgr.readFile();
 		System.out.println("-------------------------");
 		
 //		execute(1,10);
 //		execute(3, 10);
-//		execute(4,20);
-		execute(5,1);
+		execute(4,20);
+//		execute(5,1);
 //		execute(6, 20);
+//		execute(7, 10);
     }
     
     // Execute nhan 2 tham so truyen vao: ten brain thuc thi va so lan thuc thi
@@ -58,6 +59,9 @@ public class Main
 			break;
 		case 6:
 			brain = new SixthBrain();
+			break;
+		case 7:
+			brain = new SeventhBrain();
 			break;
 		default:
 			break;
@@ -93,8 +97,9 @@ public class Main
 				indexArr = ((FifthBrain) brain).allSetsOfPiecesHaveNumberOfBlocksNotGetOverEmptyCells(area,pieceArr);
 				ArrayList<SlatePiece> selectedPieces = new ArrayList<SlatePiece>();
 				ArrayList<Integer> selectedIndex = new ArrayList<Integer>();
-				System.out.println(indexArr.size());
+//				System.out.println(indexArr.size());
 				for (int i = 0; i < indexArr.size(); i++) {
+					System.out.println("i = " + i + "------------");
 					ArrayList<Integer> tempIntArr = indexArr.get(i).indexArr;
 					ArrayList<SlatePiece> tempPieces = new ArrayList<SlatePiece>();
 					int currentMark = ((FifthBrain) brain).bestPlace(area, pieceArr, tempIntArr, tempPieces);
